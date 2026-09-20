@@ -5,7 +5,7 @@
   "files": {
     "build_exe.py": "8b90383b3e0d7f70d981b97aae86d818910a8566151a7a8c697fd0bc0cb032a7",
     "build_release.py": "433db21daf35b7a520f983ca7770f9ff8695104240d5d537f45116c0a67a9539",
-    "frozen_entry.py": "a77756c423d24a65a1ec496219b39aba4468cdc565016766eb8a6f6c0eb09393",
+    "frozen_entry.py": "8e88704179858d9f3e223004e58b0205973e2c040a16168ccb769b2f16097d5c",
     "ui_dashboard.py": "56684f5c42ee0413a0559ea3dfc65bd35a3634a4f3215accd93696bffe29e114",
     "ui_player_settings.py": "4c0601dce4806192ccbeecbbc253b6d5dc50f2e31808024603e28cee60bb9afc",
     "ui_roster.py": "17e553b017ffb670172a48db3c2fd62f9b0914bf01a0c06bf03dbf42589b9df9",

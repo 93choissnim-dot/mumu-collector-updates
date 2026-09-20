@@ -46,8 +46,14 @@ def health_check(output,full_ui=True):
         app.setup_tray()
         import time
         deadline=time.monotonic()+5
-        while not app.tray_ready and time.monotonic()<deadline:
-            root.update();time.sleep(.05)
+        # Tray image encoding can trigger cyclic GC of discarded Tk fonts.
+        # Tk only services those cross-thread destructors inside mainloop();
+        # repeated update() calls leave them waiting and falsely fail startup.
+        def await_tray():
+            if app.tray_ready or time.monotonic()>=deadline:root.quit()
+            else:root.after(25,await_tray)
+        root.after(0,await_tray)
+        root.mainloop()
         if not app.tray_ready:faulthandler.dump_traceback(file=trace,all_threads=True)
         assert app.tray is not None and app.tray_ready,'Tray initialization failed'
         app.tray.close();app.tray=None
