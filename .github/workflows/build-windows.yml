@@ -6,11 +6,11 @@ on:
     paths:
       - '.gitattributes'
       - '.github/workflows/build-windows.yml'
-      - 'release_source/v0.7.19/**'
+      - 'release_source/v0.7.20/**'
 permissions:
   contents: write
 concurrency:
-  group: chanki-release-v0.7.19
+  group: chanki-release-v0.7.20
   cancel-in-progress: false
 jobs:
   build:
@@ -29,7 +29,7 @@ jobs:
         run: |
           gh release download v0.7.11 --repo 93choissnim-dot/mumu-collector-updates --pattern MumuCollector_v0.7.11.zip
           if ($LASTEXITCODE -ne 0) { throw 'Source download failed' }
-          python release_source/v0.7.19/prepare_source.py
+          python release_source/v0.7.20/prepare_source.py
           if ($LASTEXITCODE -ne 0) { throw 'Reviewed source preparation failed' }
       - name: Install build dependencies
         shell: pwsh
@@ -38,61 +38,61 @@ jobs:
           if ($LASTEXITCODE -ne 0) { throw 'Dependencies failed' }
       - name: Validate recognition and collection
         shell: pwsh
-        working-directory: source/MumuCollector_v0.7.19
+        working-directory: source/MumuCollector_v0.7.20
         run: |
           python -m unittest -q validate_names validate_mumu_ports validate_fleet validate_operations validate_extra validate_collection validate_overlays validate_entry validate_menu_color validate_world_boss validate_photometric validate_ranking_native validate_adb validate_run_controls validate_ui_state validate_improvements validate_start_navigation validate_daily
           if ($LASTEXITCODE -ne 0) { throw 'Recognition or collection validation failed' }
       - name: Validate desktop layout before packaging
         shell: pwsh
-        working-directory: source/MumuCollector_v0.7.19
+        working-directory: source/MumuCollector_v0.7.20
         run: |
-          $env:LOCALAPPDATA = Join-Path $env:RUNNER_TEMP 'chanki-v0719-source-ui'
+          $env:LOCALAPPDATA = Join-Path $env:RUNNER_TEMP 'chanki-v0720-source-ui'
           python -c "from frozen_entry import health_check; health_check('exe_release/source-health.json')"
           if ($LASTEXITCODE -ne 0) { throw 'Desktop UI validation failed' }
       - name: Build and validate standalone Windows EXE
         shell: pwsh
         run: |
-          python source/MumuCollector_v0.7.19/build_exe.py
+          python source/MumuCollector_v0.7.20/build_exe.py
           if ($LASTEXITCODE -ne 0) { throw 'EXE build, execution or update validation failed' }
-          python source/MumuCollector_v0.7.19/build_release.py --output source_release --download-url https://github.com/93choissnim-dot/mumu-collector-updates/releases/download/v0.7.19/MumuCollector_v0.7.19.zip
+          python source/MumuCollector_v0.7.20/build_release.py --output source_release --download-url https://github.com/93choissnim-dot/mumu-collector-updates/releases/download/v0.7.20/MumuCollector_v0.7.20.zip
           if ($LASTEXITCODE -ne 0) { throw 'Source release build failed' }
       - name: Stage tested release
         shell: pwsh
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          $out = 'source/MumuCollector_v0.7.19/exe_release'
-          $draft = gh release view v0.7.19 --repo 93choissnim-dot/mumu-collector-updates --json isDraft --jq .isDraft 2>$null
+          $out = 'source/MumuCollector_v0.7.20/exe_release'
+          $draft = gh release view v0.7.20 --repo 93choissnim-dot/mumu-collector-updates --json isDraft --jq .isDraft 2>$null
           if ($LASTEXITCODE -eq 0) {
             if ($draft -ne 'true') { throw 'Refusing to replace an already published release' }
-            gh release edit v0.7.19 --repo 93choissnim-dot/mumu-collector-updates --target $env:GITHUB_SHA
+            gh release edit v0.7.20 --repo 93choissnim-dot/mumu-collector-updates --target $env:GITHUB_SHA
             if ($LASTEXITCODE -ne 0) { throw 'Draft source target update failed' }
           } else {
-            gh release create v0.7.19 --repo 93choissnim-dot/mumu-collector-updates --target $env:GITHUB_SHA --draft --title '창키 도우미 v0.7.19 — 일일 작업 완료 상태 구분' --notes-file release_source/v0.7.19/notes.md
+            gh release create v0.7.20 --repo 93choissnim-dot/mumu-collector-updates --target $env:GITHUB_SHA --draft --title '창키 도우미 v0.7.20 — 패스 아이콘 위치 정정' --notes-file release_source/v0.7.20/notes.md
             if ($LASTEXITCODE -ne 0) { throw 'Draft release creation failed' }
           }
-          gh release upload v0.7.19 --repo 93choissnim-dot/mumu-collector-updates "$out/ChankiHelper.exe" "$out/ChankiHelper_v0.7.19_update.zip" "$out/latest-exe.json" "$out/checksums.txt" "$out/exe-health.json" "$out/windows-validation.json" source_release/MumuCollector_v0.7.19.zip source_release/latest.json --clobber
+          gh release upload v0.7.20 --repo 93choissnim-dot/mumu-collector-updates "$out/ChankiHelper.exe" "$out/ChankiHelper_v0.7.20_update.zip" "$out/latest-exe.json" "$out/checksums.txt" "$out/exe-health.json" "$out/windows-validation.json" source_release/MumuCollector_v0.7.20.zip source_release/latest.json --clobber
           if ($LASTEXITCODE -ne 0) { throw 'Release asset upload failed' }
       - name: Verify uploaded release bytes
         shell: pwsh
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh release download v0.7.19 --repo 93choissnim-dot/mumu-collector-updates --dir published_verify --pattern ChankiHelper_v0.7.19_update.zip --pattern latest-exe.json --pattern MumuCollector_v0.7.19.zip --pattern latest.json
+          gh release download v0.7.20 --repo 93choissnim-dot/mumu-collector-updates --dir published_verify --pattern ChankiHelper_v0.7.20_update.zip --pattern latest-exe.json --pattern MumuCollector_v0.7.20.zip --pattern latest.json
           if ($LASTEXITCODE -ne 0) { throw 'Verification download failed' }
-          python -c "import hashlib,json,pathlib; p=pathlib.Path('published_verify'); m=json.loads((p/'latest-exe.json').read_text(encoding='utf-8')); z=p/'ChankiHelper_v0.7.19_update.zip'; assert m['version']=='0.7.19' and m['size']==z.stat().st_size and m['sha256']==hashlib.sha256(z.read_bytes()).hexdigest(); assert z.read_bytes()==(pathlib.Path('source/MumuCollector_v0.7.19/exe_release')/z.name).read_bytes(); m=json.loads((p/'latest.json').read_text(encoding='utf-8')); z=p/'MumuCollector_v0.7.19.zip'; assert m['version']=='0.7.19' and m['size']==z.stat().st_size and m['sha256']==hashlib.sha256(z.read_bytes()).hexdigest(); assert z.read_bytes()==(pathlib.Path('source_release')/z.name).read_bytes(); print('Both uploaded channels match tested build')"
+          python -c "import hashlib,json,pathlib; p=pathlib.Path('published_verify'); m=json.loads((p/'latest-exe.json').read_text(encoding='utf-8')); z=p/'ChankiHelper_v0.7.20_update.zip'; assert m['version']=='0.7.20' and m['size']==z.stat().st_size and m['sha256']==hashlib.sha256(z.read_bytes()).hexdigest(); assert z.read_bytes()==(pathlib.Path('source/MumuCollector_v0.7.20/exe_release')/z.name).read_bytes(); m=json.loads((p/'latest.json').read_text(encoding='utf-8')); z=p/'MumuCollector_v0.7.20.zip'; assert m['version']=='0.7.20' and m['size']==z.stat().st_size and m['sha256']==hashlib.sha256(z.read_bytes()).hexdigest(); assert z.read_bytes()==(pathlib.Path('source_release')/z.name).read_bytes(); print('Both uploaded channels match tested build')"
           if ($LASTEXITCODE -ne 0) { throw 'Uploaded bytes differ from tested build' }
       - name: Emit synthetic UI review previews
         if: always()
         shell: pwsh
-        run: python source/MumuCollector_v0.7.19/emit_ui_review.py
+        run: python source/MumuCollector_v0.7.20/emit_ui_review.py
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: windows-exe-validation-v0.7.19
+          name: windows-exe-validation-v0.7.20
           path: |
-            source/MumuCollector_v0.7.19/exe_release/*.json
-            source/MumuCollector_v0.7.19/exe_release/*.png
-            source/MumuCollector_v0.7.19/exe_release/*.log
-            source/MumuCollector_v0.7.19/exe_release/smoke-data/MumuCollector/*log
+            source/MumuCollector_v0.7.20/exe_release/*.json
+            source/MumuCollector_v0.7.20/exe_release/*.png
+            source/MumuCollector_v0.7.20/exe_release/*.log
+            source/MumuCollector_v0.7.20/exe_release/smoke-data/MumuCollector/*log
           if-no-files-found: ignore
