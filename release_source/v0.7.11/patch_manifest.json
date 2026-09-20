@@ -1,0 +1,33 @@
+{
+  "version": "0.7.11",
+  "base_version": "0.7.10",
+  "base_sha256": "c12f1b360c6595e60b407a074582f86428b5b2a3ec88f0dfc3d65726d59bd36f",
+  "files": {
+    "app.py": "0eedabc514c5adf8b0c239b55f2c8743dda75dfa91784a10247b5c92107d2ac9",
+    "build_exe.py": "5d66758220ef335d6491fac5121625c5c107fc4f95743c923fa432b8f1f8210a",
+    "build_release.py": "dc965b8857a5ee4f4a16607f253a631437e4793fcb68f0a16c9e31eb32f28a40",
+    "diagnostics.py": "15c191a4354cb3a004b2fdf497fa334c755677a1251064dcf1205a57e3b140e1",
+    "emit_ui_review.py": "bf406aeca326cf2c3f4757c889cb511b2be32169966a26237209657cd8a4c311",
+    "exe_updater.py": "55514ab7f1a271d0e56baec21131de3ef315aa403c86fc3e367a70e5e4a89223",
+    "fleet_collection.py": "b080f59a1bab7474df268fe290ed64227609018e38ef468d0983279cfcd6a1c7",
+    "fleet_ui.py": "19dd4d2dccdcb6f8887a582ead6773077e1391d490d86cbbc25dd29ff4a9cfa6",
+    "frozen_entry.py": "7d212e983b7a929d67c873a0dc31f8206e72616ed88359ef0a6a5a2c0640b429",
+    "global_hotkey.py": "ea24566a288b46076b66937841f91eaba4683527404261347f8d49eea6046854",
+    "history.py": "d2be670317e27bec2550d241d44aa6f99378f08406cb36c31d52f9e41c69c3a7",
+    "profile_edits.py": "e1bb35342c273f02965d91724c99547a6f7ceed200e88419e57d56440196e9a4",
+    "ui_dashboard.py": "d5bb0ce231383522d10c21e9513bcc575782b7d6ffec897113e964c812bb99d0",
+    "ui_history.py": "bb9a8cc84775d42b5d39e0141e7837107eb2a513db1111e5016a1ee00d409197",
+    "ui_layout.py": "f8d69fcbce4c491a7ee09439deee2abb27c51cba72be436a9be8e3731aa90291",
+    "ui_player_settings.py": "976b7fba2e69d4889c4d1f7ac3614b00bdd5676ef3c374a97e6779a8b69d5672",
+    "ui_roster.py": "2a52235b6143c5ac626675f952f443cdba633eebc697a7da607a5e19f05d35ea",
+    "ui_run_controls.py": "74d2caa5308680d384a1deaf22bdd8b5d80c5633759c548d37bf63314fc36535",
+    "ui_state.py": "07e4c96538cacb7321d254e8635f378c671c134698d7697278a94c47ffa7f596",
+    "ui_updates.py": "6a85547ce20e79041788cfdac95b49435a627e54ebe5095a4200c0b23c31583b",
+    "updater.py": "8117abe3b7ad2b5c8905ef126ecf87a42404b15fdb5b2531e0ca324dae5f828e",
+    "validate_improvements.py": "34803a23098ce3328c54a96a9618c852ac0a3ba392d4c0b3123b78e07d3d5a65",
+    "validate_improvements_ui.py": "fbbc429ff8850bb235b02132dafa1ce2d91a95792ae5d95fce8c639e2ac793f2",
+    "validate_workspace_ui.py": "acf4cbb43ca1e13f14df54dd5902f80d44e0708384e67e6af0adb264b2ac6a32",
+    "version.py": "05ab7b1acec6d98260ee6100ef12d07126f6f20c9322be268c453a7c55e17c84",
+    "변경사항.txt": "79719c01a7ecf59cbfdd50c72526c33808e276ebff08e934ff342fa62e684baf"
+  }
+}
