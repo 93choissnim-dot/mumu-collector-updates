@@ -95,6 +95,16 @@ class VisionTests(unittest.TestCase):
     def test_black_transition_has_no_daily_action(self):
         state,m=self.vision.recognize(np.zeros((540,960,3),np.uint8));self.assertIsNone(state);self.assertEqual(m,{})
 
+class BindingTests(unittest.TestCase):
+    def test_daily_pages_rebind_only_to_verified_game(self):
+        from validate_start_navigation import BindingTests as Setup
+        from adb_device import DAILY_RECOVERY_STATES
+        setup=Setup()
+        for state in DAILY_RECOVERY_STATES:
+            a,d,v=setup.device('com.nns.genesis',state);d.bind_game(v);self.assertEqual(d.package,'com.nns.genesis')
+            a,d,v=setup.device('com.android.launcher',state)
+            with self.assertRaises(Halt):d.bind_game(v)
+
 class GuardTests(unittest.TestCase):
     def collector(self):
         c=DailyActions();c.daily_day=korea_day();c.device=Mock();c.pause=Mock()

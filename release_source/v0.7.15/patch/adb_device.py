@@ -27,6 +27,8 @@ READY_STATES = READY_STATES | frozenset(PAGE_MARKERS)
 # Verified in the user's MuMu diagnostic capture. Unknown pages are bound only
 # in this exact game, never in a launcher, another app or an inferred package.
 RECOVERY_PACKAGES = frozenset({"com.nns.genesis"})
+from daily_actions import DAILY_PAGES
+DAILY_RECOVERY_STATES = frozenset(DAILY_PAGES) | {"daily_battle", "daily_clear", "daily_result"}
 
 
 def response_summary(raw):
@@ -474,7 +476,7 @@ class AdbDevice:
         first = self.current_package()
         im = self.raw_capture()
         screen = vision.recognize(im)
-        recoverable = (first in RECOVERY_PACKAGES and screen.state == "unknown"
+        recoverable = (first in RECOVERY_PACKAGES and (screen.state == "unknown" or screen.state in DAILY_RECOVERY_STATES)
                        and min(im.shape[:2]) >= 200 and abs(im.shape[1]/im.shape[0]-16/9) <= .055)
         if screen.state not in READY_STATES and not recoverable:
             raise Halt("수령을 시작할 게임 화면을 확인하지 못했습니다. 일반 게임 화면이나 게임 절전 화면에서 '화면 확인'을 눌러 주세요.")
