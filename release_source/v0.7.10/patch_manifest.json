@@ -1,0 +1,18 @@
+{
+  "version": "0.7.10",
+  "base_version": "0.7.9",
+  "base_sha256": "3886ff1d5fd81d16db751b287c7ebc82d67a17b15b7f6313620b2441a89d8423",
+  "files": {
+    "build_exe.py": "9539f0435db925bca77ba7e97613c9004ca8d4a50a3f01d37121fcc979718f84",
+    "build_release.py": "433db21daf35b7a520f983ca7770f9ff8695104240d5d537f45116c0a67a9539",
+    "frozen_entry.py": "796108d667f8fdcc288b81f4335ae14816080efdec2a9d030101db4b26d74782",
+    "ui_dashboard.py": "6ed0a2d231a07577dda968af61e7f30c585ec58323a3eaca152dc56486310e15",
+    "ui_player_settings.py": "4c0601dce4806192ccbeecbbc253b6d5dc50f2e31808024603e28cee60bb9afc",
+    "ui_roster.py": "17e553b017ffb670172a48db3c2fd62f9b0914bf01a0c06bf03dbf42589b9df9",
+    "ui_theme.py": "3eb4551231ddda40482887c1fa33d5533c1c77415715886ad823b2371cc123f5",
+    "ui_updates.py": "aa35b7f4508d3d58b61e4b96a7dcc05be1294f3df4ed00346e22dc8ee965f2be",
+    "validate_workspace_ui.py": "4059e3cea7f45b54f05400e4660a8bfdc7e3881995ea8b97c8d704bcb6f0c5f3",
+    "version.py": "077992d8ca1f21dd3a2591b086ae56f7a01ff280faab3f021af27ce939725fe6",
+    "변경사항.txt": "01a431b8c644add3ebd65878e1a744e1fc9a72a6c0253d837db220d830418b77"
+  }
+}
