@@ -3,15 +3,15 @@
   "base_version": "0.7.9",
   "base_sha256": "3886ff1d5fd81d16db751b287c7ebc82d67a17b15b7f6313620b2441a89d8423",
   "files": {
-    "build_exe.py": "6394ca4e8a851ef62a26013fffedca2cefcb12254d5c419b4a3ad91ae91dea49",
+    "build_exe.py": "8b90383b3e0d7f70d981b97aae86d818910a8566151a7a8c697fd0bc0cb032a7",
     "build_release.py": "433db21daf35b7a520f983ca7770f9ff8695104240d5d537f45116c0a67a9539",
-    "frozen_entry.py": "a080df4ef3516cc1d5a91891d01db19506d8344c79dfe20a1f2e4550b427be53",
+    "frozen_entry.py": "a77756c423d24a65a1ec496219b39aba4468cdc565016766eb8a6f6c0eb09393",
     "ui_dashboard.py": "56684f5c42ee0413a0559ea3dfc65bd35a3634a4f3215accd93696bffe29e114",
     "ui_player_settings.py": "4c0601dce4806192ccbeecbbc253b6d5dc50f2e31808024603e28cee60bb9afc",
     "ui_roster.py": "17e553b017ffb670172a48db3c2fd62f9b0914bf01a0c06bf03dbf42589b9df9",
     "ui_theme.py": "e2a96d12cf3958eda9e966a6016b726bdc5d34ac4ce82371ac9d20331b46fa0b",
     "ui_updates.py": "aa35b7f4508d3d58b61e4b96a7dcc05be1294f3df4ed00346e22dc8ee965f2be",
-    "validate_exe_windows.py": "9dce1ad71e1bac1e0319f603f6b6fed2920a6facb703eae9a213be36290a5a13",
+    "validate_exe_windows.py": "dcb209c6f4671fffd5e4e7f6c8fb49c9f63a772c73f53f45fef5287fa68e7367",
     "validate_workspace_ui.py": "5af88cea3789a94da0ea443e28c527859f02b119213f7ef39f9ccd7ab1ca92bd",
     "version.py": "077992d8ca1f21dd3a2591b086ae56f7a01ff280faab3f021af27ce939725fe6",
     "변경사항.txt": "01a431b8c644add3ebd65878e1a744e1fc9a72a6c0253d837db220d830418b77"

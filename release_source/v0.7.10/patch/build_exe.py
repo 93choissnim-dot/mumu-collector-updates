@@ -58,6 +58,8 @@ def smoke(exe,result):
     except (subprocess.CalledProcessError, subprocess.TimeoutExpired):
         error=OUT/'smoke-data'/'MumuCollector'/'exe_error.log'
         if error.exists():print(error.read_text(encoding='utf-8'),flush=True)
+        for path in [result.with_suffix('.progress.json'),result.with_suffix('.threads.log')]:
+            if path.exists():print(path.name,path.read_text(encoding='utf-8'),flush=True)
         raise
     report=json.loads(result.read_text(encoding='utf-8'))
     assert report['ok'] and report['frozen'] and report['version']==VERSION and report['bits']==64 and report['full_ui_checks'] and report['game_theme_ui'],report

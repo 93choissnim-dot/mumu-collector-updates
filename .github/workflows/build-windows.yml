@@ -93,5 +93,6 @@ jobs:
           path: |
             source/MumuCollector_v0.7.10/exe_release/*.json
             source/MumuCollector_v0.7.10/exe_release/*.png
+            source/MumuCollector_v0.7.10/exe_release/*.log
             source/MumuCollector_v0.7.10/exe_release/smoke-data/MumuCollector/*log
           if-no-files-found: ignore

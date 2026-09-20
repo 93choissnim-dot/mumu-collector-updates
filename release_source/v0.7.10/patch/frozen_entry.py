@@ -8,6 +8,7 @@ import traceback
 
 
 def health_check(output,full_ui=True):
+    import faulthandler
     import customtkinter as ctk
     from app import App
     from vision import Vision
@@ -21,6 +22,8 @@ def health_check(output,full_ui=True):
     Vision()
     root=ctk.CTk()
     if not full_ui:root.withdraw()
+    trace=output.with_suffix('.threads.log').open('w',encoding='utf-8')
+    faulthandler.dump_traceback_later(25,repeat=True,file=trace)
     app=None
     try:
         checkpoint('startup_ui')
@@ -45,6 +48,7 @@ def health_check(output,full_ui=True):
         deadline=time.monotonic()+5
         while not app.tray_ready and time.monotonic()<deadline:
             root.update();time.sleep(.05)
+        if not app.tray_ready:faulthandler.dump_traceback(file=trace,all_threads=True)
         assert app.tray is not None and app.tray_ready,'Tray initialization failed'
         app.tray.close();app.tray=None
         if full_ui:
@@ -60,6 +64,7 @@ def health_check(output,full_ui=True):
             app.closing=True;app.update_stop.set();app.stop.set()
             if getattr(app,'tray',None) is not None:app.tray.close()
         root.destroy()
+        faulthandler.cancel_dump_traceback_later();trace.close()
     checkpoint('complete')
     output.write_text(json.dumps({'ok':True,'version':VERSION,'frozen':bool(getattr(sys,'frozen',False)),
         'ui':True,'startup_ui':True,'full_ui_checks':full_ui,'fleet_ui':full_ui,'run_controls_ui':full_ui,

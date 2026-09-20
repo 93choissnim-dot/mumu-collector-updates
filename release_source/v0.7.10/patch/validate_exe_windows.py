@@ -28,6 +28,7 @@ def main(exe,archive):
         except BaseException:
             # Keep the original failure and stop only processes from this test.
             for path in [job_path,work/'health.json',work/'health.progress.json',
+                         work/'health.threads.log',
                          work/'health-data'/'MumuCollector'/'exe_error.log',data/'update_result.json']:
                 if path.is_file():
                     print('UPDATE_DIAGNOSTIC',path.name,path.read_text(encoding='utf-8'),flush=True)
