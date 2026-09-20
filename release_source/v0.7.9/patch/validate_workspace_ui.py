@@ -12,8 +12,7 @@ from validate_run_controls_ui import descendants
 
 def capture_window(root,path):
     root.lift();root.update()
-    x,y=root.winfo_rootx(),root.winfo_rooty()
-    ImageGrab.grab(bbox=(x,y,x+root.winfo_width(),y+root.winfo_height())).save(path)
+    ImageGrab.grab(window=root.winfo_id()).save(path)
 
 
 def check(app,output):
@@ -64,7 +63,7 @@ def check(app,output):
     capture_window(editor.window,output.with_name('review-settings.png'))
     editor.window.destroy()
     # All primary controls stay visible at the minimum supported window size.
-    root.geometry('1040x680');root.update()
+    root.geometry('980x660');root.update()
     app.render_roster(force=True)
     for widget in [app.start_button,app.once_button,app.stop_button,app.pause_button,app.inspect_button]:
         assert widget.winfo_rootx()>=root.winfo_rootx(), widget.cget('text')

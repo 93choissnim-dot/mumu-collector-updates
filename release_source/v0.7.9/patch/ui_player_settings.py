@@ -26,7 +26,7 @@ class PlayerSettings:
         self.original=copy.deepcopy(self.draft)
         win=ctk.CTkToplevel(app.root);self.window=win;app.fleet_window=win
         height=max(620,min(720,int(win.winfo_screenheight()/win._get_window_scaling())-85))
-        win.title('세팅 설정');win.geometry(f'880x{height}');win.minsize(800,620);win.configure(fg_color=BG);win.transient(app.root)
+        win.title('세팅 설정');win.geometry(f'880x{height}+24+12');win.minsize(800,620);win.configure(fg_color=BG);win.transient(app.root)
         win.grid_columnconfigure(0,weight=1);win.grid_rowconfigure(2,weight=1)
         top=ctk.CTkFrame(win,fg_color='transparent');top.grid(row=0,column=0,sticky='ew',padx=22,pady=(20,8));top.grid_columnconfigure(0,weight=1)
         label(top,'세팅 설정',size=23,bold=True).grid(row=0,column=0,sticky='w')
@@ -78,9 +78,10 @@ class PlayerSettings:
         self.task_checks={}
         for row,title,keys in [(2,'자원 시설',list(LABELS)),(4,'추가 작업',[key for key in TASK_LABELS if key not in LABELS])]:
             label(self.body,title,size=13,bold=True).grid(row=row,column=0,sticky='w',padx=17,pady=(0,7))
-            group=ctk.CTkFrame(self.body,fg_color='transparent');group.grid(row=row+1,column=0,sticky='ew',padx=12,pady=(0,16));group.grid_columnconfigure((0,1),weight=1,uniform='tasks')
+            columns=3 if row==2 else 2
+            group=ctk.CTkFrame(self.body,fg_color='transparent');group.grid(row=row+1,column=0,sticky='ew',padx=12,pady=(0,16));group.grid_columnconfigure(tuple(range(columns)),weight=1,uniform='tasks')
             for i,key in enumerate(keys):
-                tile=ctk.CTkFrame(group,fg_color=INSET,corner_radius=8);tile.grid(row=i//2,column=i%2,sticky='nsew',padx=4,pady=4)
+                tile=ctk.CTkFrame(group,fg_color=INSET,corner_radius=8);tile.grid(row=i//columns,column=i%columns,sticky='nsew',padx=4,pady=4)
                 check=ctk.CTkCheckBox(tile,text=TASK_LABELS[key],variable=self.tasks[key],font=font(12),fg_color=GOLD,border_color=MUTED,checkbox_width=19,checkbox_height=19)
                 check.pack(anchor='w',padx=12,pady=(12,5));self.controls.append(check);self.task_checks[key]=check
                 label(tile,TASK_HELP[key],size=10,color=GOLD if key=='training' else MUTED,wraplength=205,justify='left').pack(anchor='w',padx=12,pady=(0,11))

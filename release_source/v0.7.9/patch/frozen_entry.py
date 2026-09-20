@@ -14,7 +14,7 @@ def health_check(output):
     from version import VERSION
     from windows_shortcuts import write_link,read_link
     from PIL import ImageGrab
-    output=Path(output);output.parent.mkdir(parents=True,exist_ok=True)
+    output=Path(output).resolve();output.parent.mkdir(parents=True,exist_ok=True)
     Vision()
     root=ctk.CTk();app=App(root,autoconnect=False,tray=False)
     root.update()

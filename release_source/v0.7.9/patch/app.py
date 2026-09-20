@@ -334,7 +334,7 @@ class App(FleetCollection, FleetUI, Dashboard, Updates, RunControls, RosterUI):
                             if old!=serial and self.device_reports[old].get("instance_id")==ident:
                                 self.device_reports.pop(old)
                         if ident in self.players:self.players[ident].update(serial=serial,name=report["window_name"])
-                    report.setdefault('captured_at',datetime.now().astimezone().isoformat(timespec='seconds'))
+                    if report.get('image') is not None:report.setdefault('captured_at',datetime.now().astimezone().isoformat(timespec='seconds'))
                     self.device_reports[serial]=report
                     self.device_options=name_options(list(self.device_reports),self.device_reports)
                     label=next((name for name,address in self.device_options.items() if address==serial),"")

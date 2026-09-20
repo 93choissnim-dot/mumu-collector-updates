@@ -67,28 +67,29 @@ class RosterUI:
                 enabled=tk.BooleanVar(value=self.players[ident].get('enabled',False))
                 check=ctk.CTkCheckBox(row,text='',variable=enabled,width=23,height=23,checkbox_width=19,checkbox_height=19,fg_color=GOLD,border_color=MUTED,command=lambda key=ident:self.toggle_player(key))
                 check.grid(row=0,column=0,rowspan=2,padx=(10,7),pady=14)
-                name=button(row,'',lambda key=ident:self.select_player(key),width=130,height=28,anchor='w',fg_color='transparent',hover_color='#233047',font=font(12,True))
+                name=button(row,'',lambda key=ident:self.select_player(key),width=105,height=28,anchor='w',fg_color='transparent',hover_color='#233047',font=font(12,True))
                 name.grid(row=0,column=1,sticky='ew',pady=(8,0));tooltip(name)
-                status=label(row,'',size=10,width=79,corner_radius=5,fg_color=PANEL)
+                status=label(row,'',size=10,width=70,corner_radius=5,fg_color=PANEL)
                 status.grid(row=0,column=2,padx=(5,5),pady=(8,0))
-                next_label=label(row,'',size=10,color=MUTED,width=69,justify='center')
-                next_label.grid(row=0,column=3,rowspan=2,padx=(0,4),pady=10)
-                edit=button(row,'설정',lambda key=ident:self.fleet_dialog(key),width=42,height=28,font=font(10),fg_color='transparent')
+                next_label=label(row,'',size=9,color=MUTED,width=65,justify='center')
+                next_label.grid(row=0,column=3,padx=(0,4),pady=(8,0))
+                edit=button(row,'설정',lambda key=ident:self.fleet_dialog(key),width=38,height=28,font=font(10),fg_color='transparent')
                 edit.grid(row=0,column=4,rowspan=2,padx=(0,7))
                 phase=label(row,'',size=10,color=MUTED,anchor='w')
-                phase.grid(row=1,column=1,columnspan=2,sticky='w',pady=(0,9))
+                phase.grid(row=1,column=1,columnspan=3,sticky='w',pady=(0,9))
                 self.roster_rows[ident]={'frame':row,'check':check,'enabled':enabled,'name':name,'status':status,'next':next_label,'phase':phase,'edit':edit}
         for ident,widgets in self.roster_rows.items():
             p=self.players[ident];state=summaries[ident]
             widgets['enabled'].set(bool(p.get('enabled')))
             update(widgets['check'],state='disabled' if busy else 'normal')
-            update(widgets['name'],text=short(p.get('name','뮤뮤'),17))
+            limit=max(8,min(23,int((widgets['name'].winfo_width()/widgets['name']._get_widget_scaling()-12)/12)))
+            update(widgets['name'],text=short(p.get('name','뮤뮤'),limit))
             widgets['name']._tooltip_text=p.get('name','뮤뮤')
             update(widgets['frame'],border_color=GOLD if ident==self.view_id else LINE,fg_color='#202939' if ident==self.view_id else INSET)
             update(widgets['status'],text=state['status'],text_color=TONES[state['tone']])
-            update(widgets['next'],text=('다음\n'+state['next']) if state['next'] not in {'일시중지','예약 없음'} else state['next'])
+            update(widgets['next'],text=('다음 '+state['next']) if ':' in state['next'] else state['next'])
             phase=state['phase']
-            if state['status'] in {'수령 중','재시도 중'} and state['total']:
+            if state['status'] in {'수령 중','재시도 중','일시중지'} and state['total']:
                 phase=f"{state['completed']}/{state['total']} 확인  /  "+phase
             update(widgets['phase'],text=short(phase,31))
         connected=sum(s['connected'] for s in summaries.values())
@@ -143,5 +144,5 @@ class RosterUI:
             update(widget,text=text,text_color=TONES[tone])
         update(self.detail_checked,text='최근 확인  '+short_time(max(stamps)) if stamps else '아직 확인한 작업 기록이 없습니다.')
         report=next((r for r in self.device_reports.values() if r.get('instance_id')==ident),{}) if ident else {}
-        stamp=report.get('captured_at')
-        update(self.preview_stamp,text=('캡처 '+short_time(stamp)) if stamp else '최근 캡처 / 클릭하면 확대')
+        stamp=report.get('captured_at') if report.get('image') is not None else None
+        update(self.preview_stamp,text=('캡처 '+short_time(stamp)) if stamp else ('최근 캡처 / 클릭하면 확대' if report.get('image') is not None else '캡처 기록 없음'))
