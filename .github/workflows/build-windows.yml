@@ -20,11 +20,11 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh release download v0.6.0 --repo 93choissnim-dot/mumu-collector-updates --pattern MumuCollector_v0.6.0.zip
+          gh release download v0.7.0 --repo 93choissnim-dot/mumu-collector-updates --pattern MumuCollector_v0.7.0.zip
           if ($LASTEXITCODE -ne 0) { throw 'Source download failed' }
-          $hash = (Get-FileHash MumuCollector_v0.6.0.zip -Algorithm SHA256).Hash.ToLower()
-          if ($hash -ne '476443b603e1e0dd9e1e6013cae4c67e8dcbfee76b4f520c946f2751d1544cf1') { throw 'Source hash mismatch' }
-          Expand-Archive MumuCollector_v0.6.0.zip -DestinationPath source
+          $hash = (Get-FileHash MumuCollector_v0.7.0.zip -Algorithm SHA256).Hash.ToLower()
+          if ($hash -ne '027038e938cb8c15ed1b3977d7bacc5c5de883c8c881ced3cd886273fd1d7779') { throw 'Source hash mismatch' }
+          Expand-Archive MumuCollector_v0.7.0.zip -DestinationPath source
       - name: Install build dependencies
         shell: pwsh
         run: |
@@ -33,37 +33,39 @@ jobs:
       - name: Build and validate standalone EXE
         shell: pwsh
         run: |
-          python source/MumuCollector_v0.6.0/validate_names.py
+          python source/MumuCollector_v0.7.0/validate_names.py
           if ($LASTEXITCODE -ne 0) { throw 'Window name validation failed' }
-          python source/MumuCollector_v0.6.0/validate_fleet.py
+          python source/MumuCollector_v0.7.0/validate_fleet.py
           if ($LASTEXITCODE -ne 0) { throw 'Fleet validation failed' }
-          python source/MumuCollector_v0.6.0/validate_operations.py
+          python source/MumuCollector_v0.7.0/validate_operations.py
           if ($LASTEXITCODE -ne 0) { throw 'Recovery validation failed' }
-          python source/MumuCollector_v0.6.0/build_exe.py
+          python source/MumuCollector_v0.7.0/validate_extra.py
+          if ($LASTEXITCODE -ne 0) { throw 'Extra task validation failed' }
+          python source/MumuCollector_v0.7.0/build_exe.py
           if ($LASTEXITCODE -ne 0) { throw 'EXE build or validation failed' }
       - name: Attach tested binaries to draft release
         shell: pwsh
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          $out = 'source/MumuCollector_v0.6.0/exe_release'
-          gh release upload v0.6.0 --repo 93choissnim-dot/mumu-collector-updates "$out/ChankiHelper.exe" "$out/ChankiHelper_v0.6.0_update.zip" "$out/latest-exe.json" "$out/checksums.txt" "$out/exe-health.json" "$out/windows-validation.json" --clobber
+          $out = 'source/MumuCollector_v0.7.0/exe_release'
+          gh release upload v0.7.0 --repo 93choissnim-dot/mumu-collector-updates "$out/ChankiHelper.exe" "$out/ChankiHelper_v0.7.0_update.zip" "$out/latest-exe.json" "$out/checksums.txt" "$out/exe-health.json" "$out/windows-validation.json" --clobber
           if ($LASTEXITCODE -ne 0) { throw 'Release asset upload failed' }
       - name: Verify uploaded release bytes
         shell: pwsh
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh release download v0.6.0 --repo 93choissnim-dot/mumu-collector-updates --dir published_verify --pattern ChankiHelper_v0.6.0_update.zip --pattern latest-exe.json
+          gh release download v0.7.0 --repo 93choissnim-dot/mumu-collector-updates --dir published_verify --pattern ChankiHelper_v0.7.0_update.zip --pattern latest-exe.json
           if ($LASTEXITCODE -ne 0) { throw 'Published verification download failed' }
-          python -c "import hashlib,json,pathlib; p=pathlib.Path('published_verify'); m=json.loads((p/'latest-exe.json').read_text(encoding='utf-8')); z=p/'ChankiHelper_v0.6.0_update.zip'; h=hashlib.sha256(z.read_bytes()).hexdigest(); print('REMOTE',h,z.stat().st_size); print('FEED',m['sha256'],m['size']); assert h==m['sha256'] and z.stat().st_size==m['size']; local=pathlib.Path('source/MumuCollector_v0.6.0/exe_release')/z.name; assert z.read_bytes()==local.read_bytes()"
+          python -c "import hashlib,json,pathlib; p=pathlib.Path('published_verify'); m=json.loads((p/'latest-exe.json').read_text(encoding='utf-8')); z=p/'ChankiHelper_v0.7.0_update.zip'; h=hashlib.sha256(z.read_bytes()).hexdigest(); print('REMOTE',h,z.stat().st_size); print('FEED',m['sha256'],m['size']); assert h==m['sha256'] and z.stat().st_size==m['size']; local=pathlib.Path('source/MumuCollector_v0.7.0/exe_release')/z.name; assert z.read_bytes()==local.read_bytes()"
           if ($LASTEXITCODE -ne 0) { throw 'Published bytes differ from tested build' }
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: windows-exe-validation
           path: |
-            source/MumuCollector_v0.6.0/exe_release/*.json
-            source/MumuCollector_v0.6.0/exe_release/*.png
-            source/MumuCollector_v0.6.0/exe_release/smoke-data/MumuCollector/*log
+            source/MumuCollector_v0.7.0/exe_release/*.json
+            source/MumuCollector_v0.7.0/exe_release/*.png
+            source/MumuCollector_v0.7.0/exe_release/smoke-data/MumuCollector/*log
           if-no-files-found: ignore
