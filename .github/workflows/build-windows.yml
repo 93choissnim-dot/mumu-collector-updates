@@ -23,7 +23,7 @@ jobs:
           gh release download v0.5.0 --repo 93choissnim-dot/mumu-collector-updates --pattern MumuCollector_v0.5.0.zip
           if ($LASTEXITCODE -ne 0) { throw 'Source download failed' }
           $hash = (Get-FileHash MumuCollector_v0.5.0.zip -Algorithm SHA256).Hash.ToLower()
-          if ($hash -ne '7a1c2dd13cdf3e3feee7a7eeeb1ba14b4be8ca1cf11f5ae4d2491a7d42fdd9de') { throw 'Source hash mismatch' }
+          if ($hash -ne '3d3dbf2eff0a205347001c1c8f058cbe4744b2d4f6c13d6fbc3d59599622aac5') { throw 'Source hash mismatch' }
           Expand-Archive MumuCollector_v0.5.0.zip -DestinationPath source
       - name: Install build dependencies
         shell: pwsh
