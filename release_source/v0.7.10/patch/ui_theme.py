@@ -12,8 +12,8 @@ INSET = '#EDE7DA'
 LINE = '#AEA18A'
 RULE = '#D5CABB'
 TEXT = '#342F27'
-MUTED = '#6C655B'
-GOLD = '#956D2C'
+MUTED = '#625B51'
+GOLD = '#805822'
 MINT = '#246859'
 RED = '#9F4930'
 BLUE = '#315F81'
@@ -184,6 +184,20 @@ def icon(kind,color=GOLD,size=32):
         d.polygon([(26,14),(70,14),(65,46),(55,60),(41,60),(31,46)],outline=color,width=4)
         d.arc((9,17,40,55),70,280,fill=color,width=4);d.arc((57,17,88,55),260,110,fill=color,width=4)
         d.line([(48,59),(48,79),(28,79),(68,79)],fill=color,width=5)
+    elif kind=='worldboss':
+        d.polygon([(16,10),(33,27),(48,20),(63,27),(80,10),(73,45),(66,69),(48,84),(30,69),(23,45)],outline=color,width=4)
+        d.polygon([(29,43),(42,49),(37,56)],fill=color)
+        d.polygon([(67,43),(54,49),(59,56)],fill=color)
+        d.line([(39,68),(48,63),(57,68)],fill=color,width=4)
+    elif kind=='training':
+        d.ellipse((21,21,75,75),outline=color,width=4)
+        for a in range(0,360,45):
+            x=math.cos(math.radians(a));y=math.sin(math.radians(a))
+            d.line([(48+x*21,48+y*21),(48+x*40,48+y*40)],fill=color,width=4)
+        d.polygon([(48,32),(62,48),(48,64),(34,48)],outline=color,width=4)
+    elif kind=='excavation':
+        d.polygon([(53,8),(74,32),(65,71),(40,88),(22,61),(29,24)],outline=color,width=4)
+        d.line([(53,8),(44,36),(40,88),(60,55),(74,32),(44,36),(22,61)],fill=color,width=3)
     elif kind=="farm":
         for x,y in [(28,23),(48,13),(68,29)]:
             d.line([(x,79),(x,y)],fill=color,width=4)

@@ -206,7 +206,9 @@ class Dashboard:
 
     def render_thumbnail(self):
         if self.preview_image is None:return
-        w=max(30,self.preview_frame.winfo_width()-10);h=max(30,self.preview_frame.winfo_height()-10)
+        scale=self.preview_frame._get_widget_scaling()
+        w=max(30,int(self.preview_frame.winfo_width()/scale)-10)
+        h=max(30,int(self.preview_frame.winfo_height()/scale)-10)
         im=Image.fromarray(cv2.cvtColor(self.preview_image,cv2.COLOR_BGR2RGB));im.thumbnail((w,h))
         self.thumbnail=ctk.CTkImage(light_image=im,dark_image=im,size=im.size)
         self.preview_label.configure(text='',image=self.thumbnail)

@@ -6,12 +6,12 @@
     "build_exe.py": "9539f0435db925bca77ba7e97613c9004ca8d4a50a3f01d37121fcc979718f84",
     "build_release.py": "433db21daf35b7a520f983ca7770f9ff8695104240d5d537f45116c0a67a9539",
     "frozen_entry.py": "796108d667f8fdcc288b81f4335ae14816080efdec2a9d030101db4b26d74782",
-    "ui_dashboard.py": "6ed0a2d231a07577dda968af61e7f30c585ec58323a3eaca152dc56486310e15",
+    "ui_dashboard.py": "d0a7d72abc8fc1952fa0991bda6b108ed91a6412b7b7af5deb9abd72ff537d91",
     "ui_player_settings.py": "4c0601dce4806192ccbeecbbc253b6d5dc50f2e31808024603e28cee60bb9afc",
     "ui_roster.py": "17e553b017ffb670172a48db3c2fd62f9b0914bf01a0c06bf03dbf42589b9df9",
-    "ui_theme.py": "3eb4551231ddda40482887c1fa33d5533c1c77415715886ad823b2371cc123f5",
+    "ui_theme.py": "e2a96d12cf3958eda9e966a6016b726bdc5d34ac4ce82371ac9d20331b46fa0b",
     "ui_updates.py": "aa35b7f4508d3d58b61e4b96a7dcc05be1294f3df4ed00346e22dc8ee965f2be",
-    "validate_workspace_ui.py": "4059e3cea7f45b54f05400e4660a8bfdc7e3881995ea8b97c8d704bcb6f0c5f3",
+    "validate_workspace_ui.py": "5af88cea3789a94da0ea443e28c527859f02b119213f7ef39f9ccd7ab1ca92bd",
     "version.py": "077992d8ca1f21dd3a2591b086ae56f7a01ff280faab3f021af27ce939725fe6",
     "변경사항.txt": "01a431b8c644add3ebd65878e1a744e1fc9a72a6c0253d837db220d830418b77"
   }
