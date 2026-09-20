@@ -30,11 +30,13 @@ def check(app, output):
     original=app.stop_hotkey.value
     app.fleet_dialog();root.update()
     assert app.fleet_window.title()=='세팅 설정'
-    app.hotkey_dialog();root.update();app.hotkey_window.focus_force();root.update()
-    app.hotkey_window.event_generate('<KeyPress-F10>');root.update()
+    app.hotkey_dialog();root.update()
+    pump_until(lambda:app.hotkey_window.grab_current()==app.hotkey_window
+               and app.hotkey_window.focus_get()==app.hotkey_window)
+    app.hotkey_window.event_generate('<KeyPress-F10>',state=0,when='tail');root.update()
     save=next(w for w in descendants(app.hotkey_window) if isinstance(w,ctk.CTkButton) and w.cget('text')=='저장')
     save.invoke();root.update()
-    assert app.stop_hotkey.value=='F10'
+    assert app.stop_hotkey.value=='F10', 'Captured shortcut: '+app.stop_hotkey.value
     assert json.loads(CONFIG.read_text(encoding='utf-8'))['stop_hotkey']=='F10'
     assert 'F10' in app.stop_button.cget('text')
     assert not app.hotkey_capture

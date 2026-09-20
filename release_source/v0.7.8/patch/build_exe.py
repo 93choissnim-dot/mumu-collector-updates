@@ -53,7 +53,12 @@ def smoke(exe,result):
     # No Python in PATH, no system PYTHONHOME/PYTHONPATH: invoke just the EXE.
     env['PATH']=str(Path(os.environ['SystemRoot'])/'System32')
     env.pop('PYTHONHOME',None);env.pop('PYTHONPATH',None)
-    run([str(exe),'--health-check',str(result)],cwd=exe.parent,env=env,timeout=120)
+    try:
+        run([str(exe),'--health-check',str(result)],cwd=exe.parent,env=env,timeout=120)
+    except (subprocess.CalledProcessError, subprocess.TimeoutExpired):
+        error=OUT/'smoke-data'/'MumuCollector'/'exe_error.log'
+        if error.exists():print(error.read_text(encoding='utf-8'),flush=True)
+        raise
     report=json.loads(result.read_text(encoding='utf-8'))
     assert report['ok'] and report['frozen'] and report['version']==VERSION and report['bits']==64,report
 
