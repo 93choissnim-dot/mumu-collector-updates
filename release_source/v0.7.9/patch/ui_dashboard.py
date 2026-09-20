@@ -95,33 +95,40 @@ class Dashboard:
         self.roster_query.trace_add('write',lambda *_:self.render_roster(force=True))
 
         detail=panel(body,width=305);self.detail_panel=detail
-        detail.grid(row=0,column=1,sticky='nsew');detail.grid_columnconfigure(0,weight=1);detail.grid_rowconfigure(4,weight=1)
+        detail.grid(row=0,column=1,sticky='nsew');detail.grid_columnconfigure(0,weight=1);detail.grid_rowconfigure(3,weight=1)
         self.detail_name=label(detail,'뮤뮤를 선택하세요',size=15,bold=True,anchor='w',width=270)
         self.detail_name.grid(row=0,column=0,sticky='w',padx=16,pady=(15,2))
         self.connection_badge=label(detail,textvariable=self.connection_text,size=10,color=MUTED,anchor='w')
         self.connection_badge.grid(row=1,column=0,sticky='w',padx=16,pady=(0,9))
-        self.preview_frame=ctk.CTkFrame(detail,fg_color=INSET,corner_radius=8,height=150)
-        self.preview_frame.grid(row=2,column=0,sticky='ew',padx=14);self.preview_frame.grid_propagate(False)
+        self.detail_tabs=ctk.CTkSegmentedButton(detail,values=['수령 결과','최근 화면'],height=29,font=font(11),
+            fg_color=INSET,selected_color='#354258',selected_hover_color='#40516A',
+            unselected_color=INSET,unselected_hover_color='#243146',text_color=TEXT,command=self.show_detail_tab)
+        self.detail_tabs.grid(row=2,column=0,sticky='ew',padx=14,pady=(0,10));self.detail_tabs.set('수령 결과')
+        self.detail_content=ctk.CTkFrame(detail,fg_color='transparent')
+        self.detail_content.grid(row=3,column=0,sticky='nsew',padx=8)
+        self.detail_content.grid_columnconfigure(0,weight=1);self.detail_content.grid_rowconfigure(0,weight=1)
+        self.preview_frame=ctk.CTkFrame(self.detail_content,fg_color=INSET,corner_radius=8,height=150)
+        self.preview_frame.grid(row=0,column=0,sticky='nsew',padx=6);self.preview_frame.grid_propagate(False)
         self.preview_placeholder=icon('screen',color='#65768D',size=30)
         self.preview_label=label(self.preview_frame,'화면 확인을 누르면\n최근 화면을 볼 수 있습니다.',size=11,color=MUTED,image=self.preview_placeholder,compound='top',padx=7,pady=5)
         self.preview_label.place(relx=.5,rely=.5,anchor='center')
         self.preview_label.bind('<Button-1>',lambda _:self.preview())
         self.preview_frame.bind('<Configure>',lambda _:self.render_thumbnail())
-        row=ctk.CTkFrame(detail,fg_color='transparent');row.grid(row=3,column=0,sticky='ew',padx=14,pady=(7,9));row.grid_columnconfigure(0,weight=1)
-        self.preview_stamp=label(row,'최근 캡처 / 클릭하면 확대',size=9,color=MUTED)
-        self.preview_stamp.grid(row=0,column=0,sticky='w')
-        self.inspect_button=button(row,'화면 확인',lambda:self.launch('inspect'),width=79,height=28,font=font(10))
-        self.inspect_button.grid(row=0,column=1);self.controls.append(self.inspect_button)
-        tasks=ctk.CTkScrollableFrame(detail,fg_color='transparent',corner_radius=0,scrollbar_button_color=LINE)
-        tasks.grid(row=4,column=0,sticky='nsew',padx=8,pady=(0,8));tasks.grid_columnconfigure(0,weight=1)
-        label(tasks,'작업별 최근 결과',size=12,bold=True).grid(row=0,column=0,sticky='w',padx=7,pady=(0,5))
+        self.preview_stamp=label(detail,'최근 캡처 / 클릭하면 확대',size=9,color=MUTED,height=16)
+        self.preview_stamp.grid(row=4,column=0,sticky='w',padx=16,pady=(5,0))
+        self.detail_tasks=ctk.CTkScrollableFrame(self.detail_content,fg_color='transparent',corner_radius=0,scrollbar_button_color=LINE)
+        tasks=self.detail_tasks
+        tasks.grid(row=0,column=0,sticky='nsew');tasks.grid_columnconfigure(0,weight=1)
         self.detail_results={}
-        for i,(key,title) in enumerate(TASK_LABELS.items(),1):
+        for i,(key,title) in enumerate(TASK_LABELS.items()):
             row=ctk.CTkFrame(tasks,fg_color='transparent');row.grid(row=i,column=0,sticky='ew',padx=7,pady=2);row.grid_columnconfigure(0,weight=1)
-            label(row,title,size=10,color=MUTED).grid(row=0,column=0,sticky='w')
-            result=label(row,'기록 없음',size=10,color=MUTED);result.grid(row=0,column=1,sticky='e');self.detail_results[key]=result
-        self.detail_checked=label(detail,'설정과 기록은 뮤뮤별로 유지됩니다.',size=9,color=MUTED)
-        self.detail_checked.grid(row=5,column=0,sticky='w',padx=16,pady=(0,12))
+            label(row,title,size=11,color=MUTED,height=20).grid(row=0,column=0,sticky='w')
+            result=label(row,'기록 없음',size=11,color=MUTED,height=20);result.grid(row=0,column=1,sticky='e');self.detail_results[key]=result
+        self.detail_checked=label(detail,'설정과 기록은 뮤뮤별로 유지됩니다.',size=9,color=MUTED,height=16)
+        self.detail_checked.grid(row=4,column=0,sticky='w',padx=16,pady=(5,0))
+        self.inspect_button=button(detail,'화면 확인',self.inspect_selected,width=90,height=28,font=font(10))
+        self.inspect_button.grid(row=5,column=0,sticky='e',padx=14,pady=(7,12));self.controls.append(self.inspect_button)
+        self.show_detail_tab('수령 결과')
 
         logs=panel(main);self.log_panel=logs
         logs.grid(row=3,column=0,sticky='ew',pady=(12,10));logs.grid_columnconfigure(0,weight=1)
@@ -147,6 +154,19 @@ class Dashboard:
         self.status_label=label(main,textvariable=self.status,size=10,color=MUTED,anchor='w',wraplength=820,justify='left')
         self.status_label.grid(row=5,column=0,sticky='ew',pady=(9,0))
         self.render_roster(force=True)
+
+    def show_detail_tab(self,value):
+        preview=value=='최근 화면'
+        self.detail_tabs.set(value)
+        if preview:
+            self.detail_tasks.grid_remove();self.detail_checked.grid_remove()
+            self.preview_frame.grid();self.preview_stamp.grid();self.render_thumbnail()
+        else:
+            self.preview_frame.grid_remove();self.preview_stamp.grid_remove()
+            self.detail_tasks.grid();self.detail_checked.grid()
+
+    def inspect_selected(self):
+        self.show_detail_tab('최근 화면');self.launch('inspect')
 
     def show_roster(self):
         self.roster_query.set('');self.roster_filter.set('전체');self.render_roster(force=True)
