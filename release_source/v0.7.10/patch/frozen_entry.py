@@ -7,7 +7,7 @@ import sys
 import traceback
 
 
-def health_check(output):
+def health_check(output,full_ui=True):
     import customtkinter as ctk
     from app import App
     from vision import Vision
@@ -15,38 +15,62 @@ def health_check(output):
     from windows_shortcuts import write_link,read_link
     from PIL import ImageGrab
     output=Path(output).resolve();output.parent.mkdir(parents=True,exist_ok=True)
+    def checkpoint(stage):
+        output.with_suffix('.progress.json').write_text(json.dumps({'stage':stage,'full_ui':full_ui,'version':VERSION}),encoding='utf-8')
+    checkpoint('vision')
     Vision()
-    root=ctk.CTk();app=App(root,autoconnect=False,tray=False)
-    root.update()
-    from validate_fleet_ui import check
-    check(app)
-    from validate_run_controls_ui import check as check_run_controls
-    check_run_controls(app, output)
-    from validate_workspace_ui import check as check_workspace
-    check_workspace(app, output)
-    app.setup_tray()
-    import time
-    deadline=time.monotonic()+5
-    while not app.tray_ready and time.monotonic()<deadline:
-        root.update();time.sleep(.05)
-    assert app.tray is not None and app.tray_ready, 'Tray initialization failed'
-    app.tray.close();app.tray=None
-    app.updates_dialog();root.update()
-    ImageGrab.grab().save(output.with_suffix('.png'))
-    test_link=output.with_suffix('.lnk')
-    exe=Path(sys.executable).resolve()
-    write_link(test_link,exe,'',exe.parent,exe)
-    target,args=read_link(test_link)
-    assert Path(target).resolve()==exe and args==''
-    app.closing=True;app.update_stop.set();app.stop.set();root.destroy()
+    root=ctk.CTk()
+    if not full_ui:root.withdraw()
+    app=None
+    try:
+        checkpoint('startup_ui')
+        app=App(root,autoconnect=False,tray=False);app.config['update_check']=False
+        root.update()
+        assert app.start_button.winfo_exists() and app.pause_button.winfo_exists()
+        assert app.stop_button.cget('state')=='disabled'
+        assert app.fleet_button.cget('command') is not None
+        if full_ui:
+            checkpoint('fleet_ui')
+            from validate_fleet_ui import check
+            check(app)
+            checkpoint('run_controls_ui')
+            from validate_run_controls_ui import check as check_run_controls
+            check_run_controls(app,output)
+            checkpoint('workspace_ui')
+            from validate_workspace_ui import check as check_workspace
+            check_workspace(app,output)
+        checkpoint('tray')
+        app.setup_tray()
+        import time
+        deadline=time.monotonic()+5
+        while not app.tray_ready and time.monotonic()<deadline:
+            root.update();time.sleep(.05)
+        assert app.tray is not None and app.tray_ready,'Tray initialization failed'
+        app.tray.close();app.tray=None
+        if full_ui:
+            app.updates_dialog();root.update()
+            ImageGrab.grab().save(output.with_suffix('.png'))
+        checkpoint('shortcut')
+        test_link=output.with_suffix('.lnk');exe=Path(sys.executable).resolve()
+        write_link(test_link,exe,'',exe.parent,exe)
+        target,args=read_link(test_link)
+        assert Path(target).resolve()==exe and args==''
+    finally:
+        if app is not None:
+            app.closing=True;app.update_stop.set();app.stop.set()
+            if getattr(app,'tray',None) is not None:app.tray.close()
+        root.destroy()
+    checkpoint('complete')
     output.write_text(json.dumps({'ok':True,'version':VERSION,'frozen':bool(getattr(sys,'frozen',False)),
-        'ui':True,'fleet_ui':True,'run_controls_ui':True,'workspace_ui':True,'game_theme_ui':True,'tray':True,'shortcut':True,'bits':ctypes.sizeof(ctypes.c_void_p)*8},ensure_ascii=False),encoding='utf-8')
+        'ui':True,'startup_ui':True,'full_ui_checks':full_ui,'fleet_ui':full_ui,'run_controls_ui':full_ui,
+        'workspace_ui':full_ui,'game_theme_ui':full_ui,'tray':True,'shortcut':True,
+        'bits':ctypes.sizeof(ctypes.c_void_p)*8},ensure_ascii=False),encoding='utf-8')
 
 
 def main():
     data=Path(os.environ.get('LOCALAPPDATA',str(Path.home())))/'MumuCollector';data.mkdir(parents=True,exist_ok=True)
     if len(sys.argv)>=3 and sys.argv[1]=='--health-check':
-        health_check(sys.argv[2]);return
+        health_check(sys.argv[2],full_ui='--full-ui-checks' in sys.argv);return
     if len(sys.argv)>=3 and sys.argv[1]=='--update-worker':
         from exe_updater import worker
         worker(sys.argv[2],recover='--recover' in sys.argv);return
