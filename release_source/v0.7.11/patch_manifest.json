@@ -15,7 +15,7 @@
     "global_hotkey.py": "ea24566a288b46076b66937841f91eaba4683527404261347f8d49eea6046854",
     "history.py": "d2be670317e27bec2550d241d44aa6f99378f08406cb36c31d52f9e41c69c3a7",
     "profile_edits.py": "e1bb35342c273f02965d91724c99547a6f7ceed200e88419e57d56440196e9a4",
-    "ui_dashboard.py": "d5bb0ce231383522d10c21e9513bcc575782b7d6ffec897113e964c812bb99d0",
+    "ui_dashboard.py": "7e8bd38564f8ba9214e59473f8928b1b4d5d5cb6d52af34d10d5647408fbe640",
     "ui_history.py": "bb9a8cc84775d42b5d39e0141e7837107eb2a513db1111e5016a1ee00d409197",
     "ui_layout.py": "f8d69fcbce4c491a7ee09439deee2abb27c51cba72be436a9be8e3731aa90291",
     "ui_player_settings.py": "976b7fba2e69d4889c4d1f7ac3614b00bdd5676ef3c374a97e6779a8b69d5672",
@@ -26,7 +26,7 @@
     "updater.py": "8117abe3b7ad2b5c8905ef126ecf87a42404b15fdb5b2531e0ca324dae5f828e",
     "validate_improvements.py": "34803a23098ce3328c54a96a9618c852ac0a3ba392d4c0b3123b78e07d3d5a65",
     "validate_improvements_ui.py": "fbbc429ff8850bb235b02132dafa1ce2d91a95792ae5d95fce8c639e2ac793f2",
-    "validate_workspace_ui.py": "acf4cbb43ca1e13f14df54dd5902f80d44e0708384e67e6af0adb264b2ac6a32",
+    "validate_workspace_ui.py": "30c551142bf38c5fa45c4fa278eed3807b4520a0d147fafe3ba4b6478d864d7c",
     "version.py": "05ab7b1acec6d98260ee6100ef12d07126f6f20c9322be268c453a7c55e17c84",
     "변경사항.txt": "79719c01a7ecf59cbfdd50c72526c33808e276ebff08e934ff342fa62e684baf"
   }

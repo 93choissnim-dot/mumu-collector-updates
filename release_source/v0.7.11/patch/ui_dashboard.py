@@ -126,8 +126,8 @@ class Dashboard:
         self.preview_frame=ctk.CTkFrame(self.detail_content,fg_color=INSET,corner_radius=0,height=150)
         self.preview_frame.grid(row=0,column=0,sticky='nsew',padx=6);self.preview_frame.grid_propagate(False)
         self.preview_placeholder=icon('screen',color=MUTED,size=30)
-        self.preview_label=label(self.preview_frame,'화면 확인을 누르면\n최근 화면을 볼 수 있습니다.',size=11,color=MUTED,image=self.preview_placeholder,compound='top',padx=7,pady=5)
-        self.preview_label.place(relx=.5,rely=.5,anchor='center');self.preview_label.bind('<Button-1>',lambda _:self.preview())
+        self.preview_label=label(self.preview_frame,'화면 확인을 누르면\n최근 화면을 볼 수 있습니다.',size=11,color=MUTED,image=self.preview_placeholder,compound='top',width=0,height=0,padx=0,pady=0)
+        self.preview_label.place(relx=.5,rely=.5,anchor='center',relwidth=1,relheight=1);self.preview_label.bind('<Button-1>',lambda _:self.preview())
         self.preview_frame.bind('<Configure>',lambda _:self.render_thumbnail())
         self.preview_stamp=label(detail,'최근 캡처 / 클릭하면 확대',size=9,color=MUTED,height=16)
         self.preview_stamp.grid(row=4,column=0,sticky='w',padx=16,pady=(3,0))
@@ -265,8 +265,8 @@ class Dashboard:
     def render_thumbnail(self):
         if self.preview_image is None:return
         scale=self.preview_frame._get_widget_scaling()
-        w=max(30,int(self.preview_frame.winfo_width()/scale)-20)
-        h=max(30,int(self.preview_frame.winfo_height()/scale)-16)
+        w=max(1,int(self.preview_frame.winfo_width()/scale)-4)
+        h=max(1,int(self.preview_frame.winfo_height()/scale)-4)
         im=Image.fromarray(cv2.cvtColor(self.preview_image,cv2.COLOR_BGR2RGB));im.thumbnail((w,h))
         self.thumbnail=ctk.CTkImage(light_image=im,dark_image=im,size=im.size)
         self.preview_label.configure(text='',image=self.thumbnail)

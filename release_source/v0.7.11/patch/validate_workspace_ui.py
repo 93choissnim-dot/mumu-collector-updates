@@ -99,7 +99,7 @@ def check(app,output):
         assert app.inspect_button.winfo_rooty()+app.inspect_button.winfo_height()<=root.winfo_rooty()+root.winfo_height()+2
         app.preview_image=first;app.show_detail_tab('최근 화면');root.update();app.render_thumbnail();root.update()
         assert app.preview_label.winfo_width()<=app.preview_frame.winfo_width()+2, ('preview width',scale)
-        assert app.preview_label.winfo_height()<=app.preview_frame.winfo_height()+2, ('preview height',scale)
+        assert app.preview_label.winfo_height()<=app.preview_frame.winfo_height()+2, ('preview height',scale,app.preview_label.winfo_height(),app.preview_frame.winfo_height())
         app.clear_preview();app.show_detail_tab('수령 결과');root.update()
         if app.compact_layout:app.toggle_compact_details();root.update()
         if scale==1.5:capture_window(root,output.with_name('review-scaled.png'))
