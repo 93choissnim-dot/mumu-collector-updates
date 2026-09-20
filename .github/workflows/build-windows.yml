@@ -4,6 +4,7 @@ on:
   push:
     branches: [main]
     paths:
+      - '.gitattributes'
       - '.github/workflows/build-windows.yml'
       - 'release_source/v0.7.7/**'
 permissions:
