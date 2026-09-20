@@ -1,0 +1,33 @@
+{
+  "version": "0.7.8",
+  "base_version": "0.7.6",
+  "base_sha256": "49f1afff7d65141f385f410cc8912762671dd71788835ceb6995b39b1e9482d2",
+  "files": {
+    "adb_device.py": "1097e58fb74f2b692104bfe23d3de6ad7d93082212831bc4d8ce7cf979ee30b8",
+    "app.py": "b70dcd01c53526ad85ec1dde0782e1bab70046b65d485126e12ab3c8bce59d6b",
+    "assets/button_profiles.json": "e56d3112e1a5d504565844792d76e48ec8fb6b049fa4558b993ac6b07c3b776b",
+    "assets/photo_ranking_active_adb.png": "7792a3045bbe807452d08fb64af87197ac78505085c9edb20b55e2dd0e460a40",
+    "build_exe.py": "103254de1fe38b02565d6e6f56f57af9500a1af47bbf170db390ad80bfcdd96f",
+    "build_release.py": "3e7fe3b415c198d8ec447420b8ba2eea206f5e06c329a94cbdfbbbafccf32ac4",
+    "collector.py": "97a9dca6b4bbf6ea365957e1f8a4f56dbcc0247280e26b3ca3d2e73be6b70841",
+    "extra_collector.py": "88839d3f2928676ea7d9f3c3de10b4109e7a64dac57a91202bc4de09380dc248",
+    "fleet_collection.py": "37a7b0015ffa9c146a011e9d3948d5226c13e426ba3b5b1cc88c96fbbb4ff27f",
+    "fleet_runner.py": "f92afd1b0e77bb159581a81282f04708750a90612613a41abed507d548bcd2f2",
+    "fleet_ui.py": "abe4b70462c854d4845fce9de1a234983cf39bd4524c0f5a7fd9189907ac6355",
+    "frozen_entry.py": "0c3d9f21a79f4ddbd36f6ee5036098465e9dd7f9235b37151956584242bddaf8",
+    "photometric.py": "bb4795a3394a20a3e0670b7a7d08f0aeeb641e67cc5350d17ea35677bdab3248",
+    "run_control.py": "3e3cdb62446d9f79521cb5e6c56772de36a5f97f97a9b325c314d3cc53d7fc44",
+    "run_support.py": "ad1a579b9d53a10ec4b35a0972da0a56a53090ead0fb97c08b2711d61e64c3d6",
+    "stop_hotkey.py": "c71f2b02938f372782337b88e200402e6e2039560869b07e4c694d5b32aae841",
+    "tray_support.py": "1adb4152a8e7a77803c31993b4a5b29143bb0f59751560801fc50775862102ca",
+    "ui_dashboard.py": "e411dcb97d3132b4e0b8429cb4cf157f281d87eee0114be2d2f4840bb203db68",
+    "ui_run_controls.py": "00ff50e2b4d107d1a0560abda3e5c3d4209a88ee5c15c872ead2488b3847346c",
+    "validate_ranking_native.py": "d47b393dbba35c3c2f262d71940abeb3600a20d7b9b7a475f9bb20299bda5512",
+    "validate_run_controls.py": "5182bac92ce7267e474910e688c605045e3b3307d65900522dcd61939b69199c",
+    "validate_run_controls_ui.py": "6cfe73499f8d03307f8ad9fb673350805ae973bf7a0a86e14a6aaa470937bb1f",
+    "version.py": "9c42abdec2eb47c5718542bd4af19f9f77b2e34fed3a92f9a8aa444c19e7cc23",
+    "world_boss.py": "1d62ed91dd135a66f38c96c80b37892e37a02e12ed261ede62e84bb9951330d3",
+    "검증결과.txt": "0b19ea7663fda82a421e4a635bae57b5c16c66efc6eb398b9291df2b3e1c8872",
+    "변경사항.txt": "2d6d30259b7d60d727fa48b21b5163853e6870fae9d201f5879ad77a76136d49"
+  }
+}
