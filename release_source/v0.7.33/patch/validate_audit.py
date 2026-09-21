@@ -107,21 +107,49 @@ class SweepAndWorkshopTests(unittest.TestCase):
         c.daily_combat=Mock(side_effect=combat)
         c.daily_run_step('raid','공방 약탈',c.daily_guild_raid)
         c.daily_run_step('raid','공방 약탈',c.daily_guild_raid)
-        self.assertEqual([a.args[1] for a in c.daily_tap.call_args_list],['guild_raid_open','raid_center','raid_fight'])
+        self.assertEqual([a.args[1] for a in c.daily_tap.call_args_list if len(a.args)>1],['guild_raid_open','raid_fight'])
+        middle=c.daily_tap.call_args_list[1]
+        self.assertEqual(middle.kwargs,{'point':(500,352),'required':('raid_center',)})
         self.assertTrue(c.daily_done('raid'));c.daily_combat.assert_called_once()
     def test_workshop_recognizer_only_targets_middle_even_with_side_distractors(self):
         v=Vision();dv=v.daily
         im=np.full((540,960,3),110,np.uint8)
         for name in ('raid_title','raid_center'):
-            x,y,r,b=dv.specs[name]['box'];im[y:b,x:r]=dv.templates[name][0]
+            x,y,r,b=dv.specs[name]['box'];tile=dv.templates[name][0]
+            # Keep the paper background around a small label; a hard gray
+            # cutout border would introduce a synthetic resampling artifact.
+            im[y-8:b+8,x-8:r+8]=cv2.copyMakeBorder(tile,8,8,8,8,cv2.BORDER_REPLICATE)
         tile=dv.templates['raid_center'][0];h,w=tile.shape[:2]
         for x in (110,740):im[290:290+h,x:x+w]=tile
         for width in (640,960,1280):
             s=v.recognize(cv2.resize(im,(width,width*9//16)))
             self.assertEqual(s.state,'daily_raid_map')
             self.assertTrue(440<s.matches['daily_raid_center'].center[0]<560)
-        x,y,r,b=dv.specs['raid_center']['box'];im[y:b,x:r]=110
+        x,y,r,b=dv.specs['raid_center']['box'];im[y-8:b+8,x-8:r+8]=110
         self.assertNotIn('daily_raid_center',v.recognize(im).matches)
+    def test_weekly_names_and_different_title_lengths_keep_middle_destination(self):
+        v=Vision();dv=v.daily;c=self.c
+        for offset in (-50,0,40):
+            im=np.full((540,960,3),110,np.uint8)
+            for name in ('raid_title','raid_center'):
+                x,y,r,b=dv.specs[name]['box'];shift=offset if name=='raid_center' else 0
+                im[y:b,x+shift:r+shift]=dv.templates[name][0]
+            screen=v.recognize(im);self.assertEqual(screen.state,'daily_raid_map')
+            c.screen=Mock(return_value=screen)
+            c.daily_tap(screen,point=(500,352),required=('raid_center',))
+            c.device.click.assert_called_with((500,352))
+            detail=np.full_like(im,110)
+            for name in ('raid_detail','raid_table'):
+                x,y,r,b=dv.specs[name]['box'];shift=offset if name=='raid_detail' else 0
+                detail[y:b,x+shift:r+shift]=dv.templates[name][0]
+            self.assertEqual(v.recognize(detail).state,'daily_raid_detail')
+        self.assertEqual(c.device.click.call_count,3)
+    def test_middle_label_disappears_before_input_never_selects_side_workshop(self):
+        c=self.c;old=page('daily_raid_map','raid_center')
+        c.screen=Mock(return_value=page('daily_raid_map','raid_left'))
+        from collector import ScreenChanged
+        with self.assertRaises(ScreenChanged):c.daily_tap(old,point=(500,352),required=('raid_center',))
+        c.device.click.assert_not_called()
 
 
 class UpdateRecoveryTests(unittest.TestCase):

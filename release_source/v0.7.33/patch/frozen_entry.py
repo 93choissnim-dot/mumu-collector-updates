@@ -150,7 +150,7 @@ def health_check(output,full_ui=True):
         'workspace_ui':full_ui,'game_theme_ui':full_ui,'improvements_ui':full_ui,'taskbar_ui':full_ui,'start_navigation':True,'daily_tasks':True,'tray':True,'shortcut':True,
         'daily_native_color':True,'worldboss_recovery':True,'daily_step_recovery':True,'diagnostic_trace':True,'autumn_rewards':True,'input_safety':True,'pass_icon_identity':True,'efficiency_safety':True,
         'worldboss_plan':True,'update_retry':True,
-        'cross_feature_audit':True,'daily_animation_recovery':True,'guild_native_controls':True,'daily_dialogs':True,'combat_transitions':True,'first_failure_evidence':True,
+        'rotating_workshop':True,'cross_feature_audit':True,'daily_animation_recovery':True,'guild_native_controls':True,'daily_dialogs':True,'combat_transitions':True,'first_failure_evidence':True,
         'bits':ctypes.sizeof(ctypes.c_void_p)*8},ensure_ascii=False),encoding='utf-8')
 
 

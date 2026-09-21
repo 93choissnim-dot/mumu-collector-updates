@@ -355,9 +355,9 @@ class DailyActions(DailyExecution):
         if status=='started':raise OutcomeUnknown('공방 약탈 시작 기록이 있지만 결과 확인이 없습니다. 중복 전투를 보류합니다.')
         screen=self.daily_guild_page(battle=True)
         self.daily_tap(screen,'guild_raid_open');screen=self.daily_wait({'daily_raid_map'})
-        # Always the middle workshop (Arbalest). raid_center searches only its
-        # fixed label region; never cycle through the left/right workshops.
-        self.daily_tap(screen,'raid_center');screen=self.daily_wait({'daily_raid_detail'})
+        # Names rotate weekly. Confirm the generic workshop label in the
+        # middle banner, then select its center independently of name/length.
+        self.daily_tap(screen,point=(500,352),required=('raid_center',));screen=self.daily_wait({'daily_raid_detail'})
         def reserve():self.daily_checkpoint('uncertain',pending='raid_fight',values={'raid':'started'})
         self.daily_tap(screen,'raid_fight',before_input=reserve)
         screen,result=self.daily_combat({'daily_raid_map','daily_raid_detail'},on_result=lambda:self.daily_mark('raid'))

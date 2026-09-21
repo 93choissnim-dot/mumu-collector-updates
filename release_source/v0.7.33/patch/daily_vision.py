@@ -32,6 +32,8 @@ def classify(names):
     # separately (and again before a fight), never used as page identity.
     if has('guild_dungeon_rank','guild_fight'):
         return 'daily_guild_dungeon'
+    # Both workshop labels are generic '공방' crops: names rotate weekly.
+    # Map label search is confined to the middle banner; detail is header-only.
     if has('raid_detail','raid_table'):return 'daily_raid_detail'
     if has('raid_title','raid_center'):return 'daily_raid_map'
     if has('guild_title','guild_tabs'):
