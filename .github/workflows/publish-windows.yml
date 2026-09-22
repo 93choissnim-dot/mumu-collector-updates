@@ -7,7 +7,7 @@ permissions:
   contents: write
   actions: read
 concurrency:
-  group: chanki-release-v0.7.43
+  group: chanki-release-v0.7.44
   cancel-in-progress: false
 jobs:
   publish:
@@ -20,29 +20,29 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh api repos/93choissnim-dot/mumu-collector-updates/actions/runs/35710296898 --jq . > build-run.json
+          gh api repos/93choissnim-dot/mumu-collector-updates/actions/runs/35713744766 --jq . > build-run.json
           if ($LASTEXITCODE -ne 0) { throw 'Cannot verify build run' }
-          python -c "import json; r=json.load(open('build-run.json',encoding='utf-8-sig')); assert r['conclusion']=='success' and r['head_sha']=='a80890cc66e4301849a7e89cf634d40d4a7c4097' and r['name']=='Build Windows EXE', 'Build validation mismatch'"
+          python -c "import json; r=json.load(open('build-run.json',encoding='utf-8-sig')); assert r['conclusion']=='success' and r['head_sha']=='0a8efdbc7976e514ba2523c683d40cbbec3e721f' and r['name']=='Build Windows EXE', 'Build validation mismatch'"
           if ($LASTEXITCODE -ne 0) { throw 'Build gate failed' }
-          gh release view v0.7.43 --repo 93choissnim-dot/mumu-collector-updates --json isDraft,targetCommitish > release-state.json
+          gh release view v0.7.44 --repo 93choissnim-dot/mumu-collector-updates --json isDraft,targetCommitish > release-state.json
           if ($LASTEXITCODE -ne 0) { throw 'Cannot verify draft' }
-          python -c "import json; r=json.load(open('release-state.json',encoding='utf-8-sig')); assert r['isDraft'] and r['targetCommitish']=='a80890cc66e4301849a7e89cf634d40d4a7c4097', 'Release target mismatch'"
+          python -c "import json; r=json.load(open('release-state.json',encoding='utf-8-sig')); assert r['isDraft'] and r['targetCommitish']=='0a8efdbc7976e514ba2523c683d40cbbec3e721f', 'Release target mismatch'"
           if ($LASTEXITCODE -ne 0) { throw 'Draft gate failed' }
-          gh release download v0.7.43 --repo 93choissnim-dot/mumu-collector-updates --dir verified --pattern latest-exe.json --pattern ChankiHelper_v0.7.43_update.zip --pattern latest.json --pattern MumuCollector_v0.7.43.zip --pattern exe-health.json --pattern windows-validation.json --pattern windows-previous-validation.json
+          gh release download v0.7.44 --repo 93choissnim-dot/mumu-collector-updates --dir verified --pattern latest-exe.json --pattern ChankiHelper_v0.7.44_update.zip --pattern latest.json --pattern MumuCollector_v0.7.44.zip --pattern exe-health.json --pattern windows-validation.json --pattern windows-previous-validation.json
           if ($LASTEXITCODE -ne 0) { throw 'Release verification download failed' }
           @'
           import pathlib, json, hashlib
           p = pathlib.Path('verified')
           h = json.loads((p/'exe-health.json').read_text(encoding='utf-8'))
           w = json.loads((p/'windows-validation.json').read_text(encoding='utf-8'))
-          assert h['ok'] and h['version']=='0.7.43' and h['run_controls_ui'] and h['workspace_ui'] and h['vector_rendering_ui'] and h['game_theme_ui'] and h['improvements_ui'] and h['taskbar_ui'] and h['start_navigation'] and h['daily_tasks'] and h['daily_native_color'] and h['worldboss_recovery'] and h['daily_step_recovery'] and h['diagnostic_trace'] and h['autumn_rewards'] and h['input_safety'] and h['pass_icon_identity'] and h['efficiency_safety'] and h['worldboss_plan'] and h['update_retry'] and h['full_ui_checks'] and h['daily_dialogs'] and h['combat_transitions'] and h['first_failure_evidence'] and h['daily_animation_recovery'] and h['guild_native_controls'] and h['cross_feature_audit'] and h['rotating_workshop'] and h['native_exit_recovery'] and h['frozen']
+          assert h['ok'] and h['pass_purchase'] and h['version']=='0.7.44' and h['run_controls_ui'] and h['workspace_ui'] and h['vector_rendering_ui'] and h['game_theme_ui'] and h['improvements_ui'] and h['taskbar_ui'] and h['start_navigation'] and h['daily_tasks'] and h['daily_native_color'] and h['worldboss_recovery'] and h['daily_step_recovery'] and h['diagnostic_trace'] and h['autumn_rewards'] and h['input_safety'] and h['pass_icon_identity'] and h['efficiency_safety'] and h['worldboss_plan'] and h['update_retry'] and h['full_ui_checks'] and h['daily_dialogs'] and h['combat_transitions'] and h['first_failure_evidence'] and h['daily_animation_recovery'] and h['guild_native_controls'] and h['cross_feature_audit'] and h['rotating_workshop'] and h['native_exit_recovery'] and h['frozen']
           previous = json.loads((p/'windows-previous-validation.json').read_text(encoding='utf-8'))
           assert previous['ok'] and previous['previous_release_helper'] and previous['real_exe_update'] and previous['restart'] and previous['rollback']
           assert w['ok'] and w['real_exe_update'] and w['restart'] and w['rollback']
-          for feed, archive in [('latest-exe.json','ChankiHelper_v0.7.43_update.zip'), ('latest.json','MumuCollector_v0.7.43.zip')]:
+          for feed, archive in [('latest-exe.json','ChankiHelper_v0.7.44_update.zip'), ('latest.json','MumuCollector_v0.7.44.zip')]:
               m = json.loads((p/feed).read_text(encoding='utf-8'))
               z = p/archive
-              assert m['version']=='0.7.43' and m['size']==z.stat().st_size
+              assert m['version']=='0.7.44' and m['size']==z.stat().st_size
               assert m['sha256']==hashlib.sha256(z.read_bytes()).hexdigest()
           print('Reviewed Windows build and both update archives verified')
           '@ | python -
@@ -54,18 +54,18 @@ jobs:
         run: |
           $latest = gh api repos/93choissnim-dot/mumu-collector-updates/releases/latest --jq .tag_name
           if ($LASTEXITCODE -ne 0) { throw 'Latest release check failed' }
-          if ([version]($latest.TrimStart('v')) -ge [version]'0.7.43') { throw 'Same or newer release already exists' }
-          $notes = Get-Content release_source/v0.7.43/notes.md -Raw -Encoding utf8
-          $notes += "`n`nWindows 검증 기록: https://github.com/93choissnim-dot/mumu-collector-updates/actions/runs/35710296898`n"
+          if ([version]($latest.TrimStart('v')) -ge [version]'0.7.44') { throw 'Same or newer release already exists' }
+          $notes = Get-Content release_source/v0.7.44/notes.md -Raw -Encoding utf8
+          $notes += "`n`nWindows 검증 기록: https://github.com/93choissnim-dot/mumu-collector-updates/actions/runs/35713744766`n"
           Set-Content -Path release-notes.md -Value $notes -Encoding utf8
-          gh release edit v0.7.43 --repo 93choissnim-dot/mumu-collector-updates --draft=false --latest --notes-file release-notes.md
+          gh release edit v0.7.44 --repo 93choissnim-dot/mumu-collector-updates --draft=false --latest --notes-file release-notes.md
           if ($LASTEXITCODE -ne 0) { throw 'Release publication failed' }
       - name: Verify public automatic update address
         shell: pwsh
         run: |
           @'
           import sys,json,threading
-          sys.path.insert(0,'release_source/v0.7.43/patch')
+          sys.path.insert(0,'release_source/v0.7.44/patch')
           from updater import read_url
           for name in ('latest-exe.json','latest.json'):
               url='https://github.com/93choissnim-dot/mumu-collector-updates/releases/latest/download/'+name
