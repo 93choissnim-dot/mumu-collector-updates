@@ -113,6 +113,9 @@ def health_check(output,full_ui=True):
             checkpoint('improvements_ui')
             from validate_improvements_ui import check as check_improvements
             check_improvements(app,output)
+            checkpoint('rendering_ui')
+            from validate_rendering_ui import check as check_rendering
+            check_rendering(app)
         checkpoint('tray')
         app.setup_tray()
         import time
@@ -150,7 +153,7 @@ def health_check(output,full_ui=True):
     checkpoint('complete')
     output.write_text(json.dumps({'ok':True,'version':VERSION,'frozen':bool(getattr(sys,'frozen',False)),
         'ui':True,'startup_ui':True,'full_ui_checks':full_ui,'fleet_ui':full_ui,'run_controls_ui':full_ui,
-        'workspace_ui':full_ui,'game_theme_ui':full_ui,'improvements_ui':full_ui,'taskbar_ui':full_ui,'start_navigation':True,'daily_tasks':True,'tray':True,'shortcut':True,
+        'workspace_ui':full_ui,'vector_rendering_ui':full_ui,'game_theme_ui':full_ui,'improvements_ui':full_ui,'taskbar_ui':full_ui,'start_navigation':True,'daily_tasks':True,'tray':True,'shortcut':True,
         'daily_native_color':True,'worldboss_recovery':True,'daily_step_recovery':True,'diagnostic_trace':True,'autumn_rewards':True,'input_safety':True,'pass_icon_identity':True,'efficiency_safety':True,
         'worldboss_plan':True,'update_retry':True,
         'native_exit_recovery':True,'rotating_workshop':True,'cross_feature_audit':True,'daily_animation_recovery':True,'guild_native_controls':True,'daily_dialogs':True,'combat_transitions':True,'first_failure_evidence':True,

@@ -32,6 +32,10 @@ TITLE_FONT = FONT
 
 def install_theme():
     ctk.set_appearance_mode('light')
+    # Windows Tk crashed while resizing the font glyphs used for rounded corners.
+    # Use the bundled vector backend for shapes, checkmarks and dropdown arrows.
+    from customtkinter.windows.widgets.core_rendering import DrawEngine
+    DrawEngine.preferred_drawing_method='polygon_shapes'
     styles={
         'CTkCheckBox':dict(corner_radius=6,border_width=1,border_color=LINE,fg_color=ACCENT,hover_color=ACCENT_HOVER,checkmark_color=CREAM,text_color=TEXT,text_color_disabled=MUTED),
         'CTkSwitch':dict(fg_color=LINE,progress_color=ACCENT,button_color=CREAM,button_hover_color='#FFFFFF',text_color=TEXT,text_color_disabled=MUTED),

@@ -62,7 +62,7 @@ def smoke(exe,result):
             if path.exists():print(path.name,path.read_text(encoding='utf-8'),flush=True)
         raise
     report=json.loads(result.read_text(encoding='utf-8'))
-    assert report['ok'] and report['frozen'] and report['version']==VERSION and report['bits']==64 and report['full_ui_checks'] and report['game_theme_ui'] and report['improvements_ui'] and report['taskbar_ui'] and report['start_navigation'],report
+    assert report['ok'] and report['frozen'] and report['version']==VERSION and report['bits']==64 and report['full_ui_checks'] and report['vector_rendering_ui'] and report['game_theme_ui'] and report['improvements_ui'] and report['taskbar_ui'] and report['start_navigation'],report
 
 
 if __name__=='__main__':build()

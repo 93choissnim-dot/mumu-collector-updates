@@ -16,7 +16,7 @@
     "assets/templates.json": "3c340fc2065f37e9bd9617544627197f137fb66519940e19a4fc0b0c0d8ce2f5",
     "autumn_actions.py": "40f19505f9f28e992fd7660200178150ee468c2fa96c5c74bf90db8a9125659e",
     "autumn_vision.py": "bfd7b1a3cebd1c901ccbd91d858374f576a38be237263f2c5cd0bd4530868f21",
-    "build_exe.py": "2d7dd36888c13a5d20d3696e04bb8893d57b5fcec3d3b073a863f0ca71ae7a61",
+    "build_exe.py": "659545ed44799e503c65de80a3ddbcbca1e3e16101601fb3567bdd1fc2650871",
     "build_release.py": "e0c41e28f7ef6044e256286bf80557c3142a39387905e490cf0a43c1d9983924",
     "collector.py": "3ede5156d7221d0b58b040101b52d418cbe5a60baa0f61f33cb9412c3d512601",
     "daily_actions.py": "4d739ba7e4465480c153535bedc32d0480f00d47e975aab250b21dc2bc6a771b",
@@ -30,7 +30,7 @@
     "fleet_collection.py": "a5387763187a2d804fc1fde0f8cf627d788047d7a6a91a804ae47fdc86877d83",
     "fleet_runner.py": "daeb8316c0089dbf6349f3cd727f41a1d4838f23ab67a00504762b0847ccb3eb",
     "fleet_ui.py": "6e4529c248c65625ca8f5359185c9ef78f970e371b38d1c62d1129e229da9218",
-    "frozen_entry.py": "9bd7c3cba37984ac1614c1eb5ff58f9c1125e485860676ef980a559f6257806a",
+    "frozen_entry.py": "66fe03cd2f003aaf41cfc474f26cf1f2cb2f04bb0c5a3104534c49b6917933cd",
     "history.py": "44d9c5ecb32d095ca2b698f9a20a39d79633cc4945b0e834a418d8ae3aef63fa",
     "input_safety.py": "267741c084cbab13dcf18dfd0c15f337a19e9747f9b4245c0779c2e70ece83b0",
     "profile_edits.py": "ec93b96a863ef098ffe45b85c5d3373026ab5125c82e66b2ba70637e7c00c72f",
@@ -43,7 +43,7 @@
     "ui_history.py": "7751f0e9b1454f332963bc98d97b17b063de57933633ac31b7b9cdae619bdb4f",
     "ui_player_settings.py": "59c64152ae075965c80794a3c5d72bcda892b2a280522b2bfc604a24328a5675",
     "ui_state.py": "84b68e8f765932514678c901dd8a5bbb572c2c698195cc01443ee778c1c96743",
-    "ui_theme.py": "14bff12954b7f98971c8cadc5c0a4abe76a56feee1b8d37c1cefba71b21f7817",
+    "ui_theme.py": "2e256e04a33a0a7a25f9ee87da770c06a7cf556db22de4ce5500ae8bdac93fac",
     "validate_autumn.py": "46ab8bbeccf37d32317f85bc2ca5134c9e97bcca88ebc11fe438aa909fad9343",
     "validate_capture_corpus.py": "4274d6c7c276a65248e600d521623e2b39dd25286345c9f10228ca1f26512701",
     "validate_collection.py": "a219ac25241be89fad8fd35fd79f6327162f366450e41a56f7124881abb51879",
@@ -82,6 +82,7 @@
     "validate_workspace_ui.py": "4c9aa08a60d6bcce5ed92c3296554f9ad1caf14a672831898fa250e7e19922d2",
     "validate_run_controls_ui.py": "b5876609b1767a39c9018fd68c314aefd81ac2c9909c81a08ed137def634b4d1",
     "emit_ui_review.py": "c53677cfe95e68a01dbf53bf9f42ab58178fcacee9832e22d6b9a088ac83f974",
-    "validate_ui_state.py": "24add16c4fa8620f12dff6c0bae154a240aae3c0c4d047ee82bc21110dc99a42"
+    "validate_ui_state.py": "24add16c4fa8620f12dff6c0bae154a240aae3c0c4d047ee82bc21110dc99a42",
+    "validate_rendering_ui.py": "9d8d9cc284ef095779e67b2d27a07d339bf6cdf0c452d839069f7dea15f250af"
   }
 }
