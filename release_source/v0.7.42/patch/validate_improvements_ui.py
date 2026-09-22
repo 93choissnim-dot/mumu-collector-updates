@@ -10,7 +10,7 @@ from unittest.mock import Mock,patch
 import numpy as np
 import customtkinter as ctk
 from mumu_names import name_options
-from task_catalog import TASK_LABELS
+from task_catalog import TASK_LABELS,REGULAR_LABELS
 from validate_run_controls_ui import descendants
 from validate_workspace_ui import capture_window
 from ui_layout import fit_window,work_area
@@ -38,7 +38,7 @@ def check(app,output):
     texts=[w.cget('text') for w in descendants(editor.window) if isinstance(w,(ctk.CTkLabel,ctk.CTkButton,ctk.CTkSwitch))]
     assert '작업을 마치면 게임 절전 모드로 복귀' not in texts
     assert '수령할 작업' in texts and '자원 시설' not in texts and '추가 작업' not in texts
-    assert set(editor.task_checks)==set(TASK_LABELS)
+    assert set(editor.task_checks)==set(REGULAR_LABELS)
     assert editor.task_checks['autumn'].cget('text')=='가을맞이 수령'
     assert not editor.tasks['autumn'].get()
     editor.tasks['autumn'].set(True);editor.capture();editor.select(b);editor.select(a)
@@ -53,7 +53,8 @@ def check(app,output):
     editor.minutes.set('45');assert editor.interval_presets.get()=='직접 입력'
     editor.select_all_button.invoke();assert all(v.get() for v in editor.tasks.values())
     editor.clear_all_button.invoke();assert not any(v.get() for v in editor.tasks.values())
-    assert not editor.apply() and app.players[a]['selected']['farm']
+    assert editor.apply() and not any(app.players[a]['selected'].values())
+    app.fleet_dialog(a);root.update();editor=app.settings_editor
     editor.tasks['farm'].set(True);editor.tasks['ranking'].set(True);editor.minutes.set('30')
     app.roster_rows[b]['enabled'].set(True);app.toggle_player(b)
     assert editor.apply() and app.players[b]['enabled'] and app.players[a]['minutes']==30
@@ -108,7 +109,7 @@ def check(app,output):
     assert any(isinstance(w,ctk.CTkButton) and w.cget('text')=='실패 화면' and w.cget('state')=='normal' for w in descendants(app.history_window))
     app.players[a]['selected']['daily_dungeons']=True
     app.history.record(a,'daily_dungeons','deferred',reason='보물 창고: 같은 오류 반복으로 보류')
-    with patch('daily_state.DailyLedger') as ledger:
+    with patch('daily_state.ManualQuestLedger') as ledger:
         ledger.return_value.snapshot.return_value={'daily_dungeons':{
             'equipment':'done','summon':'done','stone':'done','rune':'done','relic':'done',
             '_steps':{'treasure':{'status':'blocked'}}}}
