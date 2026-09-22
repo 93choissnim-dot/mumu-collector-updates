@@ -78,9 +78,10 @@ class Dashboard:
         self.roster_total=label(roster_head,'',size=11,color=MUTED);self.roster_total.grid(row=0,column=1)
         tools=ctk.CTkFrame(roster,fg_color='transparent');tools.grid(row=1,column=0,sticky='ew',padx=12,pady=(0,10));tools.grid_columnconfigure(0,weight=1)
         self.search_entry=ctk.CTkEntry(tools,textvariable=self.roster_query,placeholder_text='뮤뮤 이름 검색',height=34,font=font(12),fg_color=INSET,border_color=RULE)
-        self.search_entry.grid(row=0,column=0,sticky='ew',pady=(0,8))
+        label(tools,'뮤뮤 이름 검색',size=10,color=MUTED,anchor='w').grid(row=0,column=0,sticky='w',pady=(0,4))
+        self.search_entry.grid(row=1,column=0,sticky='ew',pady=(0,8))
         self.filter_menu=GameTabs(tools,['전체','실행 대상','확인 필요'],variable=self.roster_filter,width=252,height=30,command=lambda _:self.render_roster(force=True))
-        self.filter_menu.grid(row=1,column=0,sticky='ew')
+        self.filter_menu.grid(row=2,column=0,sticky='ew')
         self.roster_query.trace_add('write',lambda *_:self.render_roster(force=True))
         self.roster_body=ctk.CTkScrollableFrame(roster,fg_color='transparent',corner_radius=0,scrollbar_button_color=LINE)
         self.roster_body.grid(row=2,column=0,sticky='nsew',padx=7,pady=(0,8));self.roster_body.grid_columnconfigure(0,weight=1)
@@ -198,6 +199,9 @@ class Dashboard:
 
     def sync_run_actions(self,busy=None):
         if busy is None:busy=self.busy()
+        signature=(busy,self.compact_layout,self.footer._get_widget_scaling())
+        if signature==getattr(self,'_actions_signature',None):return
+        self._actions_signature=signature
         for widget in (self.once_button,self.start_button,self.pause_button,self.stop_button):widget.grid_forget()
         first,second=(self.pause_button,self.stop_button) if busy else (self.once_button,self.start_button)
         compact=self.compact_layout

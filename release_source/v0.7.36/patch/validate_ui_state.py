@@ -1,5 +1,5 @@
 import unittest
-from ui_state import player_summary,visible_players,task_summary,remaining_text,validate_profile,selected_tasks,task_display_order
+from ui_state import player_summary,visible_players,task_summary,remaining_text,validate_profile,selected_tasks,task_display_order,short_time
 
 
 class UIStateTests(unittest.TestCase):
@@ -44,6 +44,10 @@ class UIStateTests(unittest.TestCase):
         entries={'daily_pass':{'result':'already_complete'},'daily_dungeon':{'result':'no_entries'},'daily_guild':{'result':'already_claimed'}}
         self.assertEqual(task_display_order(p,entries)[0],'farm')
         self.assertEqual(task_display_order({'selected':{}},entries),[])
+    def test_display_timestamps_use_the_same_kst_clock(self):
+        self.assertEqual(short_time('2026-09-20T08:20:00+00:00'),short_time('2026-09-20T17:20:00+09:00'))
+        self.assertEqual(short_time('2026-09-21T16:01:00+00:00'),'09/22 01:01')
+        self.assertEqual(short_time(None),'기록 없음')
     def test_empty_selection_cannot_be_enabled(self):
         with self.assertRaises(ValueError):validate_profile({'enabled':True,'minutes':60,'selected':{},'restore_sleep':True})
     def test_invalid_intervals_rejected(self):

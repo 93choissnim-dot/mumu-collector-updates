@@ -1,5 +1,5 @@
 """Read-only UI summaries. Displayed success always comes from recorded results."""
-from datetime import datetime
+from datetime import datetime,timedelta,timezone
 from task_catalog import TASK_LABELS
 from vision import LABELS
 from history import RESULTS,ISSUES
@@ -43,7 +43,9 @@ def remaining_text(due, now):
 
 def short_time(value):
     try:
-        return datetime.fromisoformat(value).strftime('%m/%d %H:%M')
+        stamp=datetime.fromisoformat(value)
+        if stamp.tzinfo is not None:stamp=stamp.astimezone(timezone(timedelta(hours=9)))
+        return stamp.strftime('%m/%d %H:%M')
     except (ValueError, TypeError):
         return '기록 없음'
 

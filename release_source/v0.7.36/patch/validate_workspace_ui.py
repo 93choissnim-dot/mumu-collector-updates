@@ -175,9 +175,9 @@ def check(app,output):
     saved=copy.deepcopy(app.players)
     # Single-player selection works even when an old roster filter hides the row.
     app.roster_query.set('no matching player');root.update();assert not app.roster_rows
-    app.detail_enabled.invoke();root.update()
+    app.detail_enabled.toggle();root.update()
     assert not app.players['preview-0']['enabled'] and app.start_button.cget('state')=='disabled'
-    app.detail_enabled.invoke();root.update();assert app.players==saved
+    app.detail_enabled.toggle();root.update();assert app.players==saved
     app.roster_query.set('');root.update()
     app.toggle_disabled_tasks();root.update()
     assert app.detail_task_rows['daily_pass'].winfo_ismapped() and app.players==saved

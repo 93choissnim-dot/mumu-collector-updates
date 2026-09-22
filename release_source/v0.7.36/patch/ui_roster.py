@@ -175,7 +175,7 @@ class RosterUI:
         update(self.detail_checked,text='최근 확인  '+short_time(max(stamps)) if stamps else '아직 확인한 작업 기록이 없습니다.')
         if hasattr(self,'detail_stats'):
             stats=self.history.stats(ident,alternate=p.get('serial','')) if p else None
-            update(self.detail_stats,text=f"최근 확인 결과 · 오늘 완료 {stats['today']}건 / 최근 성공 {short_time(stats['last_success'])}" if stats else '')
+            update(self.detail_stats,text=f"최근 확인 결과 (KST) · 오늘 완료 {stats['today']}건 / 최근 성공 {short_time(stats['last_success'])}" if stats else '')
             update(self.history_button,state='normal' if p else 'disabled')
         report=next((r for r in self.device_reports.values() if r.get('instance_id')==ident),{}) if ident else {}
         stamp=report.get('captured_at') if report.get('image') is not None else None
