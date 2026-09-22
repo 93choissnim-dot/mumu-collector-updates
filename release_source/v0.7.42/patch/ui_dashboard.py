@@ -250,7 +250,7 @@ class Dashboard:
         selected=set(selected_tasks(p)) if p else set()
         entries=dict(self.history_entries(self.view_id))
         for task in self.fleet_states.get(self.view_id,{}).get('rooms',[]):
-            if task in DAILY_LABELS:entries.setdefault(task,{})
+            if task in DAILY_LABELS and not entries.get(task):entries[task]={'active':True}
         visible=task_display_order(p,entries,self.show_disabled_tasks) if p else []
         # Keep positions stable while collection is actively updating the results.
         collecting=self.busy() and self.fleet_states.get(self.view_id,{}).get('status') in {'수령 중','재시도 중'}

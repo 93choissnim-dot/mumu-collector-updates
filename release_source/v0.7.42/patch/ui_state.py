@@ -20,7 +20,7 @@ def retry_tasks(player,entries,requested=None):
 
 def task_display_order(player,entries,show_disabled=False):
     """Prioritize unresolved records without changing selection or execution order."""
-    selected=set(selected_tasks(player)) | (set(entries) & set(DAILY_LABELS))
+    selected=set(selected_tasks(player)) | {task for task in DAILY_LABELS if entries.get(task)}
     def priority(task):
         if task not in selected:return 3
         result=entries.get(task,{}).get('result')

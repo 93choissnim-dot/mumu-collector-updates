@@ -44,6 +44,12 @@ class UIStateTests(unittest.TestCase):
         entries={'daily_pass':{'result':'already_complete'},'daily_dungeons':{'result':'no_entries'},'daily_guild':{'result':'already_claimed'}}
         self.assertEqual(task_display_order(p,entries),['farm','daily_pass','daily_dungeons','daily_guild'])
         self.assertEqual(task_display_order({'selected':{}},entries),list(entries))
+    def test_empty_history_slots_do_not_show_unrun_manual_tasks(self):
+        from task_catalog import TASK_LABELS
+        entries={task:{} for task in TASK_LABELS}
+        self.assertEqual(task_display_order(self.player(),entries),['farm'])
+        entries['daily_pass']={'active':True}
+        self.assertEqual(task_display_order(self.player(),entries),['farm','daily_pass'])
     def test_display_timestamps_use_the_same_kst_clock(self):
         self.assertEqual(short_time('2026-09-20T08:20:00+00:00'),short_time('2026-09-20T17:20:00+09:00'))
         self.assertEqual(short_time('2026-09-21T16:01:00+00:00'),'09/22 01:01')
