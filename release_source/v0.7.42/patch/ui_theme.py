@@ -81,6 +81,7 @@ def button(parent,text,command,primary=False,**kwargs):
     options=dict(height=38,corner_radius=3,border_width=1,border_color=GOLD if primary else LINE,border_spacing=9,font=font(13,primary),fg_color=ACCENT if primary else INSET,
                  hover_color=ACCENT_HOVER if primary else HOVER,text_color=CREAM if primary else TEXT,text_color_disabled='#8A8170')
     options.update(kwargs)
+    if options['fg_color']=='transparent' and 'border_width' not in kwargs:options['border_width']=0
     return GameButton(parent,text=text,command=command,**options)
 
 
