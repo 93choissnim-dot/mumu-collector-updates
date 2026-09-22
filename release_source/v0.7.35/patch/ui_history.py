@@ -66,7 +66,7 @@ class HistoryUI:
             retry.configure(state='normal' if retry_tasks(self.players[ident],entries) and not blocked else 'disabled')
             rows=[(task,entry) for task,entry in entries.items() if mode.get()!='확인 필요' or entry.get('result') in ISSUES]
             if not rows:
-                label(body,'기록된 실패 작업이 없습니다.\n연결 미확인은 리스트에서 뮤뮤 연결을 눌러 확인하세요.',size=12,color=MUTED,wraplength=width-80,justify='left').grid(row=0,column=0,sticky='w',padx=12,pady=30)
+                label(body,'기록된 실패 작업이 없습니다.\n연결 미확인은 수령 현황에서 뮤뮤 연결을 눌러 확인하세요.',size=12,color=MUTED,wraplength=width-80,justify='left').grid(row=0,column=0,sticky='w',padx=12,pady=30)
             for index,(task,entry) in enumerate(rows):
                 card=panel(body);card.grid(row=index,column=0,sticky='ew',padx=3,pady=(0,8));card.grid_columnconfigure(0,weight=1)
                 text,tone=task_summary(task,entry.get('result'))

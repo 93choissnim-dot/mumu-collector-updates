@@ -151,6 +151,15 @@ def check(app,output):
     app.toggle_disabled_tasks();root.update()
     assert not app.detail_task_rows['daily_pass'].winfo_ismapped()
     capture_window(root,output.with_name('review-single.png'))
+    for geometry in ('680x430+0+0','820x520+0+0'):
+        root.geometry(geometry);root.update();app.apply_layout();root.update()
+        if not app.compact_details:app.toggle_compact_details();root.update()
+        for widget in (app.start_button,app.pause_button,app.stop_button,app.inspect_button,app.history_button):
+            assert widget.winfo_ismapped(), ('minimum hidden action',geometry)
+            assert widget.winfo_rootx()+widget.winfo_width()<=root.winfo_rootx()+root.winfo_width()+2, ('minimum right',geometry,widget.cget('text'))
+            assert widget.winfo_rooty()+widget.winfo_height()<=root.winfo_rooty()+root.winfo_height()+2, ('minimum bottom',geometry,widget.cget('text'))
+    app.compact_details=False;root.geometry(f'{width}x{height}+0+0');root.update();app.apply_layout();root.update()
+
     app.players={};app.device_reports={};app.device_options={};app.view_id=None;app.serial_value.set('');app.fleet_states={}
     app.render_roster(force=True);app.clear_preview();root.update()
     assert app.start_button.cget('state')=='disabled'

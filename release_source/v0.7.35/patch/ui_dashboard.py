@@ -18,7 +18,7 @@ class Dashboard:
         self.root.title('창키 도우미 '+VERSION)
         if os.name=='nt':self.root.iconbitmap(str(Path(__file__).parent/'assets/chanki.ico'))
         fit_window(self.root)
-        self.compact_layout=False;self.compact_details=False;self._layout_signature=None;self._layout_after=None
+        self.compact_layout=False;self.compact_details=False;self.short_layout=False;self._layout_signature=None;self._layout_after=None
         self.root.configure(fg_color=BG)
         self.root.grid_columnconfigure(1,weight=1);self.root.grid_rowconfigure(1,weight=1)
         self.controls=[];self.next_at=None;self.session_count=0;self.log_empty=True
@@ -115,7 +115,7 @@ class Dashboard:
         self.detail_name.grid(row=0,column=0,sticky='w',padx=20,pady=(16,0))
         self.connection_badge=label(detail,textvariable=self.connection_text,size=11,color=MUTED,anchor='w',height=18)
         self.connection_badge.grid(row=1,column=0,sticky='w',padx=21,pady=(1,12))
-        summary=ctk.CTkFrame(detail,fg_color=INSET,corner_radius=8)
+        summary=ctk.CTkFrame(detail,fg_color=INSET,corner_radius=8);self.detail_summary_panel=summary
         summary.grid(row=2,column=0,sticky='ew',padx=18,pady=(0,14))
         summary.grid_columnconfigure((0,1,2),weight=1,uniform='detail-summary')
         self.detail_summary=[]
@@ -151,7 +151,7 @@ class Dashboard:
         self.detail_checked.grid(row=5,column=0,sticky='w',padx=20,pady=(8,0))
         self.detail_stats=label(detail,'',size=11,color=MUTED,height=18,anchor='w',wraplength=340)
         self.detail_stats.grid(row=6,column=0,sticky='w',padx=20,pady=(2,0))
-        actions=ctk.CTkFrame(detail,fg_color='transparent');actions.grid(row=7,column=0,sticky='ew',padx=18,pady=(10,16));actions.grid_columnconfigure(1,weight=1)
+        actions=ctk.CTkFrame(detail,fg_color='transparent');self.detail_actions=actions;actions.grid(row=7,column=0,sticky='ew',padx=18,pady=(10,16));actions.grid_columnconfigure(1,weight=1)
         self.history_button=button(actions,'수령 기록',self.history_dialog,width=80,height=32,font=font(11));self.history_button.grid(row=0,column=0,sticky='w')
         self.disabled_tasks_button=button(actions,'',self.toggle_disabled_tasks,width=110,height=32,font=font(10),fg_color='transparent',text_color=MUTED)
         self.disabled_tasks_button.grid(row=0,column=1,padx=4,sticky='w')
@@ -199,10 +199,10 @@ class Dashboard:
         self._layout_after=None
         if self.closing or self.root.winfo_width()<100:return
         scale=self.root._get_window_scaling();width=self.root.winfo_width()/scale;height=self.root.winfo_height()/scale
-        compact=width<960;short=height<620
-        signature=(compact,short,self.compact_details)
+        compact=width<960;short=height<620;micro=height<520
+        signature=(compact,short,micro,self.compact_details)
         if signature==self._layout_signature:return
-        self._layout_signature=signature;self.compact_layout=compact
+        self._layout_signature=signature;self.compact_layout=compact;self.short_layout=short
         self.sidebar.configure(width=132 if compact else 162)
         for nav in self.nav_buttons:nav.configure(width=108 if compact else 138)
         if compact:
@@ -230,6 +230,24 @@ class Dashboard:
             for col,control in enumerate([self.once_button,self.start_button,self.pause_button,self.stop_button],1):
                 control.grid(row=0,column=col,rowspan=2)
         if short:
+            self.detail_summary_panel.grid_remove();self.detail_stats.grid_remove()
+            self.detail_checked.grid_remove();self.preview_stamp.grid_remove()
+        else:
+            self.detail_summary_panel.grid();self.detail_stats.grid()
+            if self.detail_tabs.get()=='수령 결과':self.detail_checked.grid()
+            else:self.preview_stamp.grid()
+        self.main_panel.grid_configure(pady=(6,6) if micro else (18,14))
+        if micro:
+            self.connection_badge.grid_remove()
+            self.detail_name.grid_configure(pady=(5,0))
+            self.detail_tabs.grid_configure(pady=(0,4))
+            self.detail_actions.grid_configure(pady=(4,6))
+        else:
+            self.connection_badge.grid()
+            self.detail_name.grid_configure(pady=(16,0))
+            self.detail_tabs.grid_configure(pady=(0,10))
+            self.detail_actions.grid_configure(pady=(10,16))
+        if short:
             self.metrics_panel.grid_remove();self.header_note.grid_remove();self.side_note.grid_remove();self.side_brand.grid_remove()
             self.list_button.grid_configure(pady=(10,3));self.fleet_button.grid_configure(pady=2)
         else:
@@ -248,6 +266,7 @@ class Dashboard:
         else:
             self.preview_frame.grid_remove();self.preview_stamp.grid_remove()
             self.detail_tasks.grid();self.detail_checked.grid();self.disabled_tasks_button.grid();self.layout_task_cards()
+        if self.short_layout:self.detail_checked.grid_remove();self.preview_stamp.grid_remove()
 
     def toggle_disabled_tasks(self):
         self.show_disabled_tasks=not self.show_disabled_tasks
@@ -317,6 +336,6 @@ class Dashboard:
     def guide_dialog(self):
         win=ctk.CTkToplevel(self.root);win.title('사용 가이드');win.geometry('550x450');win.configure(fg_color=BG);win.transient(self.root)
         label(win,'연결하고, 정하고, 실행하세요.',size=22,bold=True).pack(anchor='w',padx=25,pady=(24,17))
-        for title,text in [('01  뮤뮤 연결','게임을 실행하고 뮤뮤 연결을 누릅니다. 목록의 이름을 누르면 해당 화면과 기록을 볼 수 있습니다.'),('02  뮤뮤별 세팅','각 뮤뮤의 설정에서 수령할 작업과 간격을 선택합니다. 수련은 재료를 사용하는 작업입니다.'),('03  실행과 제어','체크된 뮤뮤만 순서대로 실행합니다. 한 번 수령은 한 차례, 자동 수령은 설정한 간격으로 반복합니다.'),('04  중지와 일시중지','일시중지 후 재시작하면 이어서 진행합니다. 중지는 실행을 종료합니다. 중지 키는 세팅 설정에서 바꿉니다.')]:
+        for title,text in [('01  뮤뮤 연결','게임을 실행하고 뮤뮤 연결을 누릅니다. 목록의 이름을 누르면 해당 화면과 기록을 볼 수 있습니다.'),('02  뮤뮤별 작업 설정','각 뮤뮤의 설정에서 수령할 작업과 간격을 선택합니다. 수련은 재료를 사용하는 작업입니다.'),('03  실행과 제어','체크된 뮤뮤만 순서대로 실행합니다. 한 번 수령은 한 차례, 자동 수령은 설정한 간격으로 반복합니다.'),('04  중지와 일시중지','일시중지 후 재시작하면 이어서 진행합니다. 중지는 실행을 종료합니다. 중지 키는 작업 설정에서 바꿉니다.')]:
             label(win,title,size=13,bold=True).pack(anchor='w',padx=25,pady=(9,3))
             label(win,text,size=11,color=MUTED,wraplength=490,justify='left').pack(anchor='w',padx=25)

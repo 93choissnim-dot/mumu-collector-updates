@@ -52,8 +52,8 @@ class FleetUI:
 
     def update_fleet_summary(self):
         count=sum(bool(p.get('enabled')) for p in self.players.values())
-        self.fleet_button.configure(text='세팅 설정')
-        self.fleet_summary.set(f'{count}개 뮤뮤 순차 수령 / 시설 선택은 세팅 설정에서 변경')
+        self.fleet_button.configure(text='작업 설정')
+        self.fleet_summary.set(f'{count}개 뮤뮤 순차 수령 / 시설 선택은 작업 설정에서 변경')
         self.render_roster(force=True)
 
     def history_key(self,serial=None):

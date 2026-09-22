@@ -156,7 +156,7 @@ class PlayerSettings:
             self.app.players=previous;self.error.configure(text='저장하지 못했습니다: '+str(exc));return False
         self.app.update_fleet_summary()
         if self.active:self.app.select_player(self.active)
-        self.app.status.set('뮤뮤별 세팅을 저장했습니다.')
+        self.app.status.set('뮤뮤별 작업 설정을 저장했습니다.')
         self.window.destroy();return True
 
     def bulk_dialog(self):
@@ -181,7 +181,7 @@ class PlayerSettings:
             value=tk.BooleanVar(value=False);values[ident]=value
             ctk.CTkCheckBox(targets,text=p.get('name','뮤뮤'),variable=value,font=font(12)).pack(anchor='w',padx=10,pady=9)
         footer=ctk.CTkFrame(win,fg_color='transparent');footer.grid(row=4,column=0,sticky='ew',padx=20,pady=14);footer.grid_columnconfigure(0,weight=1)
-        error=label(footer,'복사 후 세팅 설정에서 저장을 눌러 주세요.',size=10,color=MUTED,wraplength=width-45,justify='left');error.grid(row=0,column=0,columnspan=3,sticky='w',pady=(0,10))
+        error=label(footer,'복사 후 작업 설정에서 저장을 눌러 주세요.',size=10,color=MUTED,wraplength=width-45,justify='left');error.grid(row=0,column=0,columnspan=3,sticky='w',pady=(0,10))
         def apply():
             if self.app.busy():error.configure(text='수령을 중지한 뒤 적용해 주세요.',text_color=RED);return
             try:count=copy_settings(self.draft,source,[key for key,v in values.items() if v.get()],[key for key,v in choices.items() if v.get()])

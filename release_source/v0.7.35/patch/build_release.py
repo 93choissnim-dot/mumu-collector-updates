@@ -37,7 +37,7 @@ def build(source, output, download_url="", manifest_url="", include_fixtures=Tru
         https_url(download_url)
         feed = {"app_id": APP_ID, "protocol": 1, "version": VERSION, "url": download_url,
                 "sha256": checksum, "size": path.stat().st_size,
-                "notes": "종료창 취소 인식 보정, 장비창·시설 복귀 중 화면 전환 재확인, 확인된 시설은 뒤로가기 버튼으로 복귀"}
+                "notes": "수령 현황 UI 개편: 뮤뮤 카드, 넓어진 작업 결과, 현재 상태·다음 수령·수령 간격 표시, 미사용 작업 접기"}
         (output/"latest.json").write_text(json.dumps(feed,ensure_ascii=False,indent=2),encoding="utf-8")
     return path, checksum
 

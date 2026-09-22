@@ -42,12 +42,6 @@ jobs:
         run: |
           python -c "import threading,json; import updater,exe_updater; s=threading.Event(); e=exe_updater.check_feed(exe_updater.CHANNEL,'0.0.0',s); c=updater.check_feed(json.load(open('update_channel.json'))['manifest_url'],'0.0.0',s); assert e['version']==c['version']=='0.7.34'; print('Existing EXE and source update channels respond: v'+e['version'])"
           if ($LASTEXITCODE -ne 0) { throw 'Live update service is unavailable' }
-      - name: Validate recognition and collection
-        shell: pwsh
-        working-directory: source/MumuCollector_v0.7.35
-        run: |
-          python -m unittest -q validate_names validate_mumu_ports validate_fleet validate_operations validate_extra validate_collection validate_overlays validate_entry validate_menu_color validate_world_boss validate_photometric validate_ranking_native validate_adb validate_run_controls validate_ui_state validate_improvements validate_start_navigation validate_daily validate_daily_execution validate_autumn validate_safety validate_efficiency validate_update_network validate_daily_dialogs validate_daily_transitions validate_audit validate_updates validate_startup validate_navigation_recovery
-          if ($LASTEXITCODE -ne 0) { throw 'Recognition or collection validation failed' }
       - name: Validate desktop layout before packaging
         shell: pwsh
         working-directory: source/MumuCollector_v0.7.35
@@ -55,6 +49,12 @@ jobs:
           $env:LOCALAPPDATA = Join-Path $env:RUNNER_TEMP 'chanki-v0735-source-ui'
           python -c "from frozen_entry import health_check; health_check('exe_release/source-health.json')"
           if ($LASTEXITCODE -ne 0) { throw 'Desktop UI validation failed' }
+      - name: Validate recognition and collection
+        shell: pwsh
+        working-directory: source/MumuCollector_v0.7.35
+        run: |
+          python -m unittest -q validate_names validate_mumu_ports validate_fleet validate_operations validate_extra validate_collection validate_overlays validate_entry validate_menu_color validate_world_boss validate_photometric validate_ranking_native validate_adb validate_run_controls validate_ui_state validate_improvements validate_start_navigation validate_daily validate_daily_execution validate_autumn validate_safety validate_efficiency validate_update_network validate_daily_dialogs validate_daily_transitions validate_audit validate_updates validate_startup validate_navigation_recovery
+          if ($LASTEXITCODE -ne 0) { throw 'Recognition or collection validation failed' }
       - name: Build and validate standalone Windows EXE
         shell: pwsh
         run: |

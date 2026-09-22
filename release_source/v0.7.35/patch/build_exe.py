@@ -39,7 +39,7 @@ def build():
         z.write(exe,NAME+'.exe');z.writestr('release.json',json.dumps(meta,ensure_ascii=False))
     feed={'app_id':'ChankiHelperExe','protocol':1,'version':VERSION,
         'url':'https://github.com/93choissnim-dot/mumu-collector-updates/releases/download/v'+VERSION+'/'+archive.name,
-        'sha256':sha(archive),'size':archive.stat().st_size,'notes':'종료창 취소 인식 보정, 장비창·시설 복귀 중 화면 전환 재확인, 확인된 시설은 뒤로가기 버튼으로 복귀'}
+        'sha256':sha(archive),'size':archive.stat().st_size,'notes':'수령 현황 UI 개편: 뮤뮤 카드, 넓어진 작업 결과, 현재 상태·다음 수령·수령 간격 표시, 미사용 작업 접기'}
     (OUT/'latest-exe.json').write_text(json.dumps(feed,ensure_ascii=False,indent=2),encoding='utf-8')
     (OUT/'checksums.txt').write_text(sha(exe)+'  ChankiHelper.exe\n'+sha(archive)+'  '+archive.name+'\n',encoding='ascii')
     run([sys.executable,str(BASE/'validate_exe_windows.py'),str(exe),str(archive)],cwd=BASE)
