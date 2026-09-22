@@ -186,7 +186,7 @@ def check(app,output):
     assert app.detail_panel.winfo_width()>=app.workspace_body.winfo_width()-2
     assert app.detail_summary[2].cget('text')=='3시간'
     assert app.detail_task_rows['farm'].winfo_ismapped()
-    assert not app.detail_task_rows['daily_pass'].winfo_ismapped()
+    assert (bool(app.detail_task_rows['daily_pass'].winfo_ismapped()) == bool(app.history_entries('preview-0').get('daily_pass')))
     saved=copy.deepcopy(app.players)
     # Single-player selection works even when an old roster filter hides the row.
     app.roster_query.set('no matching player');root.update();assert not app.roster_rows
@@ -195,9 +195,9 @@ def check(app,output):
     app.detail_enabled.toggle();root.update();assert app.players==saved
     app.roster_query.set('');root.update()
     app.toggle_disabled_tasks();root.update()
-    assert not app.detail_task_rows['daily_pass'].winfo_ismapped() and app.players==saved
+    assert (bool(app.detail_task_rows['daily_pass'].winfo_ismapped()) == bool(app.history_entries('preview-0').get('daily_pass'))) and app.players==saved
     app.toggle_disabled_tasks();root.update()
-    assert not app.detail_task_rows['daily_pass'].winfo_ismapped()
+    assert (bool(app.detail_task_rows['daily_pass'].winfo_ismapped()) == bool(app.history_entries('preview-0').get('daily_pass')))
     # PrintWindow captures the full client area for the regular 820px layout,
     # even when the CI monitor itself is shorter. Monitor-fitting is tested above.
     root.geometry('1220x820+0+0');root.update();app.apply_layout();root.update()
@@ -210,7 +210,7 @@ def check(app,output):
         ctk.set_widget_scaling(scale);ctk.set_window_scaling(scale)
         fit_window(root);root.update();app.apply_layout();root.update()
         assert not app.roster_panel.winfo_ismapped() and not app.fleet_bar.winfo_ismapped()
-        assert not app.detail_task_rows['daily_pass'].winfo_ismapped()
+        assert (bool(app.detail_task_rows['daily_pass'].winfo_ismapped()) == bool(app.history_entries('preview-0').get('daily_pass')))
         assert not app.pause_button.winfo_ismapped() and not app.stop_button.winfo_ismapped()
     ctk.set_widget_scaling(1);ctk.set_window_scaling(1)
     for geometry in ('680x430+0+0','820x520+0+0'):
