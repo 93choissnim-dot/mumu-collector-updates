@@ -319,6 +319,8 @@ class Dashboard:
         self.preview_label.configure(text='',image=self.thumbnail)
 
     def toggle_logs(self):
+        if self.compact_layout and not self.compact_details:
+            self.compact_details=True;self.apply_layout()
         self.show_detail_tab('수령 결과' if self.logs_open else '실행 기록')
 
     def copy_logs(self):
