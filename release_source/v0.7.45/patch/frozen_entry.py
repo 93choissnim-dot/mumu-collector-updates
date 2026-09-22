@@ -94,7 +94,21 @@ def health_check(output,full_ui=True):
     if not full_ui:root.withdraw()
     trace=output.with_suffix('.threads.log').open('w',encoding='utf-8')
     faulthandler.enable(file=trace,all_threads=True)
-    faulthandler.dump_traceback_later(25,repeat=True,file=trace)
+    # CPython's native watchdog walks live frames without the GIL (gh-116008,
+    # gh-140815). On 3.12 it can itself crash halfway through a timed dump.
+    # Keep fatal-signal diagnostics, but sample progress with owned Python
+    # frame references under the GIL. All UI assertions still run unchanged.
+    import threading
+    trace_stop=threading.Event()
+    def sample_threads():
+        while not trace_stop.wait(25):
+            print('Health check thread snapshot',file=trace)
+            for ident,stack in sys._current_frames().items():
+                print('Thread '+str(ident),file=trace)
+                traceback.print_stack(stack,file=trace)
+            trace.flush()
+    trace_worker=threading.Thread(target=sample_threads,name='health-trace',daemon=True)
+    trace_worker.start()
     app=None
     try:
         checkpoint('startup_ui')
@@ -152,7 +166,8 @@ def health_check(output,full_ui=True):
             if getattr(app,'tray',None) is not None:app.tray.close()
             if getattr(app,'hotkey_listener',None) is not None:app.hotkey_listener.close()
         root.destroy()
-        faulthandler.cancel_dump_traceback_later();faulthandler.disable();trace.close()
+        trace_stop.set();trace_worker.join()
+        faulthandler.disable();trace.close()
     checkpoint('complete')
     output.write_text(json.dumps({'ok':True,'version':VERSION,'frozen':bool(getattr(sys,'frozen',False)),
         'ui':True,'startup_ui':True,'full_ui_checks':full_ui,'fleet_ui':full_ui,'run_controls_ui':full_ui,
