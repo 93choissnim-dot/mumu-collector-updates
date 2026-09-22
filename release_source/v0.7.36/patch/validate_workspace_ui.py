@@ -210,6 +210,8 @@ def check(app,output):
     app.players={};app.device_reports={};app.device_options={};app.view_id=None;app.serial_value.set('');app.fleet_states={}
     app.render_roster(force=True);app.clear_preview();root.update()
     assert app.start_button.cget('state')=='disabled'
+    assert app.connection_text.get()=='연결된 뮤뮤 없음'
+    assert app.run_target.cget('text')=='뮤뮤를 연결해 주세요.'
     assert app.empty_panel.winfo_ismapped() and not app.detail_panel.winfo_ismapped()
     assert not app.roster_panel.winfo_ismapped() and not app.fleet_bar.winfo_ismapped()
     capture_window(root,output.with_name('review-empty.png'))

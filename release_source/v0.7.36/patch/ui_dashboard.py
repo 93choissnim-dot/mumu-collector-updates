@@ -138,8 +138,10 @@ class Dashboard:
         self.disabled_tasks_button.grid(row=0,column=1,sticky='w',padx=8)
         self.inspect_button=button(actions,'화면 확인',self.inspect_selected,width=90,height=34,font=font(12));self.inspect_button.grid(row=0,column=2);self.controls.append(self.inspect_button)
         self.empty_panel=panel(body)
-        label(self.empty_panel,'뮤뮤를 연결하면 바로 시작할 수 있어요.',size=23,bold=True,wraplength=500).pack(expand=True,padx=30,pady=(30,4))
-        label(self.empty_panel,'게임을 실행한 뒤 위의 뮤뮤 연결을 눌러 주세요.\n설정과 수령 기록은 뮤뮤별로 유지됩니다.',size=13,color=MUTED,justify='center').pack(padx=30,pady=(0,35))
+        empty_message=ctk.CTkFrame(self.empty_panel,fg_color='transparent')
+        empty_message.place(relx=.5,rely=.5,anchor='center')
+        label(empty_message,'뮤뮤를 연결하면 바로 시작할 수 있어요.',size=23,bold=True,wraplength=500).pack(padx=24,pady=(0,12))
+        label(empty_message,'게임을 실행한 뒤 위의 뮤뮤 연결을 눌러 주세요.\n설정과 수령 기록은 뮤뮤별로 유지됩니다.',size=13,color=MUTED,justify='center').pack(padx=24)
 
         footer_outer=panel(self.root,fg_color=PANEL,corner_radius=0);footer_outer.grid(row=2,column=0,sticky='ew')
         footer=ctk.CTkFrame(footer_outer,fg_color='transparent');self.footer=footer

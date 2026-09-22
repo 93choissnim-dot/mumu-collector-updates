@@ -113,6 +113,7 @@ class RosterUI:
         for widget in [self.once_button,self.start_button]:update(widget,state='normal' if available and not blocked else 'disabled')
         update(self.inspect_button,state='normal' if self.chosen_serial() and not busy else 'disabled')
         hint=f'{enabled}개 뮤뮤 순차 실행' if enabled else '체크하여 실행 대상을 선택하세요.'
+        if not self.players:hint='뮤뮤를 연결해 주세요.'
         if enabled and not available:hint='선택한 뮤뮤를 먼저 연결해 주세요.'
         if busy and self.pause_allowed:hint='일시중지 중' if self.stop.paused else ('자동 수령 중' if self.run_mode=='repeat' else '한 번 수령 중')
         update(self.run_target,text=hint)
@@ -149,6 +150,9 @@ class RosterUI:
         width=self.root.winfo_width()/self.root._get_window_scaling()
         limit=max(6,min(22,int((width-410)/24)))
         update(self.detail_name,text=short(p.get('name','뮤뮤'),limit) if p else '뮤뮤를 연결하세요')
+        if not p:
+            self.connection_text.set('연결된 뮤뮤 없음' if not self.players else '목록에서 뮤뮤를 선택하세요.')
+            update(self.connection_badge,text_color=MUTED)
         self.detail_enabled_value.set(bool(p and p.get('enabled')))
         update(self.detail_enabled,state='normal' if p and not self.busy() else 'disabled')
         state=(summaries if summaries is not None else self.summaries()).get(ident)
