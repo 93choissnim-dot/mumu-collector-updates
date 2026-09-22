@@ -74,10 +74,12 @@ class FleetUI:
 
     def render_fleet_status(self):
         self.render_roster()
-        if self.fleet_window is not None and self.fleet_window.winfo_exists():
+        editor=getattr(self,'settings_editor',None)
+        if (self.fleet_window is not None and self.fleet_window.winfo_exists()
+                and editor is not None and editor.window is self.fleet_window
+                and getattr(editor,'ready',False)):
             running=self.busy()
-            if getattr(self.settings_editor,'last_running',None)!=running:
-                self.settings_editor.set_running(running);self.settings_editor.last_running=running
+            if editor.last_running!=running:editor.set_running(running)
 
     @staticmethod
     def task_result(task,result):

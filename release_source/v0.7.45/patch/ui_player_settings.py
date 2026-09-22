@@ -25,6 +25,7 @@ INTERVAL_PRESETS = {'1시간': '60', '2시간': '120', '3시간': '180'}
 class PlayerSettings:
     def __init__(self,app,initial=None):
         self.app=app;self.active=None;self.controls=[];self.profile_buttons={}
+        self.ready=False;self.last_running=None;self._updating_state=False
         self.draft={key:{'enabled':bool(p.get('enabled')),'minutes':format(p.get('minutes',60),'g') if isinstance(p.get('minutes',60),(int,float)) else str(p.get('minutes',60)),
                     'selected':{task:task in selected_tasks(p) for task in TASK_LABELS},
                     'restore_sleep':True,'daily_profile':p.get('daily_profile','')} for key,p in app.players.items()}
@@ -67,6 +68,7 @@ class PlayerSettings:
             label(self.body,'아직 연결한 뮤뮤가 없습니다.',size=17,bold=True).pack(pady=(65,10))
             label(self.body,'게임 실행 후 수령 현황에서 뮤뮤 연결을 눌러 주세요.\n중지 키는 위에서 변경할 수 있습니다.',size=12,color=MUTED,justify='center').pack(padx=15)
         self.set_running(app.busy())
+        self.ready=True
 
     def capture(self):
         if self.active is None:return
@@ -75,6 +77,7 @@ class PlayerSettings:
 
     def select(self,ident):
         if ident not in self.draft:return
+        self.ready=False
         self.capture();self.active=ident;p=self.draft[ident]
         for child in self.body.winfo_children():child.destroy()
         self.body._parent_canvas.yview_moveto(0)
@@ -117,7 +120,8 @@ class PlayerSettings:
         self.account_entry=ctk.CTkEntry(identity,textvariable=self.daily_profile,height=32,font=font(12))
         self.account_entry.grid(row=1,column=0,sticky='ew',padx=12);self.controls.append(self.account_entry)
         label(identity,'같은 뮤뮤에서 계정을 바꿀 때 함께 변경해 주세요.\n구분별로 작업 확인 기록을 보관합니다. 비우면 기존 기록을 사용합니다.',size=10,color=MUTED,wraplength=330,justify='left').grid(row=2,column=0,sticky='w',padx=12,pady=(6,10))
-        self.set_running(self.app.busy())
+        self.last_running=None
+        self.set_running(self.app.busy());self.ready=True
 
     def choose_interval(self,value):
         if not self.app.busy() and value in INTERVAL_PRESETS:
@@ -135,10 +139,19 @@ class PlayerSettings:
         self.error.configure(text='일반 작업을 전체 해제했습니다. 일일 퀘스트는 별도로 실행할 수 있습니다.' if not selected and self.enabled.get() else '')
 
     def set_running(self,running):
-        for control in self.controls:control.configure(state='disabled' if running else 'normal')
-        self.save_button.configure(state='disabled' if running or not self.draft else 'normal')
-        self.copy_button.configure(state='disabled' if running or len(self.draft)<2 else 'normal')
-        self.note.configure(text='실행 중에는 설정을 확인할 수 있습니다. 중지 후 변경해 주세요.' if running else '변경한 설정은 저장을 눌러야 적용됩니다.')
+        if (self._updating_state or not self.window.winfo_exists()
+                or self.last_running==bool(running)):return
+        # CTk redraws service idle events. Record the transition first so a
+        # nested poll cannot reconfigure the same native menu during its draw.
+        self._updating_state=True;self.last_running=bool(running)
+        try:
+            for control in self.controls:control.configure(state='disabled' if running else 'normal')
+            self.save_button.configure(state='disabled' if running or not self.draft else 'normal')
+            self.copy_button.configure(state='disabled' if running or len(self.draft)<2 else 'normal')
+            self.note.configure(text='실행 중에는 설정을 확인할 수 있습니다. 중지 후 변경해 주세요.' if running else '변경한 설정은 저장을 눌러야 적용됩니다.')
+        except Exception:
+            self.last_running=None;raise
+        finally:self._updating_state=False
 
     def apply(self):
         if self.app.busy():self.set_running(True);return False

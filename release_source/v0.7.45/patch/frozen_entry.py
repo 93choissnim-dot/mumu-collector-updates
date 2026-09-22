@@ -68,8 +68,9 @@ def health_check(output,full_ui=True):
     from validate_daily_execution import BoundaryTests,EvidenceTests,DailyExecutionTests
     from validate_pass_purchase import PurchaseTests
     from validate_guild_empty import GuildEmptyTests
+    from validate_settings_lifecycle import SettingsLifecycleTests
     suite=unittest.TestSuite(unittest.defaultTestLoader.loadTestsFromTestCase(case)
-        for case in (GuildEmptyTests,PurchaseTests,NetworkTests,RouteTests,DialogVisionTests,GuildCoinFlowTests,
+        for case in (SettingsLifecycleTests,GuildEmptyTests,PurchaseTests,NetworkTests,RouteTests,DialogVisionTests,GuildCoinFlowTests,
                      BoundaryTests,EvidenceTests,DailyExecutionTests,TransitionTests,NativeControlTests,
                      FacilityRecoveryTests,SweepAndWorkshopTests,UpdateRecoveryTests,ExitGeometryTests,NavigationChangeTests))
     result=unittest.TestResult();suite.run(result)

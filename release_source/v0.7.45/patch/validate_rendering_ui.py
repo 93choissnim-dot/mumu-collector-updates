@@ -14,7 +14,9 @@ def check(app):
     for index,scale in enumerate((1.,1.25,1.5,1.,1.5,1.25)):
         ctk.set_widget_scaling(scale);ctk.set_window_scaling(scale)
         fit_window(root);root.update();app.apply_layout();root.update()
+        root.after(0,app.render_fleet_status)
         app.fleet_dialog(ident);root.update();editor=app.settings_editor
+        assert editor.ready and editor.window is app.fleet_window
         editor.window.geometry('720x520' if index%2 else '880x660')
         fit_window(editor.window,(720,600));root.update()
         editor.interval_presets._dropdown_callback('2시간')

@@ -29,8 +29,8 @@
     "extra_collector.py": "0ae740008ff49758dc7301400e0c0f369c9c43b2398c2b9b928d80bd84f07a0f",
     "fleet_collection.py": "0181cfcb527747bacafaed9d85414f53162c6bf3f45c0b5cc93907bb303261b9",
     "fleet_runner.py": "9cf808de72cd39ceee11509c289bcf7f04d228480f35a38e8376e4e8a2377146",
-    "fleet_ui.py": "22d8ffe689c67ee78b1f31d606f86f241e3f13118298ccdee81c8b81f783b310",
-    "frozen_entry.py": "d9d51d8143d591b600f54458a614b8128178fbd9d352e562ff1d8170a611276b",
+    "fleet_ui.py": "594e13cd2b412eeb5201d693dd4c30fbaec31bc1ea2d699b0012e2648426e77f",
+    "frozen_entry.py": "c164562c9bcfffc86417cbddee0a57c51fa133f7a9a9675f67613cfb89a65de9",
     "history.py": "492d86240e717d8a7854af6c299eda48773ee0759c2f56f2f0da950af40e6ebc",
     "input_safety.py": "df29db821d182f14ad14cb85e792692d2f0cb285aa4dd5cd5a9127faf14b145f",
     "profile_edits.py": "73ce37bd8f78c5252173594d63e1c2d0f8e07b9f8c7a5591499a80735e95c23a",
@@ -41,7 +41,7 @@
     "top_bar.py": "a680c8b8262fdcdc882cccada473b8eb8f20a29b27bb5bfac055a66a77976458",
     "ui_dashboard.py": "5a3b9edbed70d9b4e8b870663103bfad880541026d28c166f5d2b2dbba534ccb",
     "ui_history.py": "87cc6125fc81d44f4577259a0da734b46671e53b21475397ea5d12c430b80ab9",
-    "ui_player_settings.py": "aa67208cea7828e74781cc1f5b3a0d9177742c18baadc05d224771dd23195e34",
+    "ui_player_settings.py": "612653000e08844659fb7b0464ed518516c4f1b25e58bc0723d2e56bb8d99ec4",
     "ui_state.py": "38c8e09597934c40e0377e32f34d93ad9d5229acbc9d79920b0f2deb925bd226",
     "ui_theme.py": "6f4a9b35bab828177341cb6b0889b7f6817c2f3f74ba5149a8451468702b1004",
     "validate_autumn.py": "cfffc442eb771ead568cdfd6ed928fb4b8a92821eeeec839daf4ebca07ca7151",
@@ -83,12 +83,13 @@
     "validate_run_controls_ui.py": "59785c059736feff84914217329ee4daf88ae75fbe311c74ce2c832ad1c38761",
     "emit_ui_review.py": "c53677cfe95e68a01dbf53bf9f42ab58178fcacee9832e22d6b9a088ac83f974",
     "validate_ui_state.py": "112c457dad08907e192cbe4bf1f08747ce81c8cb4873d678eff36aed688e5559",
-    "validate_rendering_ui.py": "9d8d9cc284ef095779e67b2d27a07d339bf6cdf0c452d839069f7dea15f250af",
+    "validate_rendering_ui.py": "f4e99d34340a5eba849bbe043e0e69f3ef0892c5b4fbaddd399c3882085cb614",
     "validate_improvements.py": "d2bff354ecb856721d99cd7355b7fe32de2a211b404b16cdbee12a8650915be9",
     "validate_fleet.py": "6125b13dde4cc16f1d550d52244b587c12d34dcd383c2d0e6aab6a2f9ac24915",
     "pass_purchase.py": "679471ab19ed24676ecd9687821402a6664320f8ab0a46b4827c0d0e27428612",
     "validate_pass_purchase.py": "2b1d9f1f51a488a0090cbb3329aafb8648e230f4ce7c71a31029978eea6fbeb1",
     "assets/pass_purchase.png": "47a9459f41858aa3a73d31f15cbbbc1a825f6b888913ae2184ead58945549866",
-    "validate_guild_empty.py": "f665fbfba4b4014b22955f404a52671d355959e25bfd24f45dcbaba68b0e57cd"
+    "validate_guild_empty.py": "f665fbfba4b4014b22955f404a52671d355959e25bfd24f45dcbaba68b0e57cd",
+    "validate_settings_lifecycle.py": "be12ee49ef0836f1913d85b60b8b01cc76c3085faf412a884121ce00d3f4d099"
   }
 }
