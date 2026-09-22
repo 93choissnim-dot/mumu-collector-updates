@@ -16,7 +16,7 @@ class PurchaseTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.vision=Vision()
-        cls.price=cv2.imread(str(Path(__file__).parent/'assets/pass_purchase.png'))[:23,:90]
+        cls.price=cv2.imdecode(np.fromfile(Path(__file__).parent/'assets/pass_purchase.png',np.uint8),cv2.IMREAD_COLOR)[:23,:90]
 
     def page(self,key,amount=True,context=True):
         im=np.full((540,960,3),110,np.uint8)
