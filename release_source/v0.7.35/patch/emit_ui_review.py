@@ -5,7 +5,7 @@ from pathlib import Path
 from PIL import Image
 
 for path in sorted((Path(__file__).parent/'exe_release').glob('review-*.png')):
-    if path.name not in {'review-single.png','review-empty.png','review-list.png','review-settings.png','review-compact.png','review-paused.png','review-scaled.png','review-history.png'}:continue
+    if path.name not in {'review-single.png','review-empty.png','review-list.png','review-settings.png','review-settings-top.png','review-compact.png','review-paused.png','review-scaled.png','review-history.png'}:continue
     with Image.open(path) as im:
         im.thumbnail((1220,820))
         stream=io.BytesIO()

@@ -66,8 +66,10 @@ def check(app,output):
     root.update()
     editor.daily_profile.set('검증 캐릭터');editor.capture()
     assert editor.draft[editor.active]['daily_profile']=='검증 캐릭터'
-    editor.body._parent_canvas.yview_moveto(.65);root.update()
+    capture_window(editor.window,output.with_name('review-settings-top.png'))
     autumn=editor.task_checks['autumn'];viewport=editor.body._parent_canvas
+    target=autumn.winfo_rooty()-editor.body.winfo_rooty()
+    viewport.yview_moveto(max(0,(target-35)/editor.body.winfo_height()));root.update()
     assert viewport.winfo_rooty()<=autumn.winfo_rooty()
     assert autumn.winfo_rooty()+autumn.winfo_height()<=viewport.winfo_rooty()+viewport.winfo_height()
     capture_window(editor.window,output.with_name('review-settings.png'))

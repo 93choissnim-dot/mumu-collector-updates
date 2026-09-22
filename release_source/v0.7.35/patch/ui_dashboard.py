@@ -69,7 +69,7 @@ class Dashboard:
         self.side_brand=label(side,'CHANKI HELPER',size=10,color=GOLD);self.side_brand.grid(row=7,column=0,pady=(14,18))
 
         main=ctk.CTkFrame(self.root,fg_color='transparent');self.main_panel=main
-        main.grid(row=1,column=1,sticky='nsew',padx=20,pady=(18,14))
+        main.grid(row=1,column=1,sticky='nsew',padx=20,pady=(14,10))
         main.grid_columnconfigure(0,weight=1);main.grid_rowconfigure(3,weight=1)
         header=ctk.CTkFrame(main,fg_color='transparent');header.grid(row=0,column=0,sticky='ew',pady=(0,9))
         header.grid_columnconfigure(0,weight=1)
@@ -78,7 +78,7 @@ class Dashboard:
         self.layout_button=button(header,'상세 보기',self.toggle_compact_details,width=85,height=32,font=font(11))
         self.connect_button=button(header,'뮤뮤 연결',self.connect,primary=True,width=112,height=38)
         self.connect_button.grid(row=0,column=2,rowspan=2,sticky='e');self.controls.append(self.connect_button)
-        metrics=panel(main,height=60);self.metrics_panel=metrics;metrics.grid(row=1,column=0,sticky='ew',pady=(0,10));metrics.grid_propagate(False)
+        metrics=panel(main,height=54);self.metrics_panel=metrics;metrics.grid(row=1,column=0,sticky='ew',pady=(0,10));metrics.grid_propagate(False)
         metrics.grid_columnconfigure((0,1,2),weight=1,uniform='metrics');metrics.grid_rowconfigure(0,weight=1)
         self.metric_values=[]
         for i,title in enumerate(['연결된 뮤뮤','실행 대상','확인 필요']):
@@ -121,8 +121,8 @@ class Dashboard:
         self.detail_summary=[]
         for col,title in enumerate(['현재 상태','다음 수령','수령 간격']):
             box=ctk.CTkFrame(summary,fg_color='transparent');box.grid(row=0,column=col,sticky='ew',padx=10,pady=10)
-            label(box,title,size=10,color=MUTED).pack(anchor='w')
-            value=label(box,'—',size=13,bold=True);value.pack(anchor='w',pady=(2,0));self.detail_summary.append(value)
+            label(box,title,size=10,color=MUTED).pack(side='left',padx=(0,7))
+            value=label(box,'—',size=13,bold=True);value.pack(side='left');self.detail_summary.append(value)
         self.detail_tabs=GameTabs(detail,['수령 결과','최근 화면'],width=268,height=32,command=self.show_detail_tab)
         self.detail_tabs.grid(row=3,column=0,sticky='ew',padx=18,pady=(0,10));self.detail_tabs.set('수령 결과')
         self.detail_content=ctk.CTkFrame(detail,fg_color='transparent')
@@ -141,16 +141,16 @@ class Dashboard:
         self.detail_results={};self.detail_task_rows={};self.show_disabled_tasks=False;self._task_layout=None
         for key,title in TASK_LABELS.items():
             row=ctk.CTkFrame(tasks,fg_color=INSET,corner_radius=8);row.grid_columnconfigure(1,weight=1)
-            label(row,'',image=icon(key,color=ACCENT,size=23),width=28,height=34).grid(row=0,column=0,rowspan=2,padx=(10,8),pady=8)
-            label(row,title,size=12,color=TEXT,height=19,anchor='w').grid(row=0,column=1,sticky='w',pady=(7,0),padx=(0,7))
-            result=label(row,'기록 없음',size=11,color=MUTED,height=18,anchor='w')
-            result.grid(row=1,column=1,sticky='w',pady=(0,7),padx=(0,7))
+            label(row,'',image=icon(key,color=ACCENT,size=23),width=28,height=30).grid(row=0,column=0,rowspan=2,padx=(10,8),pady=4)
+            label(row,title,size=12,color=TEXT,height=17,anchor='w').grid(row=0,column=1,sticky='w',pady=(4,0),padx=(0,7))
+            result=label(row,'기록 없음',size=11,color=MUTED,height=17,anchor='w')
+            result.grid(row=1,column=1,sticky='w',pady=(0,4),padx=(0,7))
             self.detail_results[key]=result;self.detail_task_rows[key]=row
         self.detail_content.bind('<Configure>',lambda _:self.layout_task_cards())
         self.detail_checked=label(detail,'설정과 기록은 뮤뮤별로 유지됩니다.',size=10,color=MUTED,height=18)
-        self.detail_checked.grid(row=5,column=0,sticky='w',padx=20,pady=(8,0))
+        # Latest successful collection is shown in detail_stats below.
         self.detail_stats=label(detail,'',size=11,color=MUTED,height=18,anchor='w',wraplength=340)
-        self.detail_stats.grid(row=6,column=0,sticky='w',padx=20,pady=(2,0))
+        self.detail_stats.grid(row=6,column=0,sticky='w',padx=20,pady=(8,0))
         actions=ctk.CTkFrame(detail,fg_color='transparent');self.detail_actions=actions;actions.grid(row=7,column=0,sticky='ew',padx=18,pady=(10,16));actions.grid_columnconfigure(1,weight=1)
         self.history_button=button(actions,'수령 기록',self.history_dialog,width=80,height=32,font=font(11));self.history_button.grid(row=0,column=0,sticky='w')
         self.disabled_tasks_button=button(actions,'',self.toggle_disabled_tasks,width=110,height=32,font=font(10),fg_color='transparent',text_color=MUTED)
@@ -161,7 +161,7 @@ class Dashboard:
 
         logs=panel(main,border_width=0,fg_color=INSET);self.log_panel=logs
         logs.grid(row=4,column=0,sticky='ew',pady=(9,0));logs.grid_columnconfigure(0,weight=1)
-        row=ctk.CTkFrame(logs,fg_color='transparent');row.grid(row=0,column=0,sticky='ew',padx=10,pady=6);row.grid_columnconfigure(1,weight=1)
+        row=ctk.CTkFrame(logs,fg_color='transparent');row.grid(row=0,column=0,sticky='ew',padx=10,pady=4);row.grid_columnconfigure(1,weight=1)
         self.log_toggle=button(row,'실행 기록 펼치기',self.toggle_logs,width=119,height=27,font=font(11),fg_color='transparent')
         self.log_toggle.grid(row=0,column=0,padx=(0,9))
         self.log_summary=label(row,'실행 기록이 여기에 표시됩니다.',size=10,color=MUTED,anchor='w')
@@ -199,7 +199,7 @@ class Dashboard:
         self._layout_after=None
         if self.closing or self.root.winfo_width()<100:return
         scale=self.root._get_window_scaling();width=self.root.winfo_width()/scale;height=self.root.winfo_height()/scale
-        compact=width<960;short=height<620;micro=height<520
+        compact=width<960;short=height<700;micro=height<520
         signature=(compact,short,micro,self.compact_details)
         if signature==self._layout_signature:return
         self._layout_signature=signature;self.compact_layout=compact;self.short_layout=short
@@ -233,10 +233,10 @@ class Dashboard:
             self.detail_summary_panel.grid_remove();self.detail_stats.grid_remove()
             self.detail_checked.grid_remove();self.preview_stamp.grid_remove()
         else:
-            self.detail_summary_panel.grid();self.detail_stats.grid()
-            if self.detail_tabs.get()=='수령 결과':self.detail_checked.grid()
+            self.detail_summary_panel.grid()
+            if self.detail_tabs.get()=='수령 결과':self.detail_stats.grid()
             else:self.preview_stamp.grid()
-        self.main_panel.grid_configure(pady=(6,6) if micro else (18,14))
+        self.main_panel.grid_configure(pady=(6,6) if micro else (14,10))
         if micro:
             self.connection_badge.grid_remove()
             self.detail_name.grid_configure(pady=(5,0))
@@ -262,10 +262,11 @@ class Dashboard:
         self.detail_tabs.set(value)
         if preview:
             self.detail_tasks.grid_remove();self.detail_checked.grid_remove()
-            self.preview_frame.grid();self.preview_stamp.grid();self.disabled_tasks_button.grid_remove();self.render_thumbnail()
+            self.preview_frame.grid();self.preview_stamp.grid();self.detail_stats.grid_remove();self.disabled_tasks_button.grid_remove();self.render_thumbnail()
         else:
             self.preview_frame.grid_remove();self.preview_stamp.grid_remove()
-            self.detail_tasks.grid();self.detail_checked.grid();self.disabled_tasks_button.grid();self.layout_task_cards()
+            self.detail_tasks.grid();self.disabled_tasks_button.grid();self.layout_task_cards()
+            if not self.short_layout:self.detail_stats.grid()
         if self.short_layout:self.detail_checked.grid_remove();self.preview_stamp.grid_remove()
 
     def toggle_disabled_tasks(self):

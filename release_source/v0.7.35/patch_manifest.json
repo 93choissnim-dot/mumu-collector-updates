@@ -39,7 +39,7 @@
     "start_navigation.py": "03f01117201b0b1ae89e15b8af4bfb8cacfbcbb60143e658b5ab1c58b5d79aca",
     "task_catalog.py": "9b4085e74368c2a79a213a4ec16d1dcaafcead68045682cd176802eea4da5521",
     "top_bar.py": "a680c8b8262fdcdc882cccada473b8eb8f20a29b27bb5bfac055a66a77976458",
-    "ui_dashboard.py": "3c91556fec8e767a00819788b7d85da2e52688d504c5d24725726e58cecb6cef",
+    "ui_dashboard.py": "25f55b007c5c34564c001884e0e14b9cb38e4da9ce2e593209870599645e2212",
     "ui_history.py": "7751f0e9b1454f332963bc98d97b17b063de57933633ac31b7b9cdae619bdb4f",
     "ui_player_settings.py": "59c64152ae075965c80794a3c5d72bcda892b2a280522b2bfc604a24328a5675",
     "ui_state.py": "79c384c39f11a14177726db6f8ba4da3e224b5578c04d6cd74df8906450f536e",
@@ -50,7 +50,7 @@
     "validate_daily.py": "3a58cc3d7cf8618651a264bf4d068218ce24b6025c52345c25a0cb9a06c5c37e",
     "validate_daily_execution.py": "180b7b7772f121b773e3fe89271193d07bbe75e6a16c4b416c0a11b66a6ca46f",
     "validate_extra.py": "ec677428cd9bb3f1f3565d345aedfe7bb1fdeaaacc928c0f272efe0ade26d9ff",
-    "validate_improvements_ui.py": "616aa6b42b23d36d62204ca7d01ebca0cb5903f83f5a4cc7fa23287b10464f07",
+    "validate_improvements_ui.py": "107207ff722a33fa2974c7361a34220085aba4f5d0f6a23eb76458b2da67c383",
     "validate_overlays.py": "b35ce23c7f7fb1b3c00ce5a54391e07160bfe6a65508fa319ef2d1f2d00780f4",
     "validate_safety.py": "bb9b7ef18f547d579ca285e2477459dec2eb1734b3c4bfb36d96269972cdc050",
     "validate_start_navigation.py": "ada69a4fc9c46271bb2ef1088e050d0b4ccebc138dae3d6abfe39653839f4fee",
@@ -79,8 +79,8 @@
     "validate_audit.py": "6e9222e17fd971c5b5eda383868bf7072f1bafc71aea10eb3a1b7d12efd0b570",
     "exe_updater.py": "79e1cd33fc41328a9418821f8a8c4de5cc76a72e9bce33626a95f6c6399d331b",
     "validate_navigation_recovery.py": "2dc26138bc4a3ceb40eb48f24cb2912cea844f9f61da49adb92b1df6f8c3433c",
-    "validate_workspace_ui.py": "dc5e4a084742e94a3bfcaf770cb64fe43a36ecc1c803bb6c75549f9b96078f1a",
+    "validate_workspace_ui.py": "1ab368ef7521ebef16577575e18f2e5c5ce517336c35210d4986f0920ccc9513",
     "validate_run_controls_ui.py": "03da50cc67e959573ad175905411889c8406cf1adab4027fa847aef2b522e83c",
-    "emit_ui_review.py": "dabec7249ad503ac6edfc27928985e55ca1ef6f4f50043b4defa8950c3988cf8"
+    "emit_ui_review.py": "c53677cfe95e68a01dbf53bf9f42ab58178fcacee9832e22d6b9a088ac83f974"
   }
 }

@@ -70,7 +70,8 @@ def check(app,output):
         assert widget.winfo_rootx()>=root.winfo_rootx(), widget.cget('text')
         assert widget.winfo_rootx()+widget.winfo_width()<=root.winfo_rootx()+root.winfo_width(), widget.cget('text')
         assert widget.winfo_rooty()+widget.winfo_height()<=root.winfo_rooty()+root.winfo_height(), widget.cget('text')
-    assert app.detail_tasks.winfo_ismapped() and app.detail_tasks._parent_canvas.winfo_height()>80
+    capture_window(root,output.with_name('review-compact.png'))
+    assert app.detail_tasks.winfo_ismapped() and app.detail_tasks._parent_canvas.winfo_height()>80, ('result area',app.detail_tasks._parent_canvas.winfo_height())
     app.show_detail_tab('최근 화면');root.update()
     assert app.preview_frame.winfo_ismapped() and not app.detail_tasks.winfo_ismapped()
     app.show_detail_tab('수령 결과');root.update()
@@ -150,7 +151,14 @@ def check(app,output):
     assert app.detail_task_rows['daily_pass'].winfo_ismapped() and app.players==saved
     app.toggle_disabled_tasks();root.update()
     assert not app.detail_task_rows['daily_pass'].winfo_ismapped()
+    # PrintWindow captures the full client area for the regular 820px layout,
+    # even when the CI monitor itself is shorter. Monitor-fitting is tested above.
+    root.geometry('1220x820+0+0');root.update();app.apply_layout();root.update()
     capture_window(root,output.with_name('review-single.png'))
+    viewport=app.detail_tasks._parent_canvas
+    last=app.detail_task_rows['autumn']
+    assert last.winfo_rooty()+last.winfo_height()<=viewport.winfo_rooty()+viewport.winfo_height()+2, 'Enabled tasks clipped in regular workspace'
+
     for geometry in ('680x430+0+0','820x520+0+0'):
         root.geometry(geometry);root.update();app.apply_layout();root.update()
         if not app.compact_details:app.toggle_compact_details();root.update()
