@@ -64,7 +64,7 @@ def check(app,output):
     capture_window(editor.window,output.with_name('review-settings.png'))
     editor.window.destroy()
     # All primary controls stay visible at the minimum supported window size.
-    root.geometry('980x640+0+0');root.update()
+    root.geometry('980x640+0+0');root.update();app.apply_layout();root.update()
     app.render_roster(force=True)
     for widget in [app.start_button,app.once_button,app.stop_button,app.pause_button,app.inspect_button]:
         assert widget.winfo_rootx()>=root.winfo_rootx(), widget.cget('text')
@@ -103,8 +103,9 @@ def check(app,output):
         assert app.preview_label.winfo_height()<=app.preview_frame.winfo_height()+2, ('preview height',scale,app.preview_label.winfo_height(),app.preview_frame.winfo_height())
         app.clear_preview();app.show_detail_tab('수령 결과');root.update()
         if app.compact_layout:app.toggle_compact_details();root.update()
+        assert not app.detail_task_rows['training'].winfo_ismapped(), 'DPI change restored a disabled task'
         if scale==1.5:capture_window(root,output.with_name('review-scaled.png'))
-    ctk.set_widget_scaling(1);ctk.set_window_scaling(1);root.geometry('980x640+0+0');root.update();app.apply_layout();root.update()
+    ctk.set_widget_scaling(1);ctk.set_window_scaling(1);root.geometry('980x640+0+0');root.update();app.apply_layout();root.update();app.apply_layout();root.update()
     app.toggle_logs();root.update()
     assert app.stop_button.winfo_rooty()+app.stop_button.winfo_height()<=root.winfo_rooty()+root.winfo_height()
     app.toggle_logs();root.update()

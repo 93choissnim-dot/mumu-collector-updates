@@ -200,7 +200,7 @@ class Dashboard:
         if self.closing or self.root.winfo_width()<100:return
         scale=self.root._get_window_scaling();width=self.root.winfo_width()/scale;height=self.root.winfo_height()/scale
         compact=width<960;short=height<700;micro=height<520
-        signature=(compact,short,micro,self.compact_details)
+        signature=(compact,short,micro,self.compact_details,scale,self.root._get_widget_scaling())
         if signature==self._layout_signature:return
         self._layout_signature=signature;self.compact_layout=compact;self.short_layout=short
         self.sidebar.configure(width=132 if compact else 162)
@@ -253,6 +253,7 @@ class Dashboard:
         else:
             self.metrics_panel.grid();self.header_note.grid();self.side_note.grid();self.side_brand.grid()
             self.list_button.grid_configure(pady=(26,9));self.fleet_button.grid_configure(pady=3)
+        self.show_detail_tab(self.detail_tabs.get())
 
     def toggle_compact_details(self):
         self.compact_details=not self.compact_details;self.apply_layout()
@@ -285,10 +286,10 @@ class Dashboard:
         signature=(tuple(visible),columns)
         if signature!=self._task_layout:
             self._task_layout=signature
-            for row in self.detail_task_rows.values():row.grid_remove()
+            for row in self.detail_task_rows.values():row.grid_forget()
             for col in (0,1):self.detail_tasks.grid_columnconfigure(col,weight=1 if col<columns else 0,uniform='task-cards' if col<columns else '',minsize=0)
             for i,key in enumerate(visible):
-                self.detail_task_rows[key].grid(row=i//columns,column=i%columns,sticky='ew',padx=3,pady=3)
+                self.detail_task_rows[key].grid(row=i//columns,column=i%columns,sticky='ew',padx=3,pady=2)
         disabled=len(TASK_LABELS)-len(selected)
         self.disabled_tasks_button.configure(text='사용 안 함 접기' if self.show_disabled_tasks else f'사용 안 함 {disabled}개',state='normal' if disabled else 'disabled')
 

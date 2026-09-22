@@ -39,7 +39,7 @@
     "start_navigation.py": "03f01117201b0b1ae89e15b8af4bfb8cacfbcbb60143e658b5ab1c58b5d79aca",
     "task_catalog.py": "9b4085e74368c2a79a213a4ec16d1dcaafcead68045682cd176802eea4da5521",
     "top_bar.py": "a680c8b8262fdcdc882cccada473b8eb8f20a29b27bb5bfac055a66a77976458",
-    "ui_dashboard.py": "25f55b007c5c34564c001884e0e14b9cb38e4da9ce2e593209870599645e2212",
+    "ui_dashboard.py": "33cc6e6449fadc7473e652e1e80f1b0278c6a842b6bb45f92816c2d802c56cb3",
     "ui_history.py": "7751f0e9b1454f332963bc98d97b17b063de57933633ac31b7b9cdae619bdb4f",
     "ui_player_settings.py": "59c64152ae075965c80794a3c5d72bcda892b2a280522b2bfc604a24328a5675",
     "ui_state.py": "79c384c39f11a14177726db6f8ba4da3e224b5578c04d6cd74df8906450f536e",
@@ -79,7 +79,7 @@
     "validate_audit.py": "6e9222e17fd971c5b5eda383868bf7072f1bafc71aea10eb3a1b7d12efd0b570",
     "exe_updater.py": "79e1cd33fc41328a9418821f8a8c4de5cc76a72e9bce33626a95f6c6399d331b",
     "validate_navigation_recovery.py": "2dc26138bc4a3ceb40eb48f24cb2912cea844f9f61da49adb92b1df6f8c3433c",
-    "validate_workspace_ui.py": "1ab368ef7521ebef16577575e18f2e5c5ce517336c35210d4986f0920ccc9513",
+    "validate_workspace_ui.py": "41889ba5930d8576a4b0159b4474817cd94a1103fef1c7fb8f539b55cf4a2a0f",
     "validate_run_controls_ui.py": "03da50cc67e959573ad175905411889c8406cf1adab4027fa847aef2b522e83c",
     "emit_ui_review.py": "c53677cfe95e68a01dbf53bf9f42ab58178fcacee9832e22d6b9a088ac83f974"
   }
