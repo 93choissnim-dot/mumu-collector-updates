@@ -17,6 +17,7 @@ def health_check(output,full_ui=True):
     from PIL import ImageGrab
     output=Path(output).resolve();output.parent.mkdir(parents=True,exist_ok=True)
     def checkpoint(stage):
+        print('HEALTH_CHECK '+stage,flush=True)
         output.with_suffix('.progress.json').write_text(json.dumps({'stage':stage,'full_ui':full_ui,'version':VERSION}),encoding='utf-8')
     checkpoint('vision')
     vision = Vision()
@@ -89,6 +90,7 @@ def health_check(output,full_ui=True):
     root=ctk.CTk()
     if not full_ui:root.withdraw()
     trace=output.with_suffix('.threads.log').open('w',encoding='utf-8')
+    faulthandler.enable(file=trace,all_threads=True)
     faulthandler.dump_traceback_later(25,repeat=True,file=trace)
     app=None
     try:
@@ -144,7 +146,7 @@ def health_check(output,full_ui=True):
             if getattr(app,'tray',None) is not None:app.tray.close()
             if getattr(app,'hotkey_listener',None) is not None:app.hotkey_listener.close()
         root.destroy()
-        faulthandler.cancel_dump_traceback_later();trace.close()
+        faulthandler.cancel_dump_traceback_later();faulthandler.disable();trace.close()
     checkpoint('complete')
     output.write_text(json.dumps({'ok':True,'version':VERSION,'frozen':bool(getattr(sys,'frozen',False)),
         'ui':True,'startup_ui':True,'full_ui_checks':full_ui,'fleet_ui':full_ui,'run_controls_ui':full_ui,
