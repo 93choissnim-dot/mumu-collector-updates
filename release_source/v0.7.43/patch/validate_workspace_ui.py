@@ -90,6 +90,9 @@ def check(app,output):
     editor.window.destroy()
     # All primary controls stay visible at the minimum supported window size.
     root.geometry('980x640+0+0');root.update();app.apply_layout();root.update()
+    if not app.compact_details:app.toggle_compact_details();root.update()
+    assert app.detail_panel.winfo_ismapped() and not app.roster_panel.winfo_ismapped()
+    assert app.detail_panel.winfo_width()>=900, 'Narrow split view clips task text'
     app.render_roster(force=True)
     for widget in [app.start_button,app.once_button,app.daily_button,app.inspect_button]:
         assert widget.winfo_rootx()>=root.winfo_rootx(), widget.cget('text')

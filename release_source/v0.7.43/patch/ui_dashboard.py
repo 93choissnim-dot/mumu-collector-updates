@@ -180,7 +180,7 @@ class Dashboard:
         self._layout_after=None
         if not getattr(self,'_built',False) or self.closing or self.root.winfo_width()<100:return
         scale=self.root._get_window_scaling();width=self.root.winfo_width()/scale;height=self.root.winfo_height()/scale
-        compact=width<900;short=height<580;multi=len(self.players)>1;empty=not self.players;busy=self.busy()
+        compact=width<1100;short=height<580;multi=len(self.players)>1;empty=not self.players;busy=self.busy()
         signature=(compact,short,multi,empty,self.compact_details,self.roster_collapsed,scale,self.main_panel._get_widget_scaling(),busy)
         self.status_label.configure(wraplength=max(180,int(width-80 if compact else width-560)))
         if signature==self._layout_signature:return
@@ -189,6 +189,7 @@ class Dashboard:
         self.toolbar.grid_configure(pady=0)
         self.main_panel.grid_configure(padx=16 if compact else 24,pady=8 if short else 16)
         for widget in (self.roster_panel,self.detail_panel,self.empty_panel):widget.grid_forget()
+        self.roster_panel.configure(width=300)
         self.workspace_body.grid_columnconfigure(0,weight=0,minsize=0)
         self.workspace_body.grid_columnconfigure(1,weight=1,minsize=0)
         if multi:
