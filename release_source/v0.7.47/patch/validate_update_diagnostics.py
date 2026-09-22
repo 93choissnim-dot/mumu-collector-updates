@@ -38,13 +38,13 @@ class UpdateDiagnosticsTests(unittest.TestCase):
         self.assertEqual(self.target.read_bytes(),b'MZ old')
         path=self.data/'update_failure_latest.json'
         self.assertTrue(path.is_file(),'failure was discarded instead of retained in data')
-        failure=json.loads(path.read_text())
+        failure=json.loads(path.read_text(encoding='utf-8'))
         self.assertEqual((failure['stage'],failure['winerror'],failure['rollback']),('health_check',4551,'succeeded'))
         self.assertEqual((failure['source_version'],failure['target_version']),('0.7.45','0.7.47'))
         self.assertEqual(failure['path'],str(self.target));self.assertTrue(failure['created_at'])
-        log=(self.data/'update.log').read_text()
+        log=(self.data/'update.log').read_text(encoding='utf-8')
         self.assertIn('pending',log);self.assertIn('succeeded',log)
-        initial=json.loads((self.data/'update_failure_first.json').read_text())
+        initial=json.loads((self.data/'update_failure_first.json').read_text(encoding='utf-8'))
         self.assertEqual(initial['rollback'],'succeeded','first evidence must include its eventual rollback result')
 
     def test_failed_rollback_preserves_original_error_and_does_not_relaunch(self):
@@ -58,10 +58,10 @@ class UpdateDiagnosticsTests(unittest.TestCase):
             self.assertFalse(launch.called,'failed rollback must not launch the unverified target')
         path=self.data/'update_failure_latest.json'
         self.assertTrue(path.is_file(),'rollback failure erased original policy failure')
-        failure=json.loads(path.read_text())
+        failure=json.loads(path.read_text(encoding='utf-8'))
         self.assertEqual(failure['winerror'],4551);self.assertEqual(failure['rollback'],'failed')
         self.assertIn('rollback access denied',failure['rollback_error'])
-        result=json.loads((self.data/'update_result.json').read_text())
+        result=json.loads((self.data/'update_result.json').read_text(encoding='utf-8'))
         self.assertIn('4551',result['message'])
 
     def test_later_recovery_updates_rollback_outcome_without_replacing_original_cause(self):
@@ -72,7 +72,7 @@ class UpdateDiagnosticsTests(unittest.TestCase):
         with patch.object(exe.subprocess,'Popen'):
             exe.worker(self.work/'exe-job.json',recover=True)
         self.assertEqual(self.target.read_bytes(),b'MZ old')
-        job=json.loads((self.work/'exe-job.json').read_text())
+        job=json.loads((self.work/'exe-job.json').read_text(encoding='utf-8'))
         self.assertEqual(job['failure']['rollback'],'succeeded')
         self.assertEqual(job['failure']['winerror'],4551)
         self.assertEqual(job['failure']['stage'],'health_check')
@@ -120,11 +120,11 @@ class UpdateDiagnosticsTests(unittest.TestCase):
             update_pending=Mock(),update_message=Mock(),log=lambda value:None)
         with patch.object(exe.sys,'frozen',True,create=True),patch.object(exe.sys,'executable',str(self.target)),patch('ui_updates.prepare_job',side_effect=exe.prepare_job),patch('ui_updates.start_helper',side_effect=blocked()):
             Updates.apply_update(app)
-        job=json.loads((self.work/'exe-job.json').read_text())
+        job=json.loads((self.work/'exe-job.json').read_text(encoding='utf-8'))
         self.assertEqual(job.get('format'),'exe','diagnostic write corrupted the prepared transaction')
         self.assertEqual(job['sha256'],self.job['sha256']);self.assertEqual(job['source_version'],VERSION)
         self.assertIsNone(app.update_meta);self.assertFalse(app.update_requested)
-        failure=json.loads((self.data/'update_failure_latest.json').read_text())
+        failure=json.loads((self.data/'update_failure_latest.json').read_text(encoding='utf-8'))
         self.assertEqual(failure['stage'],'start_helper');self.assertTrue(exe.policy_blocked(self.data,'0.7.47'))
 
     def test_later_block_does_not_erase_earlier_release_suppression(self):
@@ -140,7 +140,7 @@ class UpdateDiagnosticsTests(unittest.TestCase):
         self.job['version']='0.7.48'
         self.fail_install()
         self.assertEqual(first.read_bytes(),original)
-        self.assertEqual(json.loads((self.data/'update_failure_latest.json').read_text())['target_version'],'0.7.48')
+        self.assertEqual(json.loads((self.data/'update_failure_latest.json').read_text(encoding='utf-8'))['target_version'],'0.7.48')
 
     def test_first_collection_failure_survives_a_new_run_and_is_exported_with_metadata(self):
         ident='a'*24;image=np.zeros((540,960,3),np.uint8)

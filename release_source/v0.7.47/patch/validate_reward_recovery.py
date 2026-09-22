@@ -53,7 +53,7 @@ class RewardRecoveryTests(unittest.TestCase):
             self.assertEqual(c.cycle(['autumn']),{'autumn':'deferred'})
             path=Path(folder)/('last_'+'a'*24+'_autumn_error.json')
             self.assertTrue(path.exists())
-            report=json.loads(path.read_text())
+            report=json.loads(path.read_text(encoding='utf-8'))
             self.assertEqual(report['state'],'autumn');self.assertEqual(report['run_id'],c.trace.run_id)
 
     def test_retry_permission_is_consumed_on_first_claim_even_without_old_pending(self):
