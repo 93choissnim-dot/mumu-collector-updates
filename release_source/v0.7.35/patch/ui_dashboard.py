@@ -200,7 +200,7 @@ class Dashboard:
         if self.closing or self.root.winfo_width()<100:return
         scale=self.root._get_window_scaling();width=self.root.winfo_width()/scale;height=self.root.winfo_height()/scale
         compact=width<960;short=height<700;micro=height<520
-        signature=(compact,short,micro,self.compact_details,scale,self.root._get_widget_scaling())
+        signature=(compact,short,micro,self.compact_details,scale,self.main_panel._get_widget_scaling())
         if signature==self._layout_signature:return
         self._layout_signature=signature;self.compact_layout=compact;self.short_layout=short
         self.sidebar.configure(width=132 if compact else 162)
