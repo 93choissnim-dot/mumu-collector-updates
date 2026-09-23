@@ -133,7 +133,8 @@ class TrainingTests(unittest.TestCase):
 
     def test_real_held_out_header_reads_652_and_missing_or_dim_header_is_unknown(self):
         from training_evidence import read_training_level
-        crop=cv2.imread(str(Path(__file__).parent/'assets/training_header_652.png'))
+        crop=cv2.imdecode(np.fromfile(Path(__file__).parent/'assets/training_header_652.png',np.uint8),cv2.IMREAD_COLOR)
+        self.assertIsNotNone(crop,'packaged training header fixture could not be decoded')
         image=np.zeros((540,960,3),np.uint8);image[84:110,625:795]=crop
         self.assertEqual(read_training_level(image),652)
         self.assertIsNone(read_training_level((image*.4).astype(np.uint8)))

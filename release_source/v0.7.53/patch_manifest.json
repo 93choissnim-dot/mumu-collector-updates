@@ -114,7 +114,7 @@
     "validate_settings_lifecycle.py": "be12ee49ef0836f1913d85b60b8b01cc76c3085faf412a884121ce00d3f4d099",
     "validate_start_navigation.py": "ada69a4fc9c46271bb2ef1088e050d0b4ccebc138dae3d6abfe39653839f4fee",
     "validate_taskbar_ui.py": "079caf7cb2beba0761c60a692415b5018c79243aa2993c7ffe2905665a49fd45",
-    "validate_training_completion.py": "ed7aa6805582eb51b6054343e3ecde2f8c6ae7ecf51a6277b1f24cc863dec783",
+    "validate_training_completion.py": "6212b6f29162ec9a1bf9f15b545ab5d46926ee272d1a213bc3948d64d8c26b4b",
     "validate_ui_state.py": "112c457dad08907e192cbe4bf1f08747ce81c8cb4873d678eff36aed688e5559",
     "validate_update_diagnostics.py": "cbf7d09fd869ed96f08483aef31c211d55b72edaa43b8f88901aee5af7221d0c",
     "validate_update_network.py": "51bd02d30ed1c5e58c71e26c7ff9cca280b3e14dbab65438b6ea54e106c7ccbb",
