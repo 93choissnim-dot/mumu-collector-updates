@@ -28,6 +28,8 @@ def layout_evidence(app):
             'constraints':constraints,'expected_constraints':expected,
             'compact':app.compact_layout,'compact_details':app.compact_details,
             'tab':app.detail_tabs.get(),'logs_open':app.logs_open,
+            'tasks_outer_manager':app.detail_tasks._parent_frame.winfo_manager(),
+            'tasks_viewable':bool(app.detail_tasks.winfo_viewable()),
             'mapped':{name:bool(getattr(app,name).winfo_ismapped())
                       for name in ('roster_panel','detail_panel','log_panel','detail_tasks')}}
 
@@ -135,9 +137,10 @@ def check(app,output):
     capture_window(root,output.with_name('review-compact.png'))
     assert app.detail_tasks.winfo_ismapped() and app.detail_tasks._parent_canvas.winfo_height()>80, ('result area',app.detail_tasks._parent_canvas.winfo_height())
     app.show_detail_tab('최근 화면');root.update()
-    assert app.preview_frame.winfo_ismapped() and not app.detail_tasks.winfo_ismapped()
+    assert app.preview_frame.winfo_viewable() and not app.detail_tasks.winfo_viewable()
+    assert app.detail_tasks._parent_frame.winfo_manager()==''
     app.show_detail_tab('수령 결과');root.update()
-    assert app.detail_tasks.winfo_ismapped() and not app.preview_frame.winfo_ismapped()
+    assert app.detail_tasks.winfo_viewable() and not app.preview_frame.winfo_viewable()
     # The game theme must preserve safe click targets, disabled controls and
     # layout bounds at enlarged Windows display settings.
     from ui_theme import GameButton, BG, TEXT, ACCENT, CREAM, HEADER
@@ -169,7 +172,10 @@ def check(app,output):
         if scale==1.5:capture_window(root,output.with_name('review-scaled.png'))
     ctk.set_widget_scaling(1);ctk.set_window_scaling(1);settle_compact_geometry(app)
     app.toggle_logs();root.update()
-    assert app.log_panel.winfo_ismapped() and not app.detail_tasks.winfo_ismapped(), ('log tab visibility',layout_evidence(app))
+    # The scrollable frame hides its outer container. Its inner canvas window
+    # can stay mapped; viewability also checks the hidden ancestors.
+    assert app.log_panel.winfo_viewable() and not app.detail_tasks.winfo_viewable(), ('log tab visibility',layout_evidence(app))
+    assert app.detail_tasks._parent_frame.winfo_manager()=='', ('task container still managed',layout_evidence(app))
     assert app.start_button.winfo_rooty()+app.start_button.winfo_height()<=root.winfo_rooty()+root.winfo_height(), (
         'log tab action bounds',app.start_button.winfo_rooty()+app.start_button.winfo_height(),
         root.winfo_rooty()+root.winfo_height(),layout_evidence(app))

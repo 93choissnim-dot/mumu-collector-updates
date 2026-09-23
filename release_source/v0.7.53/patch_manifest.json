@@ -119,7 +119,7 @@
     "validate_update_diagnostics.py": "cbf7d09fd869ed96f08483aef31c211d55b72edaa43b8f88901aee5af7221d0c",
     "validate_update_network.py": "51bd02d30ed1c5e58c71e26c7ff9cca280b3e14dbab65438b6ea54e106c7ccbb",
     "validate_updates.py": "8b83078678eb7d9252087a985f00fde7468ca558aef272fd21f389282bb0a040",
-    "validate_workspace_ui.py": "afca8efaf94bfada76e4893d4c58a917c47ca6ec5d35602758afd9d1bf4a9daa",
+    "validate_workspace_ui.py": "d2e2dccfbdbf40b6d5062509b2cde647fba8517ee9ba0b6500719d9c171cedc5",
     "validate_world_boss.py": "c1f92268f492ab3214b9a117260c3e2a3500f1cfd75fefe06112f228c301a8f0",
     "version.py": "6fffed00b89315f222af212b3afefd2460f378ddcb6c9d648abe9b677e9b58e0",
     "vision.py": "17475219a6e71dba4ee593fac6e57a74cba0f9a25a4a83f8fe0921868d8d092c",
