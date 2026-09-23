@@ -82,11 +82,31 @@ def check(app,output):
     assert app.hotkey_listener is not None and app.hotkey_listener.ready.is_set() and app.hotkey_listener.error is None
     original=app.stop_hotkey.value;app.apply_stop_hotkey('F9')
     seen=[];binding=root.bind('<KeyPress-F9>',lambda event:seen.append(event.keysym),add='+')
-    root.lift();root.focus_force();root.update();gc.collect()
+    gc.collect()
     started=threading.Event()
     def work():started.set();app.stop.wait(5)
     app.run_worker(work,'중지 키 검사',pausable=True);assert started.wait(2)
-    user=ctypes.windll.user32
+    from ctypes import wintypes
+    user=ctypes.WinDLL('user32',use_last_error=True)
+    user.GetAncestor.argtypes=[wintypes.HWND,wintypes.UINT]
+    user.GetAncestor.restype=wintypes.HWND
+    user.GetForegroundWindow.argtypes=[]
+    user.GetForegroundWindow.restype=wintypes.HWND
+    hwnd=user.GetAncestor(root.winfo_id(),2)
+    root.lift();root.focus_force();root.update()
+    focused_since=None
+    def native_focus_ready():
+        nonlocal focused_since
+        if root.focus_get() is not root or user.GetForegroundWindow()!=hwnd:
+            focused_since=None;return False
+        now=time.monotonic()
+        if focused_since is None:focused_since=now
+        return now-focused_since>=.1
+    try:pump(native_focus_ready)
+    except AssertionError:
+        raise AssertionError(f'Native key focus not ready: Tk={root.focus_get()}, foreground={user.GetForegroundWindow()}, expected={hwnd}') from None
+    # Focus is established after run_worker changes the controls. Do not service
+    # Tk during this single short native key event or weaken either assertion.
     user.keybd_event(0x78,0,0,0);time.sleep(.02);user.keybd_event(0x78,0,2,0)
     assert app.stop.is_set(),'Short native stop key was missed'
     app.worker.join(2);app.poll();assert not app.busy()
