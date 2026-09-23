@@ -7,7 +7,7 @@ permissions:
   contents: write
   actions: read
 concurrency:
-  group: chanki-release-v0.7.52
+  group: chanki-release-v0.7.53
   cancel-in-progress: false
 jobs:
   publish:
@@ -20,29 +20,29 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh api repos/93choissnim-dot/mumu-collector-updates/actions/runs/35761027273 --jq . > build-run.json
+          gh api repos/93choissnim-dot/mumu-collector-updates/actions/runs/35811265319 --jq . > build-run.json
           if ($LASTEXITCODE -ne 0) { throw 'Cannot verify build run' }
-          python -c "import json; r=json.load(open('build-run.json',encoding='utf-8-sig')); assert r['conclusion']=='success' and r['head_sha']=='acd28d7505c693270febc7b3ce4521c3c9952973' and r['name']=='Build Windows EXE', 'Build validation mismatch'"
+          python -c "import json; r=json.load(open('build-run.json',encoding='utf-8-sig')); assert r['conclusion']=='success' and r['head_sha']=='f82d18637129e5bf417a3df6083ca2b211bc808d' and r['name']=='Build Windows EXE', 'Build validation mismatch'"
           if ($LASTEXITCODE -ne 0) { throw 'Build gate failed' }
-          gh release view v0.7.52 --repo 93choissnim-dot/mumu-collector-updates --json isDraft,targetCommitish > release-state.json
+          gh release view v0.7.53 --repo 93choissnim-dot/mumu-collector-updates --json isDraft,targetCommitish > release-state.json
           if ($LASTEXITCODE -ne 0) { throw 'Cannot verify draft' }
-          python -c "import json; r=json.load(open('release-state.json',encoding='utf-8-sig')); assert r['isDraft'] and r['targetCommitish']=='acd28d7505c693270febc7b3ce4521c3c9952973', 'Release target mismatch'"
+          python -c "import json; r=json.load(open('release-state.json',encoding='utf-8-sig')); assert r['isDraft'] and r['targetCommitish']=='f82d18637129e5bf417a3df6083ca2b211bc808d', 'Release target mismatch'"
           if ($LASTEXITCODE -ne 0) { throw 'Draft gate failed' }
-          gh release download v0.7.52 --repo 93choissnim-dot/mumu-collector-updates --dir verified --pattern latest-exe.json --pattern ChankiHelper_v0.7.52_update.zip --pattern latest.json --pattern MumuCollector_v0.7.52.zip --pattern exe-health.json --pattern windows-validation.json --pattern windows-previous-validation.json
+          gh release download v0.7.53 --repo 93choissnim-dot/mumu-collector-updates --dir verified --pattern latest-exe.json --pattern ChankiHelper_v0.7.53_update.zip --pattern latest.json --pattern MumuCollector_v0.7.53.zip --pattern exe-health.json --pattern windows-validation.json --pattern windows-previous-validation.json
           if ($LASTEXITCODE -ne 0) { throw 'Release verification download failed' }
           @'
           import pathlib, json, hashlib
           p = pathlib.Path('verified')
           h = json.loads((p/'exe-health.json').read_text(encoding='utf-8'))
           w = json.loads((p/'windows-validation.json').read_text(encoding='utf-8'))
-          assert h['dungeon_native_entry'] and h['combat_start_confirmation'] and h['raid_native_entry'] and h['dungeon_confirmation'] and h['dungeon_completion_review'] and h['raid_repeat_recovery'] and h['pending_history_counts'] and h['input_provenance'] and h['input_evidence'] and h['autumn_native_zero'] and h['native_navigation'] and h['retry_resolution'] and h['history_lifecycle'] and h['reward_recovery'] and h['update_diagnostics'] and h['facility_manual_retry'] and h['ok'] and h['pass_purchase'] and h['guild_empty'] and h['version']=='0.7.52' and h['run_controls_ui'] and h['workspace_ui'] and h['vector_rendering_ui'] and h['game_theme_ui'] and h['improvements_ui'] and h['taskbar_ui'] and h['start_navigation'] and h['daily_tasks'] and h['daily_native_color'] and h['worldboss_recovery'] and h['daily_step_recovery'] and h['diagnostic_trace'] and h['autumn_rewards'] and h['input_safety'] and h['pass_icon_identity'] and h['efficiency_safety'] and h['worldboss_plan'] and h['update_retry'] and h['full_ui_checks'] and h['daily_dialogs'] and h['combat_transitions'] and h['first_failure_evidence'] and h['daily_animation_recovery'] and h['guild_native_controls'] and h['cross_feature_audit'] and h['rotating_workshop'] and h['native_exit_recovery'] and h['frozen']
+          assert h['training_level_confirmation'] and h['native_paid_pass'] and h['training_input_evidence'] and h['dungeon_native_entry'] and h['combat_start_confirmation'] and h['raid_native_entry'] and h['dungeon_confirmation'] and h['dungeon_completion_review'] and h['raid_repeat_recovery'] and h['pending_history_counts'] and h['input_provenance'] and h['input_evidence'] and h['autumn_native_zero'] and h['native_navigation'] and h['retry_resolution'] and h['history_lifecycle'] and h['reward_recovery'] and h['update_diagnostics'] and h['facility_manual_retry'] and h['ok'] and h['pass_purchase'] and h['guild_empty'] and h['version']=='0.7.53' and h['run_controls_ui'] and h['workspace_ui'] and h['vector_rendering_ui'] and h['game_theme_ui'] and h['improvements_ui'] and h['taskbar_ui'] and h['start_navigation'] and h['daily_tasks'] and h['daily_native_color'] and h['worldboss_recovery'] and h['daily_step_recovery'] and h['diagnostic_trace'] and h['autumn_rewards'] and h['input_safety'] and h['pass_icon_identity'] and h['efficiency_safety'] and h['worldboss_plan'] and h['update_retry'] and h['full_ui_checks'] and h['daily_dialogs'] and h['combat_transitions'] and h['first_failure_evidence'] and h['daily_animation_recovery'] and h['guild_native_controls'] and h['cross_feature_audit'] and h['rotating_workshop'] and h['native_exit_recovery'] and h['frozen']
           previous = json.loads((p/'windows-previous-validation.json').read_text(encoding='utf-8'))
           assert previous['ok'] and previous['previous_release_helper'] and previous['real_exe_update'] and previous['restart'] and previous['rollback']
           assert w['ok'] and w['real_exe_update'] and w['restart'] and w['rollback']
-          for feed, archive in [('latest-exe.json','ChankiHelper_v0.7.52_update.zip'), ('latest.json','MumuCollector_v0.7.52.zip')]:
+          for feed, archive in [('latest-exe.json','ChankiHelper_v0.7.53_update.zip'), ('latest.json','MumuCollector_v0.7.53.zip')]:
               m = json.loads((p/feed).read_text(encoding='utf-8'))
               z = p/archive
-              assert m['version']=='0.7.52' and m['size']==z.stat().st_size
+              assert m['version']=='0.7.53' and m['size']==z.stat().st_size
               assert m['sha256']==hashlib.sha256(z.read_bytes()).hexdigest()
           print('Reviewed Windows build and both update archives verified')
           '@ | python -
@@ -54,18 +54,18 @@ jobs:
         run: |
           $latest = gh api repos/93choissnim-dot/mumu-collector-updates/releases/latest --jq .tag_name
           if ($LASTEXITCODE -ne 0) { throw 'Latest release check failed' }
-          if ([version]($latest.TrimStart('v')) -ge [version]'0.7.52') { throw 'Same or newer release already exists' }
-          $notes = Get-Content release_source/v0.7.52/notes.md -Raw -Encoding utf8
-          $notes += "`n`nWindows 검증 기록: https://github.com/93choissnim-dot/mumu-collector-updates/actions/runs/35761027273`n"
+          if ([version]($latest.TrimStart('v')) -ge [version]'0.7.53') { throw 'Same or newer release already exists' }
+          $notes = Get-Content release_source/v0.7.53/notes.md -Raw -Encoding utf8
+          $notes += "`n`nWindows 검증 기록: https://github.com/93choissnim-dot/mumu-collector-updates/actions/runs/35811265319`n"
           Set-Content -Path release-notes.md -Value $notes -Encoding utf8
-          gh release edit v0.7.52 --repo 93choissnim-dot/mumu-collector-updates --draft=false --latest --notes-file release-notes.md
+          gh release edit v0.7.53 --repo 93choissnim-dot/mumu-collector-updates --draft=false --latest --notes-file release-notes.md
           if ($LASTEXITCODE -ne 0) { throw 'Release publication failed' }
       - name: Verify public automatic update address
         shell: pwsh
         run: |
           @'
           import sys,json,threading
-          sys.path.insert(0,'release_source/v0.7.52/patch')
+          sys.path.insert(0,'release_source/v0.7.53/patch')
           from updater import read_url
           for name in ('latest-exe.json','latest.json'):
               url='https://github.com/93choissnim-dot/mumu-collector-updates/releases/latest/download/'+name
