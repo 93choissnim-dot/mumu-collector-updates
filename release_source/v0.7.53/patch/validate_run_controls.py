@@ -126,12 +126,16 @@ class PauseTests(unittest.TestCase):
         self.assertEqual(collector.cycle.call_count,1)
 
     def test_resumed_training_checks_without_repeating_input(self):
-        collector=ExtraCollector(Mock(),Mock(),threading.Event(),lambda _:None)
+        from validate_extra import Device
+        device=Device('training');device.state='training'
+        vision=SimpleNamespace(recognize=lambda _:device.screen())
+        collector=ExtraCollector(device,vision,device.stop,lambda _:None)
         collector.resume_counts={'training':3}
-        collector.wait_page=Mock(return_value=SimpleNamespace(state='training',matches={'x_train_active':Mock()}))
-        collector.pause=Mock();collector.click_match=Mock()
         self.assertEqual(collector.claim_extra('training',None),'deferred')
-        collector.click_match.assert_not_called()
+        self.assertEqual(device.claims,0)
+        self.assertIsNotNone(collector.last_image)
+        self.assertEqual(collector.last_screen.state,'training')
+
 
 
 class HotkeyTests(unittest.TestCase):

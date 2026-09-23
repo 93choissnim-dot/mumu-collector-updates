@@ -126,6 +126,10 @@ class ExtraCollector(AutumnActions,DailyActions,WorldBossActions,Collector):
         saved=(pending or {}).get('evidence')
         baseline=saved.get('training_level') if isinstance(saved,dict) else None
         if (has_pending or resumed_count) and (type(baseline) is not int or baseline<0):
+            # Keep legacy uncertainty, but attach a current observation to the issue.
+            # screen() respects pause/stop and cannot dispatch game input.
+            self.trace.step='verify'
+            self.screen()
             return finish('deferred')
         attempts=bool(has_pending or resumed_count)
         self.trace.step='verify' if attempts else 'inspect'

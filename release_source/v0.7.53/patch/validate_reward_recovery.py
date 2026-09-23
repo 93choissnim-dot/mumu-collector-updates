@@ -85,6 +85,8 @@ class RewardRecoveryTests(unittest.TestCase):
             self.assertEqual(c.claim_extra('training',d.screen()),'deferred')
             self.assertEqual(d.claims,0);self.assertTrue(c.action_state.pending('training'))
             self.assertEqual(issues,[('training','training')])
+            self.assertIsNotNone(c.last_image)
+            self.assertEqual(c.trace.timing['captures'],1)
 
     def test_pause_during_reservation_cannot_reuse_manual_permission(self):
         d,c=self.extra('ranking');c.stop=RunControl();c.manual_retry_tasks={'ranking'}
