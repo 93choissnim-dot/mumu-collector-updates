@@ -34,8 +34,8 @@
     "assets/training_header_652.png": "23f12ef1a27345b3b199b3caf5231655d1626ac2f86d7a6eb79892f79043fc5b",
     "autumn_actions.py": "607882bc30f660c2b71c5502eae9199372f881df00d183a12a78de5899495931",
     "autumn_vision.py": "09eb0862becfe25be39d03fa218c2aa2fb160972bbb324fcac52ad4045f44c6c",
-    "build_exe.py": "2383d029096ba2f67d5e697bed7c09656ce04456fc9318f11045422ff5b62d48",
-    "build_release.py": "e62cf96765d6ba0a04def9ec274f5a7efc1b6d1458e48df3803a6022457bcbff",
+    "build_exe.py": "1629652ddf05b7c606493513fbf7ecd2cb93f97ddbb993b2613e45f909302b75",
+    "build_release.py": "9f20cb67759ec65613fda99816e25ef18194fa34b519fee3020547e30122bb30",
     "collector.py": "6fc3e17a4b6c9c892ef4c0901fd39a5cf1df774a7731acfc315c4a7e82c611ac",
     "daily_actions.py": "882f054823aa8d458489d585ac0c170c1b2cde479a81cb40ab707bf6d707171d",
     "daily_execution.py": "563c3b3e77206c5c4368f580d83e7ff2756aa54f5f866988fcd2991b6312ffcb",
@@ -125,6 +125,6 @@
     "vision.py": "17475219a6e71dba4ee593fac6e57a74cba0f9a25a4a83f8fe0921868d8d092c",
     "windows_device.py": "888e8f2fffe12cbb53e252a6de60beb8422c6ed7ac6fde7ccf9716716d151e3d",
     "world_boss.py": "2c266a7fe27d0b8324ddf3d794b5f2fa484373cb749acd123b1eff699968445e",
-    "변경사항.txt": "9a2eb636f782f7db22e5663589fa4d48c8ec602c0fa87c24e5e64e6347bf0a3b"
+    "변경사항.txt": "d1bf0fc8499acb05d22788d338d87792d51a1fa2cd9e6903817110f6cfbac2a7"
   }
 }

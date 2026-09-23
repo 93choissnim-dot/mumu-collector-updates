@@ -37,7 +37,7 @@ def build(source, output, download_url="", manifest_url="", include_fixtures=Tru
         https_url(download_url)
         feed = {"app_id": APP_ID, "protocol": 1, "version": VERSION, "url": download_url,
                 "sha256": checksum, "size": path.stat().st_size,
-                "notes": "스톤과 보물 창고 입장 인식 보완, 전투 시작 확인과 종료 대기 분리"}
+                "notes": "수련 레벨 상승 확인과 전후 증거 저장 보완, 유료 패스 가격 화면 인식 개선"}
         (output/"latest.json").write_text(json.dumps(feed,ensure_ascii=False,indent=2),encoding="utf-8")
     return path, checksum
 

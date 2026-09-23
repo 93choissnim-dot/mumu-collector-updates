@@ -39,7 +39,7 @@ def build():
         z.write(exe,NAME+'.exe');z.writestr('release.json',json.dumps(meta,ensure_ascii=False))
     feed={'app_id':'ChankiHelperExe','protocol':1,'version':VERSION,
         'url':'https://github.com/93choissnim-dot/mumu-collector-updates/releases/download/v'+VERSION+'/'+archive.name,
-        'sha256':sha(archive),'size':archive.stat().st_size,'notes':'스톤과 보물 창고 입장 인식 보완, 전투 시작 확인과 종료 대기 분리'}
+        'sha256':sha(archive),'size':archive.stat().st_size,'notes':'수련 레벨 상승 확인과 전후 증거 저장 보완, 유료 패스 가격 화면 인식 개선'}
     (OUT/'latest-exe.json').write_text(json.dumps(feed,ensure_ascii=False,indent=2),encoding='utf-8')
     (OUT/'checksums.txt').write_text(sha(exe)+'  ChankiHelper.exe\n'+sha(archive)+'  '+archive.name+'\n',encoding='ascii')
     run([sys.executable,str(BASE/'validate_exe_windows.py'),str(exe),str(archive)],cwd=BASE)
