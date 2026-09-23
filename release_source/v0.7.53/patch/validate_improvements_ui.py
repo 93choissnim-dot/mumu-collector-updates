@@ -102,6 +102,33 @@ def check(app,output):
     root.lift()
     activated=bool(user.SetForegroundWindow(hwnd))
     root.focus_force();root.update()
+    if user.GetForegroundWindow()!=hwnd:
+        # Windows may deny a background process foreground activation. In this
+        # isolated desktop test, activate it as a user would: one native click
+        # on the inert toolbar margin, after verifying the HWND under the point.
+        user.WindowFromPoint.argtypes=[wintypes.POINT]
+        user.WindowFromPoint.restype=wintypes.HWND
+        user.SetCursorPos.argtypes=[ctypes.c_int,ctypes.c_int]
+        user.SetCursorPos.restype=wintypes.BOOL
+        user.GetCursorPos.argtypes=[ctypes.POINTER(wintypes.POINT)]
+        user.GetCursorPos.restype=wintypes.BOOL
+        user.mouse_event.argtypes=[wintypes.DWORD,wintypes.DWORD,wintypes.DWORD,wintypes.DWORD,ctypes.c_size_t]
+        user.mouse_event.restype=None
+        cursor=wintypes.POINT();assert user.GetCursorPos(ctypes.byref(cursor))
+        topmost=root.attributes('-topmost')
+        try:
+            root.attributes('-topmost',True);root.update()
+            point=wintypes.POINT(app.toolbar.winfo_rootx()+8,app.toolbar.winfo_rooty()+8)
+            assert user.SetCursorPos(point.x,point.y)
+            assert root.winfo_containing(point.x,point.y) in (app.toolbar,app.toolbar._canvas), 'Focus click is not on inert margin'
+            assert user.GetAncestor(user.WindowFromPoint(point),2)==hwnd, 'Focus click target is covered'
+            try:user.mouse_event(0x0002,0,0,0,0)
+            finally:user.mouse_event(0x0004,0,0,0,0)
+            root.update()
+        finally:
+            root.attributes('-topmost',topmost)
+            user.SetCursorPos(cursor.x,cursor.y)
+        root.focus_force();root.update()
     focused_since=None
     def native_focus_ready():
         nonlocal focused_since
