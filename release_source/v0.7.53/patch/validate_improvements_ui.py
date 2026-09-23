@@ -92,8 +92,16 @@ def check(app,output):
     user.GetAncestor.restype=wintypes.HWND
     user.GetForegroundWindow.argtypes=[]
     user.GetForegroundWindow.restype=wintypes.HWND
+    user.SetForegroundWindow.argtypes=[wintypes.HWND]
+    user.SetForegroundWindow.restype=wintypes.BOOL
+    user.GetWindowTextW.argtypes=[wintypes.HWND,wintypes.LPWSTR,ctypes.c_int]
+    user.GetWindowTextW.restype=ctypes.c_int
+    user.GetClassNameW.argtypes=[wintypes.HWND,wintypes.LPWSTR,ctypes.c_int]
+    user.GetClassNameW.restype=ctypes.c_int
     hwnd=user.GetAncestor(root.winfo_id(),2)
-    root.lift();root.focus_force();root.update()
+    root.lift()
+    activated=bool(user.SetForegroundWindow(hwnd))
+    root.focus_force();root.update()
     focused_since=None
     def native_focus_ready():
         nonlocal focused_since
@@ -104,7 +112,12 @@ def check(app,output):
         return now-focused_since>=.1
     try:pump(native_focus_ready)
     except AssertionError:
-        raise AssertionError(f'Native key focus not ready: Tk={root.focus_get()}, foreground={user.GetForegroundWindow()}, expected={hwnd}') from None
+        foreground=user.GetForegroundWindow()
+        title=ctypes.create_unicode_buffer(256);kind=ctypes.create_unicode_buffer(256)
+        user.GetWindowTextW(foreground,title,len(title))
+        user.GetClassNameW(foreground,kind,len(kind))
+        raise AssertionError(f'Native key focus not ready: Tk={root.focus_get()}, activated={activated}, foreground={foreground}, expected={hwnd}, title={title.value!r}, class={kind.value!r}') from None
+    assert native_focus_ready(),'Native focus changed immediately before key injection'
     # Focus is established after run_worker changes the controls. Do not service
     # Tk during this single short native key event or weaken either assertion.
     user.keybd_event(0x78,0,0,0);time.sleep(.02);user.keybd_event(0x78,0,2,0)
