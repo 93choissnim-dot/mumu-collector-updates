@@ -19,29 +19,29 @@ No paid purchase; no uncertain resource replay; cancel before every input includ
 
 ### Task 1: session data and continuation
 Files: session_workflow.py (new), run_journal.py, fleet_collection.py, ui_state.py; validate_session_workflow.py (new).
-- [ ] Write behavior tests: journal begin preserves unrelated unfinished tasks; resume preserves completed/held; pending requests classified held; old day/profile excluded; regular-only automatic run; current unstarted row hides prior success.
-- [ ] Run `python -m unittest -q validate_session_workflow` RED.
-- [ ] Implement `task_scope(player, scope)`, `continuation(data, players, day=None)`, `session_entry(task, record, previous)`, extend journal entries and preservation. Worker rechecks continuation before execution and records snapshot/reason in journal.
-- [ ] Run new tests and relevant existing compact/fleet/history tests GREEN; stage cumulative patch and commit.
+- [x] Write behavior tests: journal begin preserves unrelated unfinished tasks; resume preserves completed/held; pending requests classified held; old day/profile excluded; regular-only automatic run; current unstarted row hides prior success.
+- [x] Run `python -m unittest -q validate_session_workflow` RED.
+- [x] Implement `task_scope(player, scope)`, `continuation(data, players, day=None)`, `session_entry(task, record, previous)`, extend journal entries and preservation. Worker rechecks continuation before execution and records snapshot/reason in journal.
+- [x] Run new tests and relevant existing compact/fleet/history tests GREEN; stage cumulative patch and commit.
 
 ### Task 2: bounded game recovery
 Files: game_recovery.py (new), adb_device.py, run_support.py, fleet_collection.py; validate_game_recovery.py (new).
-- [ ] Test real recovery orchestrator using fake external Android responses: exact launcher/no process required; other app and alive process refuse; cancelled no input; unknown page times out with no taps; at most two launch attempts; same package stable ready; same-run pending retained and completed rooms excluded.
-- [ ] RED tests, then implement `GameRecovery(device, vision, stop, verify_identity, log, progress)` and `recover()` returning bool for proven supported closure, integrate worker startup and cycle transport recovery via explicit optional argument.
-- [ ] Treat am start as an input under RunControl guard. Recheck identity, foreground and process before launch. Never bind unknown after launch.
-- [ ] GREEN recovery plus existing operations/run-control/ADB/input-safety suite; stage and commit.
+- [x] Test real recovery orchestrator using fake external Android responses: exact launcher/no process required; other app and alive process refuse; cancelled no input; unknown page times out with no taps; at most two launch attempts; same package stable ready; same-run pending retained and completed rooms excluded.
+- [x] RED tests, then implement `GameRecovery(device, vision, stop, verify_identity, log, progress)` and `recover()` returning bool for proven supported closure, integrate worker startup and cycle transport recovery via explicit optional argument.
+- [x] Treat am start as an input under RunControl guard. Recheck identity, foreground and process before launch. Never bind unknown after launch.
+- [x] GREEN recovery plus existing operations/run-control/ADB/input-safety suite; stage and commit.
 
 ### Task 3: desktop workflow
 Files: ui_workflow.py (new), ui_dashboard.py, ui_roster.py, ui_history.py, app.py, ui_player_settings.py; validate_workflow_ui.py (new).
-- [ ] Integrate shared continuation model with idle footer button and preview; executing/held rows distinguish account and reason. Safe-only button revalidates at worker boundary.
-- [ ] Scope selector Regular / Daily / All drives one-time execute; automatic control labels regular-only and disables on daily-only scope. Expose free daily selection in dedicated settings section.
-- [ ] Compact header, readable supporting text, current run labels and last-success time separation, active account indicator. Preserve run summary after cancellation.
-- [ ] Windows UI tests exercise footer button visibility, scope routing, current waiting state despite old success, busy stop/pause layouts and screenshot bounds at 100/125/150%.
-- [ ] Run applicable headless tests; stage and commit.
+- [x] Integrate shared continuation model with idle footer button and preview; executing/held rows distinguish account and reason. Safe-only button revalidates at worker boundary.
+- [x] Scope selector Regular / Daily / All drives one-time execute; automatic control labels regular-only and disables on daily-only scope. Expose free daily selection in dedicated settings section.
+- [x] Compact header, readable supporting text, current run labels and last-success time separation, active account indicator. Preserve run summary after cancellation.
+- [x] Windows UI tests exercise footer button visibility, scope routing, current waiting state despite old success, busy stop/pause layouts and screenshot bounds at 100/125/150%.
+- [x] Run applicable headless tests; stage and commit.
 
 ### Task 4: review and release
-- [ ] Review diff in fresh context using requesting-code-review. Fix important findings with reproductions.
-- [ ] All official release tests; compile/static patch integrity; Windows desktop/folder/single EXE and v0.7.28 updater recovery. Inspect synthetic screenshots.
+- [x] Review diff in fresh context using requesting-code-review. Fix important findings with reproductions.
+- [x] All official release tests; compile/static patch integrity; Windows desktop/folder/single EXE and v0.7.28 updater recovery. Inspect synthetic screenshots.
 - [ ] Publish only exact successful build/commit; compare direct EXE to update archive; confirm both public feeds v0.7.60.
 
 ## Evidence and decisions
@@ -50,3 +50,8 @@ Files: ui_workflow.py (new), ui_dashboard.py, ui_roster.py, ui_history.py, app.p
 
 - Final review found three important issues: foreground race during process query, old account/day success in roster summary, retained backlog shown as current after restart. Reproduced all three (plus old failure ordering) RED; fixed with PresentationBoundaryTests and LateFocusRaceTests GREEN.
 - First Windows GUI pass found empty history slots exposed unrun daily rows. Fixed source filtering; retained existing UI assertion and added EmptyDailyRowsTests.
+
+- Windows run 36035989009 passed all 871 regression tests and source/folder desktop checks. Single-EXE UI fixture inherited the prior saved All scope; fixed fixture scope setup and prevented synthetic scope changes from saving preferences. New build pending.
+- Inspected synthetic 680px workflow, safe/held continuation dialog, paused footer and compact screenshots: primary controls remain readable and visible.
+
+- Final Windows build 36037374063 at source 0677ff1d4ce2bfdbe8a5e48e6f6780a282ff7303 succeeded: 871 tests, source/folder/single EXE desktop checks, v0.7.28 replacement/restart/rollback, uploaded archive byte equality. Final workflow and continuation captures inspected. Authenticode remains NotSigned; no claim of commercial readiness or live-user gameplay verification.
