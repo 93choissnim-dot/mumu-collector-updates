@@ -42,7 +42,7 @@ Files: ui_workflow.py (new), ui_dashboard.py, ui_roster.py, ui_history.py, app.p
 ### Task 4: review and release
 - [x] Review diff in fresh context using requesting-code-review. Fix important findings with reproductions.
 - [x] All official release tests; compile/static patch integrity; Windows desktop/folder/single EXE and v0.7.28 updater recovery. Inspect synthetic screenshots.
-- [ ] Publish only exact successful build/commit; compare direct EXE to update archive; confirm both public feeds v0.7.60.
+- [x] Publish only exact successful build/commit; compare direct EXE to update archive; confirm both public feeds v0.7.60.
 
 ## Evidence and decisions
 - Remote main 9d6d208d0e04026c7fbbd5ceed5b6ffb5de36d3a matches tested v0.7.59; local isolated worktree chanki-v060 and private full-source copy app-v060.
@@ -55,3 +55,5 @@ Files: ui_workflow.py (new), ui_dashboard.py, ui_roster.py, ui_history.py, app.p
 - Inspected synthetic 680px workflow, safe/held continuation dialog, paused footer and compact screenshots: primary controls remain readable and visible.
 
 - Final Windows build 36037374063 at source 0677ff1d4ce2bfdbe8a5e48e6f6780a282ff7303 succeeded: 871 tests, source/folder/single EXE desktop checks, v0.7.28 replacement/restart/rollback, uploaded archive byte equality. Final workflow and continuation captures inspected. Authenticode remains NotSigned; no claim of commercial readiness or live-user gameplay verification.
+
+- Publication 36038997581 succeeded on 77097262b7d7e89c5e62be98c4e5e7654dfe30e8. Both public feeds resolve to v0.7.60 and the direct EXE matches the tested archive. EXE SHA256: 7f043479b9e1af9036e5d5bf2dd7def92765624fbac70faa9d6ee03d56a6558f.
