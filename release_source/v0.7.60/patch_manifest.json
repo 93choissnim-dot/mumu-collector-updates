@@ -35,7 +35,7 @@
     "validate_compact_ui.py": "81a58e41926a6f18f00ff27a0f4d31bcd89fc5772afbd37de493d2feaa11ae11",
     "validate_game_recovery.py": "bdb6378f99066498e054ea27b06565f5b7a8dc08ca12cbc1f3d01b3b74b4a7ef",
     "validate_guild_resume.py": "d0356deaedd67466a571bd7c104246b3021005d9896b090f022fe5877d23b573",
-    "validate_improvements_ui.py": "3bcc068c0c2a51ac90951abc2fe7df116bbe8f5dca493b7ba1d78930b81c304b",
+    "validate_improvements_ui.py": "979a4fcd22949f20021621c3b4e379720c9ed87a562779eb21c5322bf7de5f22",
     "validate_native_sweep_battle.py": "c14873bb130aaa4cd535d04b624558dcb271225f63b208031aa306a88de42af7",
     "validate_run_controls_ui.py": "09acedd53d9cbe0f3f969f7aa3eed8ef1274ff55e978b29672942796370a7d9b",
     "validate_session_workflow.py": "21480463f22037fb85bff2f3de3694bc07d5d5ae38c0b32f3bf3ce30f526ebd4",
@@ -43,7 +43,7 @@
     "validate_sweep_transition.py": "a8e4c2c1b7a37c9fb4a7012dafc795132991105772fbce2c2106064d91f3bceb",
     "validate_ui_state.py": "11f99d4ad5cd1e6eb2b471d5e5dda14d8e1c27a8f0d169a40e6c71a82e30d7e6",
     "validate_workflow_ui.py": "873300318b3b5eaffe7e108dcfc83bf1f02fda96d21ce930e08bd164c46c0da0",
-    "validate_workspace_ui.py": "2ac7686ce4463c7e1e8989ada83bb5c56ed4b01e5fae999361c82512b58af0ff",
+    "validate_workspace_ui.py": "17d77cac0f999ad9c433aa92ffd665283fe7ffd20831f47da729a19598b3bf5e",
     "version.py": "570dad4d3bdc0ea96d7d1a49380970da18af2e4eae8d0d1129648c592c2f4bbc"
   }
 }

@@ -1,2 +1,0 @@
-# Preserve reviewed patch bytes so SHA-256 checks are identical on Windows and Linux.
-release_source/** -text

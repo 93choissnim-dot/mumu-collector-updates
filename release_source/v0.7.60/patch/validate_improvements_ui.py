@@ -205,6 +205,10 @@ def check(app,output):
     next(w for w in descendants(dialog) if isinstance(w,ctk.CTkCheckBox)).select()
     complete.invoke();root.update()
     assert ManualQuestLedger(DATA/'daily_manual.json').done(scope,'daily_guild','donation')
+    from daily_state import korea_day
+    app.fleet_states[a]={'session_day':korea_day(),'scope':scope,'status':'확인 필요','rooms':['farm','ranking','daily_dungeons'],
+        'results':{'farm':'collected','ranking':'failed','daily_dungeons':'deferred'},
+        'run_entries':{t:app.history.get(a,t) for t in ('farm','ranking','daily_dungeons')}}
     app.render_roster(force=True);root.update()
     assert app.roster_rows[a]['status'].cget('text')=='확인 필요'
     assert '오늘 누적 수행 확인' in app.detail_stats.cget('text')

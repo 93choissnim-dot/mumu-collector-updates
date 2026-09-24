@@ -99,10 +99,11 @@ def check(app,output):
     app.device_reports[first_serial]['image']=None;app.on_device_changed()
     for task,result in [('farm','collected'),('wood','collected'),('mine','skipped'),('ranking','attempted'),('worldboss','collected')]:
         app.history.record('preview-0',task,result,now='2026-09-20T17:20:00+09:00')
-    app.fleet_states={'preview-0':{'status':'확인 완료','next_at':app.stop.clock()+540,'results':{'farm':'collected'}},
+    from daily_state import korea_day
+    app.fleet_states={'preview-0':{'status':'확인 필요','session_day':korea_day(),'scope':'preview-0','rooms':['farm','ranking'],'run_entries':{t:app.history.get('preview-0',t) for t in ('farm','ranking')},'next_at':app.stop.clock()+540,'results':{'farm':'collected','ranking':'attempted'}},
                       'preview-1':{'status':'확인 필요','results':{'ranking':'attempted'},'next_at':app.stop.clock()+120}}
     app.render_roster(force=True);root.update()
-    assert app.detail_results['ranking'].cget('text')=='이전 기록'
+    assert app.detail_results['ranking'].cget('text')=='완료 미확인'
     app.detail_results['ranking'].invoke();root.update()
     assert app.history_task_filter=='ranking'
     assert '완료 미확인' in [w.cget('text') for w in descendants(app.history_window) if isinstance(w,ctk.CTkLabel)]
