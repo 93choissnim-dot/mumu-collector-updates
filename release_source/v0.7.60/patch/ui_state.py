@@ -22,7 +22,7 @@ def task_display_order(player,entries,show_disabled=False):
     """Prioritize unresolved records without changing selection or execution order."""
     selected=set(selected_tasks(player)) | {task for task in DAILY_LABELS if entries.get(task)}
     visible=[task for task in TASK_LABELS if task in selected or (show_disabled and task in REGULAR_LABELS)]
-    return sorted(visible,key=lambda task: 0 if entries.get(task,{}).get('result') in ISSUES else 1)
+    return sorted(visible,key=lambda task: 2 if entries.get(task,{}).get('previous') else 0 if entries.get(task,{}).get('result') in ISSUES else 1)
 
 
 def remaining_text(due, now):

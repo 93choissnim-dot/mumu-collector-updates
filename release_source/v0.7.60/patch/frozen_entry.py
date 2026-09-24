@@ -85,8 +85,8 @@ def health_check(output,full_ui=True):
     from validate_native_sweep_battle import NativeSweepBattleTests
     from validate_guild_resume import GuildResumeTests
     from validate_sweep_retry import SweepRetryTests
-    from validate_session_workflow import SessionTests,DailySelectionTests
-    from validate_game_recovery import GameRecoveryTests,RecoveryIntegrationTests
+    from validate_session_workflow import SessionTests,DailySelectionTests,PresentationBoundaryTests,EmptyDailyRowsTests
+    from validate_game_recovery import GameRecoveryTests,RecoveryIntegrationTests,LateFocusRaceTests
     from validate_dungeon_resume import DungeonResumeTests
     from validate_training_retry import NativeTrainingRetryTests,ExplicitDungeonRetryTests
     from validate_diagnostic_recovery import DiagnosticRecognitionTests,DiagnosticFlowTests
@@ -98,7 +98,7 @@ def health_check(output,full_ui=True):
     from validate_completion_recheck import CompletionRecheckTests
     from validate_completion_review_ui import CompletionReviewUITests,CompletionReviewFleetTests
     suite=unittest.TestSuite(unittest.defaultTestLoader.loadTestsFromTestCase(case)
-        for case in (SessionTests,DailySelectionTests,GameRecoveryTests,RecoveryIntegrationTests,CompactReliabilityTests,ResumeTests,FreeOnlyTests,EmptyDashboardTests,ResumeInitializationTests,FinalReviewScopeTests,KeyProgressTests,NativeSweepBattleTests,GuildResumeTests,SweepRetryTests))
+        for case in (EmptyDailyRowsTests,PresentationBoundaryTests,LateFocusRaceTests,SessionTests,DailySelectionTests,GameRecoveryTests,RecoveryIntegrationTests,CompactReliabilityTests,ResumeTests,FreeOnlyTests,EmptyDashboardTests,ResumeInitializationTests,FinalReviewScopeTests,KeyProgressTests,NativeSweepBattleTests,GuildResumeTests,SweepRetryTests))
     suite.addTests(unittest.TestSuite(unittest.defaultTestLoader.loadTestsFromTestCase(case)
         for case in (SweepTransitionTests,DungeonResumeTests,NativeTrainingRetryTests,ExplicitDungeonRetryTests,DiagnosticRecognitionTests,DiagnosticFlowTests,NativePassTests,TrainingTests,CombatStartTests,NativeDungeonTests,NativeRaidTests,DungeonConfirmationTests,CompletionRecheckTests,CompletionReviewUITests,CompletionReviewFleetTests,HistoryCountTests,PendingHistoryTests,RaidRetryTests,InputProvenanceTests,InputEvidenceTests,NativeAutumnTests,NativeNavigationTests,RetryResolutionTests,HistoryLifecycleTests,RewardRecoveryTests,UpdateDiagnosticsTests,
                      SettingsLifecycleTests,GuildEmptyTests,PurchaseTests,NetworkTests,RouteTests,DialogVisionTests,GuildCoinFlowTests,

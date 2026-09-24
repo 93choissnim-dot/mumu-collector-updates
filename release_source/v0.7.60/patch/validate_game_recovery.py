@@ -114,3 +114,16 @@ class RecoveryIntegrationTests(unittest.TestCase):
         with patch('adb_device.subprocess.Popen') as create:
             with self.assertRaises(ResumeRecognition):adb.run(['-s','127.0.0.1:16384','shell','am','start','-W','-n',GAME+'/.Main'],input_generation=stale)
             create.assert_not_called()
+
+class LateFocusRaceTests(unittest.TestCase):
+    setup_recovery=GameRecoveryTests.setup_recovery
+    def test_foreground_switch_during_last_process_query_prevents_launch(self):
+        a,d,r,_=self.setup_recovery();run=a.run;queries=[]
+        def delayed(args,**kw):
+            result=run(args,**kw)
+            if args[2:]==['shell','ps','-A']:
+                queries.append(1)
+                if len(queries)==2:a.focus='com.browser.app'
+            return result
+        a.run=delayed
+        self.assertFalse(r.recover());self.assertEqual(a.launches(),[])

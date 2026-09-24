@@ -46,8 +46,18 @@ class RosterUI:
         result={}
         for ident,p in self.players.items():
             state=copy.deepcopy(self.fleet_states.get(ident,{}))
+            from daily_state import korea_day
+            from action_state import account_scope
+            scoped='session_day' in state
+            if scoped and (state.get('session_day')!=korea_day() or state.get('scope')!=account_scope(ident,p.get('daily_profile',''))):state={}
+            if not state and hasattr(self,'current_record'):
+                record=self.current_record(ident);rooms=record.get('planned',record.get('tasks',[]))
+                results={t:v for t,v in record.get('results',{}).items() if t in rooms}
+                from history import TERMINAL_RESULTS
+                status='확인 완료' if rooms and all(results.get(t) in TERMINAL_RESULTS for t in rooms) else '확인 필요' if any(v in ISSUES for v in results.values()) else '대기'
+                state={'rooms':rooms,'results':results,'status':status} if rooms else {}
             recorded={task:entry.get('result') for task,entry in self.history_entries(ident).items() if task in selected_tasks(p) or task in DAILY_LABELS}
-            state['history_issue']=any(value in ISSUES for value in recorded.values()) if not state.get('session_day') else False
+            state['history_issue']=any(value in ISSUES for value in recorded.values()) if not scoped and not hasattr(self,'current_record') else False
             result[ident]=player_summary(p,state,ident in live,busy,self.stop.paused,now)
         return result
 

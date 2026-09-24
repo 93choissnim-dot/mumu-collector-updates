@@ -46,6 +46,7 @@ class GameRecovery:
         generation=getattr(self.stop,'generation',None)
         self.verify_identity();self.check()
         if not self.exited(home):return False
+        if self.device.current_package()!=home:return False
         self.device.capture_generation=generation
         self.check();self.attempts+=1
         self.progress(f'게임 종료 확인 / 다시 접속 중 ({self.attempts}/2)')

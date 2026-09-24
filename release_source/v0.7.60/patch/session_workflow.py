@@ -50,7 +50,7 @@ def continuation(data,players,day=None):
 
 
 def session_entry(task,record,previous):
-    if task not in record.get('tasks',[]):return {**previous,'previous':True}
+    if task not in record.get('planned',record.get('tasks',[])):return {**previous,'previous':True}
     result=record.get('results',{}).get(task)
     if result is None:return {'result':'waiting','reason':'이번 실행에서 아직 확인하지 않은 작업입니다.'}
     return {**record.get('entries',{}).get(task,{}),'result':result}

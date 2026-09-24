@@ -80,3 +80,36 @@ class DailySelectionTests(unittest.TestCase):
         p={'a':{'enabled':True,'minutes':60,'selected':{'farm':True},'daily_selected':{'daily_pass':True,'daily_dungeons':True,'daily_guild':True}}}
         draft=copy.deepcopy(p);draft['a']['daily_selected']['daily_guild']=False
         self.assertFalse(merge_profiles(p,p,draft)['a']['daily_selected']['daily_guild'])
+
+class PresentationBoundaryTests(unittest.TestCase):
+    def test_backlog_remains_previous_after_restart(self):
+        from session_workflow import session_entry
+        with tempfile.TemporaryDirectory() as d:
+            p=Path(d)/'run.json';j=RunJournal(p);j.begin('a',['daily_dungeons'])
+            j.result('a','daily_dungeons','deferred',{'progress':{'complete':6,'total':7}});j.begin('a',['farm'])
+            row=session_entry('daily_dungeons',RunJournal(p).data['a'],{'result':'deferred'})
+            self.assertTrue(row.get('previous'))
+    def test_old_day_or_different_profile_cannot_display_current_success(self):
+        from ui_roster import RosterUI
+        from types import SimpleNamespace
+        from run_control import RunControl
+        for day,scope in [('2000-01-01','a'),(korea_day(),'old-profile')]:
+            app=SimpleNamespace(players={'a':{'enabled':True,'selected':{'farm':True},'minutes':60,'daily_profile':''}},
+                fleet_states={'a':{'session_day':day,'scope':scope,'status':'확인 완료','rooms':['farm'],'results':{'farm':'collected'}}},
+                device_reports={'s':{'instance_id':'a'}},unavailable_devices=set(),stop=RunControl(),busy=lambda:False,
+                history_entries=lambda _: {'farm':{'result':'collected'}})
+            state=RosterUI.summaries(app)['a']
+            self.assertNotEqual(state['status'],'확인 완료');self.assertEqual(state['completed'],0)
+    def test_current_waiting_precedes_previous_failure(self):
+        from ui_state import task_display_order
+        p={'selected':{'worldboss':True,'farm':True}}
+        entries={'worldboss':{'result':'failed','previous':True},'farm':{'result':'waiting'}}
+        self.assertEqual(task_display_order(p,entries),['farm','worldboss'])
+
+class EmptyDailyRowsTests(unittest.TestCase):
+    def test_empty_history_slots_do_not_create_daily_rows_in_regular_scope(self):
+        from types import SimpleNamespace
+        from ui_workflow import WorkflowUI
+        from task_catalog import TASK_LABELS
+        app=SimpleNamespace(players={'a':{'selected':{'farm':True}}},config={'run_scope':'regular'},current_record=lambda _: {},history_entries=lambda _: {t:{} for t in TASK_LABELS})
+        self.assertNotIn('daily_pass',WorkflowUI.display_entries(app,'a'))

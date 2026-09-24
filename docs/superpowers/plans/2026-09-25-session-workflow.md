@@ -47,3 +47,6 @@ Files: ui_workflow.py (new), ui_dashboard.py, ui_roster.py, ui_history.py, app.p
 ## Evidence and decisions
 - Remote main 9d6d208d0e04026c7fbbd5ceed5b6ffb5de36d3a matches tested v0.7.59; local isolated worktree chanki-v060 and private full-source copy app-v060.
 - Ruling: no repeated spec/plan approval gate — user's explicit autonomous all-work authorization and standing preferences override skill handoff prompts.
+
+- Final review found three important issues: foreground race during process query, old account/day success in roster summary, retained backlog shown as current after restart. Reproduced all three (plus old failure ordering) RED; fixed with PresentationBoundaryTests and LateFocusRaceTests GREEN.
+- First Windows GUI pass found empty history slots exposed unrun daily rows. Fixed source filtering; retained existing UI assertion and added EmptyDailyRowsTests.

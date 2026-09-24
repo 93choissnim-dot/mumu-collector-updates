@@ -6,7 +6,7 @@ from daily_state import korea_day,LedgerError
 from action_state import account_scope
 from session_workflow import continuation,session_entry,task_scope
 from task_catalog import TASK_LABELS
-from ui_theme import PANEL,MUTED,TEXT,GOLD,RED,ACCENT,HEADER,font,label,button,panel
+from ui_theme import PANEL,MUTED,TEXT,GOLD,RED,ACCENT,HEADER,SELECTED,font,label,button,panel
 from ui_layout import fit_window
 
 SCOPES={'일반 작업':'regular','일일 작업':'daily','전체':'all'}
@@ -19,7 +19,7 @@ class WorkflowUI:
         self.scope_value=tk.StringVar(value=next(k for k,v in SCOPES.items() if v==value))
         self.scope_selector=ctk.CTkSegmentedButton(self.footer,values=list(SCOPES),variable=self.scope_value,
             command=self.change_scope,width=245,height=36,font=font(12),fg_color=PANEL,
-            selected_color=ACCENT,selected_hover_color=ACCENT,unselected_color=PANEL,text_color=TEXT)
+            selected_color=SELECTED,selected_hover_color=SELECTED,unselected_color=PANEL,text_color=TEXT)
         self.resume_bar=ctk.CTkFrame(self.footer,fg_color='transparent');self.resume_bar.grid_columnconfigure(0,weight=1)
         self.resume_hint=label(self.resume_bar,'',size=12,color=GOLD,anchor='w')
         self.resume_hint.grid(row=0,column=0,sticky='w')
@@ -29,7 +29,7 @@ class WorkflowUI:
         self.workflow_error='';self._workflow_refresh=0
     def change_scope(self,value):
         if self.busy():return
-        self.config['run_scope']=SCOPES[value]
+        self.config['run_scope']=SCOPES[value];self.scope_value.set(value)
         try:self.save()
         except OSError as exc:self.status.set('작업 범위 저장 실패: '+str(exc))
         self.render_roster(force=True)
@@ -52,7 +52,7 @@ class WorkflowUI:
         return self.workflow_plan.get('records',{}).get(ident,{}) if hasattr(self,'workflow_plan') else {}
     def display_entries(self,ident):
         record=self.current_record(ident);entries=self.history_entries(ident)
-        visible=set(record.get('tasks',[]))|set(entries)|set(task_scope(self.players.get(ident,{}),self.config.get('run_scope','regular')))
+        visible=set(record.get('planned',record.get('tasks',[])))|{t for t,e in entries.items() if e}|set(task_scope(self.players.get(ident,{}),self.config.get('run_scope','regular')))
         return {task:session_entry(task,record,entries.get(task,{})) for task in TASK_LABELS if not task.startswith('daily_') or task in visible}
     def sync_workflow(self,busy):
         if not hasattr(self,'scope_selector'):return
