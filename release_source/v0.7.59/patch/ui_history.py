@@ -163,7 +163,7 @@ class HistoryUI:
                 progress=entry.get('progress',{})
                 for part in progress.get('steps',{}).values() if isinstance(progress,dict) else []:
                     status={'done':'완료 확인','excluded':'유료 항목 제외','failed':'인식 또는 진행 실패','uncertain':'결과 미확인','blocked':'재시도 보류','not_started':'미실행'}.get(part.get('status'),'확인 중')
-                    detail+='\n'+part.get('label','')+': '+status+(' / '+part['reason'] if part.get('reason') else '')
+                    detail+='\n'+part.get('label','')+': '+('무료 열쇠 수령 확인 / ' if part.get('free_key_received') else '')+status+(' / '+part['reason'] if part.get('reason') else '')
                 pending_details=daily_records.get(task,{}).get('_steps',{})
                 if isinstance(pending_details,dict):
                     for step,info in pending_details.items():

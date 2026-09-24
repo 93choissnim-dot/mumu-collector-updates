@@ -11,7 +11,7 @@ def check(app,output):
     app.config['update_check']=False
     original_players=app.players
     ident=next(iter(app.players),None)
-    if ident:app.players={ident:app.players[ident]};app.view_id=ident
+    if ident:app.players={ident:{**app.players[ident],'name':'미리보기 / 길고 긴 뮤뮤 플레이어 이름'}};app.view_id=ident
     app.compact_details=True
     for scale in (1.,1.25,1.5):
         ctk.set_widget_scaling(scale);ctk.set_window_scaling(scale)
@@ -23,7 +23,7 @@ def check(app,output):
             assert widget.winfo_rootx()>=root.winfo_rootx(),('compact left',widget.cget('text'))
             assert widget.winfo_rootx()+widget.winfo_width()<=root.winfo_rootx()+root.winfo_width()+2,('compact right',widget.cget('text'))
             assert widget.winfo_rooty()+widget.winfo_height()<=root.winfo_rooty()+root.winfo_height()+2,('compact bottom',widget.cget('text'))
-        assert app.detail_name.winfo_width()>80,'Player name clipped'
+        assert app.detail_name.winfo_width()>=app.detail_name.cget('font').measure(app.detail_name.cget('text'))*scale-2,'Player name clipped'
         assert app.detail_tasks._parent_canvas.winfo_height()>80,'Task results clipped'
         assert app.stop_button.cget('fg_color')!=app.start_button.cget('fg_color')
         assert window_size(root)[0]<=680

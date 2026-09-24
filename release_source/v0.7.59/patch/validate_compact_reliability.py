@@ -163,3 +163,21 @@ class FinalReviewScopeTests(unittest.TestCase):
             def execute(tasks):return {task:c.collect_daily(task) for task in tasks}
             final_review(c,['daily_dungeons'],{'daily_dungeons':'failed'},execute,lambda _:None,c.stop)
             self.assertEqual(seen,['treasure'])
+
+class KeyProgressTests(unittest.TestCase):
+    def test_confirmed_free_key_is_partial_not_dungeon_success(self):
+        from extra_collector import ExtraCollector
+        from daily_state import DailyLedger,korea_day
+        from run_review import progress_snapshot
+        from ui_state import entry_summary
+        from unittest.mock import Mock
+        import threading
+        with tempfile.TemporaryDirectory() as d:
+            c=ExtraCollector(Mock(),Mock(),threading.Event(),lambda _:None)
+            c.daily_ledger=DailyLedger(Path(d)/'daily.json');c.daily_ident='vm';c.daily_day=korea_day()
+            c.daily_ledger.checkpoint('vm','daily_dungeons','equipment','failed',free_key_received=True,reason='소탕 버튼 미인식')
+            progress=progress_snapshot(c,'daily_dungeons')
+            self.assertEqual(progress.get('free_keys'),1)
+            text,tone=entry_summary('daily_dungeons',{'result':'failed','progress':progress})
+            self.assertEqual((text,tone),('열쇠 수령 / 미완료','warning'))
+            self.assertEqual(progress['complete'],0)

@@ -81,7 +81,7 @@ def health_check(output,full_ui=True):
     from validate_pass_native import NativePassTests
     from validate_training_completion import TrainingTests
     from validate_sweep_transition import SweepTransitionTests
-    from validate_compact_reliability import CompactReliabilityTests,ResumeTests,FreeOnlyTests,EmptyDashboardTests,ResumeInitializationTests,FinalReviewScopeTests
+    from validate_compact_reliability import CompactReliabilityTests,ResumeTests,FreeOnlyTests,EmptyDashboardTests,ResumeInitializationTests,FinalReviewScopeTests,KeyProgressTests
     from validate_native_sweep_battle import NativeSweepBattleTests
     from validate_guild_resume import GuildResumeTests
     from validate_sweep_retry import SweepRetryTests
@@ -96,7 +96,7 @@ def health_check(output,full_ui=True):
     from validate_completion_recheck import CompletionRecheckTests
     from validate_completion_review_ui import CompletionReviewUITests,CompletionReviewFleetTests
     suite=unittest.TestSuite(unittest.defaultTestLoader.loadTestsFromTestCase(case)
-        for case in (CompactReliabilityTests,ResumeTests,FreeOnlyTests,EmptyDashboardTests,ResumeInitializationTests,FinalReviewScopeTests,NativeSweepBattleTests,GuildResumeTests,SweepRetryTests))
+        for case in (CompactReliabilityTests,ResumeTests,FreeOnlyTests,EmptyDashboardTests,ResumeInitializationTests,FinalReviewScopeTests,KeyProgressTests,NativeSweepBattleTests,GuildResumeTests,SweepRetryTests))
     suite.addTests(unittest.TestSuite(unittest.defaultTestLoader.loadTestsFromTestCase(case)
         for case in (SweepTransitionTests,DungeonResumeTests,NativeTrainingRetryTests,ExplicitDungeonRetryTests,DiagnosticRecognitionTests,DiagnosticFlowTests,NativePassTests,TrainingTests,CombatStartTests,NativeDungeonTests,NativeRaidTests,DungeonConfirmationTests,CompletionRecheckTests,CompletionReviewUITests,CompletionReviewFleetTests,HistoryCountTests,PendingHistoryTests,RaidRetryTests,InputProvenanceTests,InputEvidenceTests,NativeAutumnTests,NativeNavigationTests,RetryResolutionTests,HistoryLifecycleTests,RewardRecoveryTests,UpdateDiagnosticsTests,
                      SettingsLifecycleTests,GuildEmptyTests,PurchaseTests,NetworkTests,RouteTests,DialogVisionTests,GuildCoinFlowTests,

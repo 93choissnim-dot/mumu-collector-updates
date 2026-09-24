@@ -140,6 +140,7 @@ def entry_summary(task,entry):
             if excluded==total:return '유료 항목 제외','muted'
             if 0<complete<total:return f'부분 완료 {complete}/{total}','warning'
             if complete==total and excluded:return '무료 작업 완료','success'
+            if complete<total and progress.get('free_keys',0):return '열쇠 수령 / 미완료','warning'
     if task=='daily_dungeons' and entry.get('result')=='collected':return '던전 완료','success'
     if task=='daily_guild' and entry.get('result')=='collected':return '길드 완료','success'
     return task_summary(task,entry.get('result'))

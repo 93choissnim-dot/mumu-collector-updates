@@ -26,9 +26,10 @@ def progress_snapshot(collector,task):
         done=record.get(step)=='done' or record.get('_complete')=='done'
         excluded=bool(detail.get('excluded'))
         state='excluded' if excluded else 'done' if done else detail.get('status','not_started')
-        steps[step]={'label':step_label(task,step),'status':state,'reason':detail.get('reason',''),'pending':bool(detail.get('pending'))}
+        steps[step]={'label':step_label(task,step),'status':state,'reason':detail.get('reason',''),'pending':bool(detail.get('pending')),'free_key_received':bool(detail.get('free_key_received'))}
     return {'complete':sum(s['status'] in {'done','excluded'} for s in steps.values()),'total':len(steps),
-            'excluded':sum(s['status']=='excluded' for s in steps.values()),'steps':steps}
+            'excluded':sum(s['status']=='excluded' for s in steps.values()),
+            'free_keys':sum(s['free_key_received'] for s in steps.values()),'steps':steps}
 
 
 def final_review(collector,tasks,results,execute,log,stop):

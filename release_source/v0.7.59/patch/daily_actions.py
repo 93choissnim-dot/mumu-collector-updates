@@ -341,7 +341,9 @@ class DailyActions(DailyExecution):
                 if self.daily_has(screen,'sweep_free_1') and self.daily_has(screen,'sweep_count_0'):
                     if not self.daily_try_tap(screen,point=(480,382),work=True,
                                              required=('sweep_free_1','sweep_count_0'),before_input=self.daily_retire_inherited_pending):continue
-                    self.daily_wait_sweep_action(page)
+                    after_key=self.daily_wait_sweep_action(page)
+                    if self.daily_has(after_key,'sweep_free_0') and not self.daily_has(after_key,'sweep_free_1'):
+                        self.daily_checkpoint('running',free_key_received=True)
                 elif self.daily_has(screen,'sweep_action'):
                     self.daily_reward_seen=False
                     if not self.daily_committed_tap(screen,'sweep_action'):continue

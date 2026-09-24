@@ -72,6 +72,7 @@ def check(app,output):
     assert not app.roster_panel.winfo_ismapped() and app.detail_panel.winfo_ismapped()
     assert app.players==original and app.view_id=='preview-0'
     app.toggle_compact_details();root.update()
+    app.show_roster()  # Reset selection inherited from the compact startup view.
     root.geometry('820x640+0+0');root.update();app.apply_layout();root.update()
     assert app.roster_panel.winfo_ismapped() and not app.detail_panel.winfo_ismapped()
     app.select_player('preview-1');root.update()
