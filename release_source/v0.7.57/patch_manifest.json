@@ -1,0 +1,16 @@
+{
+  "version": "0.7.57",
+  "base_version": "0.7.56",
+  "base_sha256": "0b0fa0ef4803fa3f7dab60cc5b865d73ae93b3bf8e0312a56e5d8929b54c676d",
+  "files": {
+    "validate_sweep_transition.py": "54fa7b962b08306db0adb91e56a716b8c63b04fe87abacce5f0d2e1f1669cb88",
+    "daily_actions.py": "cbda9b2d42ca3653d0c5122f89dbf98674ea0b4761a7fff25fa38bc05889948f",
+    "build_release.py": "dd2ce057088e391e7fd77978d6556b9a314edb7870ffb64d87da8a40a5cd308a",
+    "validate_daily_execution.py": "edc7ec56f80b98e7d84a5d680bf6d2c04c9cd6205116284ecef5e04c0745429a",
+    "frozen_entry.py": "dcaa5fd72aae3735ca74df3f454cd914560c52824b326b08d1e7d2edd55762ce",
+    "validate_dungeon_resume.py": "2799c5306021e3e0126b36f319a5ba3f91386ce3426f7af75a0a3412bc74cdf2",
+    "build_exe.py": "1e6131daf0ce5c5b363a9404550fd49a0d5c3bebf43abe5af4cbe30e2ee960e0",
+    "version.py": "0233f98462467f464cd49bf6b5fd2cd4a752ca39f49ff58cf8c4e24592048e9f",
+    "validate_audit.py": "95b46f5a2b42588aaed9569376fbbc9e86e9b4d0f8c9df51cd9ea5cda38bfed1"
+  }
+}
