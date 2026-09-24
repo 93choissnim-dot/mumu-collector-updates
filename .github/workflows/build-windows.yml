@@ -6,11 +6,11 @@ on:
     paths:
       - '.gitattributes'
       - '.github/workflows/build-windows.yml'
-      - 'release_source/v0.7.58/**'
+      - 'release_source/v0.7.59/**'
 permissions:
   contents: write
 concurrency:
-  group: chanki-release-v0.7.58
+  group: chanki-release-v0.7.59
   cancel-in-progress: true
 jobs:
   build:
@@ -29,7 +29,7 @@ jobs:
         run: |
           gh release download v0.7.57 --repo 93choissnim-dot/mumu-collector-updates --pattern MumuCollector_v0.7.57.zip
           if ($LASTEXITCODE -ne 0) { throw 'Source download failed' }
-          python release_source/v0.7.58/prepare_source.py
+          python release_source/v0.7.59/prepare_source.py
           if ($LASTEXITCODE -ne 0) { throw 'Reviewed source preparation failed' }
       - name: Install build dependencies
         shell: pwsh
@@ -41,37 +41,37 @@ jobs:
         run: python .github/set-desktop-resolution.py
       - name: Verify live update service from Windows
         shell: pwsh
-        working-directory: source/MumuCollector_v0.7.58
+        working-directory: source/MumuCollector_v0.7.59
         run: |
-          python -c "import threading,json; import updater,exe_updater; s=threading.Event(); e=exe_updater.check_feed(exe_updater.CHANNEL,'0.0.0',s); c=updater.check_feed(json.load(open('update_channel.json'))['manifest_url'],'0.0.0',s); assert e['version']==c['version']=='0.7.57'; print('Existing EXE and source update channels respond: v'+e['version'])"
+          python -c "import threading,json; import updater,exe_updater; s=threading.Event(); e=exe_updater.check_feed(exe_updater.CHANNEL,'0.0.0',s); c=updater.check_feed(json.load(open('update_channel.json'))['manifest_url'],'0.0.0',s); assert e['version']==c['version']=='0.7.58'; print('Existing EXE and source update channels respond: v'+e['version'])"
           if ($LASTEXITCODE -ne 0) { throw 'Live update service is unavailable' }
       - name: Validate desktop layout before packaging
         shell: pwsh
-        working-directory: source/MumuCollector_v0.7.58
+        working-directory: source/MumuCollector_v0.7.59
         run: |
-          $env:LOCALAPPDATA = Join-Path $env:RUNNER_TEMP 'chanki-v0758-source-ui'
+          $env:LOCALAPPDATA = Join-Path $env:RUNNER_TEMP 'chanki-v0759-source-ui'
           python -c "from frozen_entry import health_check; health_check('exe_release/source-health.json')"
           if ($LASTEXITCODE -ne 0) { Write-Host ('Desktop process exit code: '+$LASTEXITCODE); Get-Content exe_release/source-health.progress.json; Get-Content exe_release/source-health.threads.log; throw 'Desktop UI validation failed' }
       - name: Validate recognition and collection
         shell: pwsh
-        working-directory: source/MumuCollector_v0.7.58
+        working-directory: source/MumuCollector_v0.7.59
         run: |
-          python -m unittest -q validate_names validate_mumu_ports validate_fleet validate_operations validate_extra validate_collection validate_overlays validate_entry validate_menu_color validate_world_boss validate_photometric validate_ranking_native validate_adb validate_run_controls validate_ui_state validate_improvements validate_start_navigation validate_daily validate_pass_purchase validate_guild_empty validate_settings_lifecycle validate_daily_execution validate_autumn validate_autumn_native validate_navigation_native validate_safety validate_efficiency validate_update_network validate_daily_dialogs validate_daily_transitions validate_audit validate_updates validate_startup validate_navigation_recovery validate_retry_resolution validate_history_lifecycle validate_reward_recovery validate_update_diagnostics validate_pending_history validate_raid_retry validate_input_provenance validate_input_evidence validate_dungeon_confirmation validate_completion_recheck validate_completion_review_ui validate_raid_native validate_combat_start validate_dungeon_native validate_training_completion validate_pass_native validate_diagnostic_recovery validate_training_retry validate_dungeon_resume validate_sweep_transition validate_native_sweep_battle validate_guild_resume validate_sweep_retry
+          python -m unittest -q validate_names validate_mumu_ports validate_fleet validate_operations validate_extra validate_collection validate_overlays validate_entry validate_menu_color validate_world_boss validate_photometric validate_ranking_native validate_adb validate_run_controls validate_ui_state validate_improvements validate_start_navigation validate_daily validate_pass_purchase validate_guild_empty validate_settings_lifecycle validate_daily_execution validate_autumn validate_autumn_native validate_navigation_native validate_safety validate_efficiency validate_update_network validate_daily_dialogs validate_daily_transitions validate_audit validate_updates validate_startup validate_navigation_recovery validate_retry_resolution validate_history_lifecycle validate_reward_recovery validate_update_diagnostics validate_pending_history validate_raid_retry validate_input_provenance validate_input_evidence validate_dungeon_confirmation validate_completion_recheck validate_completion_review_ui validate_raid_native validate_combat_start validate_dungeon_native validate_training_completion validate_pass_native validate_diagnostic_recovery validate_training_retry validate_dungeon_resume validate_sweep_transition validate_native_sweep_battle validate_guild_resume validate_sweep_retry validate_compact_reliability
           if ($LASTEXITCODE -ne 0) { throw 'Recognition or collection validation failed' }
       - name: Build and validate standalone Windows EXE
         shell: pwsh
         run: |
-          python source/MumuCollector_v0.7.58/build_exe.py
+          python source/MumuCollector_v0.7.59/build_exe.py
           if ($LASTEXITCODE -ne 0) { throw 'EXE build, execution or update validation failed' }
-          python source/MumuCollector_v0.7.58/build_release.py --output source_release --download-url https://github.com/93choissnim-dot/mumu-collector-updates/releases/download/v0.7.58/MumuCollector_v0.7.58.zip
+          python source/MumuCollector_v0.7.59/build_release.py --output source_release --download-url https://github.com/93choissnim-dot/mumu-collector-updates/releases/download/v0.7.59/MumuCollector_v0.7.59.zip
           if ($LASTEXITCODE -ne 0) { throw 'Source release build failed' }
       - name: Record executable signing status
         shell: pwsh
         run: |
-          $exe = 'source/MumuCollector_v0.7.58/exe_release/ChankiHelper.exe'
+          $exe = 'source/MumuCollector_v0.7.59/exe_release/ChankiHelper.exe'
           $signature = Get-AuthenticodeSignature -LiteralPath $exe
-          $report = [ordered]@{ version='0.7.58'; status=[string]$signature.Status; statusMessage=$signature.StatusMessage; signatureType=[string]$signature.SignatureType; subject=$signature.SignerCertificate.Subject; thumbprint=$signature.SignerCertificate.Thumbprint; sha256=(Get-FileHash -LiteralPath $exe -Algorithm SHA256).Hash.ToLower() }
-          $report | ConvertTo-Json | Set-Content 'source/MumuCollector_v0.7.58/exe_release/signature-status.json' -Encoding utf8
+          $report = [ordered]@{ version='0.7.59'; status=[string]$signature.Status; statusMessage=$signature.StatusMessage; signatureType=[string]$signature.SignatureType; subject=$signature.SignerCertificate.Subject; thumbprint=$signature.SignerCertificate.Thumbprint; sha256=(Get-FileHash -LiteralPath $exe -Algorithm SHA256).Hash.ToLower() }
+          $report | ConvertTo-Json | Set-Content 'source/MumuCollector_v0.7.59/exe_release/signature-status.json' -Encoding utf8
           Write-Host ('Authenticode status: '+$signature.Status)
       - name: Validate update from actual v0.7.28 helper
         shell: pwsh
@@ -80,47 +80,47 @@ jobs:
         run: |
           gh release download v0.7.28 --repo 93choissnim-dot/mumu-collector-updates --dir previous_release --pattern ChankiHelper.exe
           if ($LASTEXITCODE -ne 0) { throw 'Previous EXE download failed' }
-          python source/MumuCollector_v0.7.58/validate_exe_windows.py source/MumuCollector_v0.7.58/exe_release/ChankiHelper.exe source/MumuCollector_v0.7.58/exe_release/ChankiHelper_v0.7.58_update.zip previous_release/ChankiHelper.exe
+          python source/MumuCollector_v0.7.59/validate_exe_windows.py source/MumuCollector_v0.7.59/exe_release/ChankiHelper.exe source/MumuCollector_v0.7.59/exe_release/ChankiHelper_v0.7.59_update.zip previous_release/ChankiHelper.exe
           if ($LASTEXITCODE -ne 0) { throw 'Previous helper update validation failed' }
       - name: Stage tested release
         shell: pwsh
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          $out = 'source/MumuCollector_v0.7.58/exe_release'
-          $draft = gh release view v0.7.58 --repo 93choissnim-dot/mumu-collector-updates --json isDraft --jq .isDraft 2>$null
+          $out = 'source/MumuCollector_v0.7.59/exe_release'
+          $draft = gh release view v0.7.59 --repo 93choissnim-dot/mumu-collector-updates --json isDraft --jq .isDraft 2>$null
           if ($LASTEXITCODE -eq 0) {
             if ($draft -ne 'true') { throw 'Refusing to replace an already published release' }
-            gh release edit v0.7.58 --repo 93choissnim-dot/mumu-collector-updates --target $env:GITHUB_SHA
+            gh release edit v0.7.59 --repo 93choissnim-dot/mumu-collector-updates --target $env:GITHUB_SHA
             if ($LASTEXITCODE -ne 0) { throw 'Draft source target update failed' }
           } else {
-            gh release create v0.7.58 --repo 93choissnim-dot/mumu-collector-updates --target $env:GITHUB_SHA --draft --title '창키 도우미 v0.7.58 — 실제 소탕 및 보물 창고 전투 인식과 길드 던전 재개 보완' --notes-file release_source/v0.7.58/notes.md
+            gh release create v0.7.59 --repo 93choissnim-dot/mumu-collector-updates --target $env:GITHUB_SHA --draft --title '창키 도우미 v0.7.59 — 좁은 화면 최적화와 미완료 작업 이어하기' --notes-file release_source/v0.7.59/notes.md
             if ($LASTEXITCODE -ne 0) { throw 'Draft release creation failed' }
           }
-          gh release upload v0.7.58 --repo 93choissnim-dot/mumu-collector-updates "$out/ChankiHelper.exe" "$out/ChankiHelper_v0.7.58_update.zip" "$out/latest-exe.json" "$out/checksums.txt" "$out/exe-health.json" "$out/windows-validation.json" "$out/windows-previous-validation.json" "$out/signature-status.json" source_release/MumuCollector_v0.7.58.zip source_release/latest.json --clobber
+          gh release upload v0.7.59 --repo 93choissnim-dot/mumu-collector-updates "$out/ChankiHelper.exe" "$out/ChankiHelper_v0.7.59_update.zip" "$out/latest-exe.json" "$out/checksums.txt" "$out/exe-health.json" "$out/windows-validation.json" "$out/windows-previous-validation.json" "$out/signature-status.json" source_release/MumuCollector_v0.7.59.zip source_release/latest.json --clobber
           if ($LASTEXITCODE -ne 0) { throw 'Release asset upload failed' }
       - name: Verify uploaded release bytes
         shell: pwsh
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh release download v0.7.58 --repo 93choissnim-dot/mumu-collector-updates --dir published_verify --pattern ChankiHelper_v0.7.58_update.zip --pattern latest-exe.json --pattern MumuCollector_v0.7.58.zip --pattern latest.json
+          gh release download v0.7.59 --repo 93choissnim-dot/mumu-collector-updates --dir published_verify --pattern ChankiHelper_v0.7.59_update.zip --pattern latest-exe.json --pattern MumuCollector_v0.7.59.zip --pattern latest.json
           if ($LASTEXITCODE -ne 0) { throw 'Verification download failed' }
-          python -c "import hashlib,json,pathlib; p=pathlib.Path('published_verify'); m=json.loads((p/'latest-exe.json').read_text(encoding='utf-8')); z=p/'ChankiHelper_v0.7.58_update.zip'; assert m['version']=='0.7.58' and m['size']==z.stat().st_size and m['sha256']==hashlib.sha256(z.read_bytes()).hexdigest(); assert z.read_bytes()==(pathlib.Path('source/MumuCollector_v0.7.58/exe_release')/z.name).read_bytes(); m=json.loads((p/'latest.json').read_text(encoding='utf-8')); z=p/'MumuCollector_v0.7.58.zip'; assert m['version']=='0.7.58' and m['size']==z.stat().st_size and m['sha256']==hashlib.sha256(z.read_bytes()).hexdigest(); assert z.read_bytes()==(pathlib.Path('source_release')/z.name).read_bytes(); print('Both uploaded channels match tested build')"
+          python -c "import hashlib,json,pathlib; p=pathlib.Path('published_verify'); m=json.loads((p/'latest-exe.json').read_text(encoding='utf-8')); z=p/'ChankiHelper_v0.7.59_update.zip'; assert m['version']=='0.7.59' and m['size']==z.stat().st_size and m['sha256']==hashlib.sha256(z.read_bytes()).hexdigest(); assert z.read_bytes()==(pathlib.Path('source/MumuCollector_v0.7.59/exe_release')/z.name).read_bytes(); m=json.loads((p/'latest.json').read_text(encoding='utf-8')); z=p/'MumuCollector_v0.7.59.zip'; assert m['version']=='0.7.59' and m['size']==z.stat().st_size and m['sha256']==hashlib.sha256(z.read_bytes()).hexdigest(); assert z.read_bytes()==(pathlib.Path('source_release')/z.name).read_bytes(); print('Both uploaded channels match tested build')"
           if ($LASTEXITCODE -ne 0) { throw 'Uploaded bytes differ from tested build' }
       - name: Emit synthetic UI review previews
         if: always()
         shell: pwsh
-        run: python source/MumuCollector_v0.7.58/emit_ui_review.py
+        run: python source/MumuCollector_v0.7.59/emit_ui_review.py
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: windows-exe-validation-v0.7.58
+          name: windows-exe-validation-v0.7.59
           path: |
-            source/MumuCollector_v0.7.58/exe_release/*.json
-            source/MumuCollector_v0.7.58/exe_release/*.png
-            source/MumuCollector_v0.7.58/exe_release/*.log
-            source/MumuCollector_v0.7.58/exe_release/smoke-data/MumuCollector/*log
+            source/MumuCollector_v0.7.59/exe_release/*.json
+            source/MumuCollector_v0.7.59/exe_release/*.png
+            source/MumuCollector_v0.7.59/exe_release/*.log
+            source/MumuCollector_v0.7.59/exe_release/smoke-data/MumuCollector/*log
           if-no-files-found: ignore
 
 
