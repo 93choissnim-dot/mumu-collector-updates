@@ -1,0 +1,54 @@
+창키 도우미 서명 빌드 준비
+
+현재 상태
+v0.7.47 공개 EXE는 미서명입니다. 이 도구를 추가하는 것만으로 사용자 PC의 차단이 풀리지는 않습니다.
+실제 배포자 명의의 신원 검증과 신뢰받는 RSA 코드 서명 인증서/프로필이 아직 필요합니다.
+개인키나 인증서 암호를 저장소, 대화 또는 JSON 설정에 넣지 마세요.
+
+인증서 준비
+1. 기존 코드 서명 인증서가 있으면 해당 토큰/HSM 또는 클라우드 서명 서비스에 연결합니다.
+2. Microsoft Artifact Signing의 공식 안내상 한국 조직은 Public Trust 신청 대상입니다.
+   개인 개발자 지원은 미국/캐나다로 제한됩니다. 국내 개인이면 개인 발급을 지원하는 신뢰받는 CA를 별도로 확인해야 합니다.
+3. 신원 확인, 계정 로그인, 비용 결제는 계정 소유자가 해야 합니다. 이 도구는 계정이나 인증서를 생성하지 않습니다.
+
+설정 예시(공개 설정값만 포함)
+기존 인증서가 있는 Windows 서명 머신:
+{
+  "signtool": "C:/Program Files (x86)/Windows Kits/10/bin/SDK_VERSION/x64/signtool.exe",
+  "thumbprint": "ISSUED_CERTIFICATE_40_HEX_THUMBPRINT",
+  "timestamp_url": "http://timestamp.digicert.com"
+}
+
+Microsoft Artifact Signing의 발급 완료된 Public Trust 프로필:
+{
+  "signtool": "C:/signing/signtool.exe",
+  "dlib": "C:/signing/Azure.CodeSigning.Dlib.dll",
+  "metadata": "C:/signing/metadata.json",
+  "timestamp_url": "http://timestamp.acs.microsoft.com"
+}
+metadata.json에는 Endpoint, CodeSigningAccountName, CertificateProfileName을 공식 문서대로 지정합니다.
+인증은 서명 머신에서 이미 구성된 계정 또는 CI의 최소 권한 OIDC로 처리합니다.
+공개 서명용 프로필이 필요하며 Private Trust, 테스트 인증서, 임의 자체 서명은 대체 수단이 아닙니다.
+
+빌드
+검토한 소스와 기존 빌드 의존성을 준비하고 PyInstaller 6.22.3을 설치합니다.
+python release_tools/build_signed.py --source <source_directory> --config <local_signing_config.json> --output <new_output_directory>
+
+처리 순서
+1. 원본 Python과 설치된 패키지는 수정하지 않고 EXE/DLL/PYD 복사본을 서명합니다.
+2. Windows 신뢰 체인, 내장 RSA 서명, 타임스탬프를 검사합니다.
+3. one-file EXE에 포함된 바이너리가 검증된 복사본과 정확히 같은지 검사합니다.
+4. 최종 EXE를 서명하고 자체 실행/UI 검증을 수행합니다.
+5. 서명 실패, 누락, 변조, 미설정이면 후보 빌드를 중단합니다.
+
+배포 전 남은 검증
+이 명령은 자동 업데이트 채널이나 공개 릴리스를 변경하지 않습니다.
+SAC 켜짐 환경에서 전체 기능과 내부 바이너리 로딩을 검사하고 이전 버전 도우미를 통한 교체/재시작/복구를 통과해야 합니다.
+서명된 최종 바이트로 새 버전의 업데이트 ZIP, 내부 SHA256, 피드 SHA256과 크기를 다시 생성해야 합니다.
+이미 공개된 v0.7.47 파일을 덮어쓰지 마세요. 같은 버전 재배포는 기존 차단 캐시와 업데이트 비교를 해결하지 못합니다.
+
+공식 참고
+https://learn.microsoft.com/en-us/windows/apps/develop/smart-app-control/code-signing-for-smart-app-control
+https://learn.microsoft.com/en-us/windows/apps/develop/smart-app-control/test-your-app-with-smart-app-control
+https://learn.microsoft.com/en-us/azure/artifact-signing/quickstart
+https://learn.microsoft.com/en-us/azure/artifact-signing/how-to-signing-integrations

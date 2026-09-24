@@ -1,0 +1,15 @@
+{
+  "version": "0.7.7",
+  "base_version": "0.7.6",
+  "base_sha256": "49f1afff7d65141f385f410cc8912762671dd71788835ceb6995b39b1e9482d2",
+  "files": {
+    "photometric.py": "bb4795a3394a20a3e0670b7a7d08f0aeeb641e67cc5350d17ea35677bdab3248",
+    "version.py": "d4edc03ec56c431adcab3a7cd75ca7d21c2aa380d8876fcfe99441786e21c6fe",
+    "assets/button_profiles.json": "e56d3112e1a5d504565844792d76e48ec8fb6b049fa4558b993ac6b07c3b776b",
+    "assets/photo_ranking_active_adb.png": "7792a3045bbe807452d08fb64af87197ac78505085c9edb20b55e2dd0e460a40",
+    "validate_ranking_native.py": "d47b393dbba35c3c2f262d71940abeb3600a20d7b9b7a475f9bb20299bda5512",
+    "build_exe.py": "62c6d45f8e64d8af45d449ada4c07bba24c60f5d1c58f0892098d953952d6d0f",
+    "변경사항.txt": "ee4abbcabaf88667dfc1dad06ae955649603f11c9e43a2c5d9f588d035ce0da0",
+    "검증결과.txt": "5da882b43e70d7edcdc73e8d4b2915de9126d377002ccd703c2cc33969514f21"
+  }
+}

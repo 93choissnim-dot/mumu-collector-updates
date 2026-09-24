@@ -1,0 +1,397 @@
+{
+  "version": "0.7.29",
+  "scope": "Local recorded-frame replay and recognition-only CPU benchmarks; not live MuMu elapsed time.",
+  "private_images_published": false,
+  "route_before": {
+    "daily_pass": {
+      "result": "collected",
+      "captures": 37,
+      "actions": 7,
+      "fixed_wait_s": 8.25,
+      "steps": [
+        {
+          "step": "ad",
+          "captures": 7,
+          "actions": 1,
+          "fixed_wait_s": 1.4
+        },
+        {
+          "step": "keys",
+          "captures": 10,
+          "actions": 2,
+          "fixed_wait_s": 2.3
+        },
+        {
+          "step": "gear",
+          "captures": 10,
+          "actions": 2,
+          "fixed_wait_s": 2.3
+        }
+      ],
+      "main_entries": 1
+    },
+    "daily_dungeons": {
+      "result": "collected",
+      "captures": 233,
+      "actions": 47,
+      "fixed_wait_s": 61.55,
+      "steps": [
+        {
+          "step": "equipment",
+          "captures": 27,
+          "actions": 7,
+          "fixed_wait_s": 7.05
+        },
+        {
+          "step": "summon",
+          "captures": 27,
+          "actions": 7,
+          "fixed_wait_s": 7.05
+        },
+        {
+          "step": "stone",
+          "captures": 39,
+          "actions": 7,
+          "fixed_wait_s": 10.45
+        },
+        {
+          "step": "rune",
+          "captures": 39,
+          "actions": 7,
+          "fixed_wait_s": 10.45
+        },
+        {
+          "step": "relic",
+          "captures": 42,
+          "actions": 8,
+          "fixed_wait_s": 11.5
+        },
+        {
+          "step": "treasure",
+          "captures": 10,
+          "actions": 2,
+          "fixed_wait_s": 2.3
+        },
+        {
+          "step": "artifact",
+          "captures": 39,
+          "actions": 7,
+          "fixed_wait_s": 10.45
+        }
+      ],
+      "main_entries": 1
+    },
+    "daily_guild": {
+      "result": "collected",
+      "captures": 99,
+      "actions": 22,
+      "fixed_wait_s": 24.9,
+      "steps": [
+        {
+          "step": "attendance",
+          "captures": 7,
+          "actions": 1,
+          "fixed_wait_s": 1.4
+        },
+        {
+          "step": "donation",
+          "captures": 27,
+          "actions": 5,
+          "fixed_wait_s": 6.5
+        },
+        {
+          "step": "relic",
+          "captures": 11,
+          "actions": 3,
+          "fixed_wait_s": 2.95
+        },
+        {
+          "step": "shop",
+          "captures": 8,
+          "actions": 2,
+          "fixed_wait_s": 2.05
+        },
+        {
+          "step": "dungeon",
+          "captures": 16,
+          "actions": 4,
+          "fixed_wait_s": 4.1
+        },
+        {
+          "step": "raid",
+          "captures": 25,
+          "actions": 6,
+          "fixed_wait_s": 6.75
+        }
+      ],
+      "main_entries": 3
+    }
+  },
+  "route_after": {
+    "daily_pass": {
+      "result": "collected",
+      "captures": 23,
+      "actions": 7,
+      "fixed_wait_s": 2.14,
+      "steps": [
+        {
+          "step": "ad",
+          "captures": 3,
+          "actions": 1,
+          "fixed_wait_s": 0.27
+        },
+        {
+          "step": "keys",
+          "captures": 6,
+          "actions": 2,
+          "fixed_wait_s": 0.54
+        },
+        {
+          "step": "gear",
+          "captures": 6,
+          "actions": 2,
+          "fixed_wait_s": 0.54
+        }
+      ],
+      "main_entries": 1
+    },
+    "daily_dungeons": {
+      "result": "collected",
+      "captures": 175,
+      "actions": 47,
+      "fixed_wait_s": 39.0,
+      "steps": [
+        {
+          "step": "equipment",
+          "captures": 21,
+          "actions": 7,
+          "fixed_wait_s": 2.97
+        },
+        {
+          "step": "summon",
+          "captures": 21,
+          "actions": 7,
+          "fixed_wait_s": 2.97
+        },
+        {
+          "step": "stone",
+          "captures": 29,
+          "actions": 7,
+          "fixed_wait_s": 7.67
+        },
+        {
+          "step": "rune",
+          "captures": 29,
+          "actions": 7,
+          "fixed_wait_s": 7.67
+        },
+        {
+          "step": "relic",
+          "captures": 32,
+          "actions": 8,
+          "fixed_wait_s": 8.72
+        },
+        {
+          "step": "treasure",
+          "captures": 6,
+          "actions": 2,
+          "fixed_wait_s": 0.54
+        },
+        {
+          "step": "artifact",
+          "captures": 29,
+          "actions": 7,
+          "fixed_wait_s": 7.67
+        }
+      ],
+      "main_entries": 1
+    },
+    "daily_guild": {
+      "result": "collected",
+      "captures": 66,
+      "actions": 19,
+      "fixed_wait_s": 10.83,
+      "steps": [
+        {
+          "step": "attendance",
+          "captures": 5,
+          "actions": 1,
+          "fixed_wait_s": 0.52
+        },
+        {
+          "step": "donation",
+          "captures": 19,
+          "actions": 5,
+          "fixed_wait_s": 4.6
+        },
+        {
+          "step": "relic",
+          "captures": 9,
+          "actions": 3,
+          "fixed_wait_s": 1.17
+        },
+        {
+          "step": "shop",
+          "captures": 6,
+          "actions": 2,
+          "fixed_wait_s": 0.9
+        },
+        {
+          "step": "dungeon",
+          "captures": 9,
+          "actions": 3,
+          "fixed_wait_s": 0.81
+        },
+        {
+          "step": "raid",
+          "captures": 15,
+          "actions": 4,
+          "fixed_wait_s": 2.56
+        }
+      ],
+      "main_entries": 1
+    }
+  },
+  "recognition_comparison": {
+    "before": [
+      {
+        "frames": 70,
+        "mean_ms": 58.375205871509806,
+        "median_ms": 58.02982699970016
+      },
+      {
+        "frames": 70,
+        "mean_ms": 57.00212417120513,
+        "median_ms": 56.48123599894461
+      }
+    ],
+    "after": [
+      {
+        "frames": 70,
+        "mean_ms": 37.07265127117613,
+        "median_ms": 34.956943500219495
+      },
+      {
+        "frames": 70,
+        "mean_ms": 37.122254585951204,
+        "median_ms": 35.86417449878354
+      }
+    ],
+    "before_mean_ms": 57.688665021357465,
+    "after_mean_ms": 37.09745292856367,
+    "mean_reduction_percent": 35.69368798042133,
+    "scope": "Same 14 local recorded captures; recognition processing only, excluding ADB and game rendering."
+  },
+  "capture_corpus": {
+    "ok": true,
+    "captures": 14,
+    "results": [
+      {
+        "name": "capture_1",
+        "state": "autumn",
+        "ok": true
+      },
+      {
+        "name": "capture_2",
+        "state": "main",
+        "ok": true
+      },
+      {
+        "name": "capture_3",
+        "state": "daily_pass_ad",
+        "ok": true
+      },
+      {
+        "name": "capture_4",
+        "state": "daily_pass_keys",
+        "ok": true
+      },
+      {
+        "name": "capture_5",
+        "state": "daily_pass_gear",
+        "ok": true
+      },
+      {
+        "name": "capture_6",
+        "state": "daily_room_equipment",
+        "ok": true
+      },
+      {
+        "name": "capture_7",
+        "state": "main",
+        "ok": true
+      },
+      {
+        "name": "capture_8",
+        "state": "daily_donate",
+        "ok": true
+      },
+      {
+        "name": "capture_9",
+        "state": "daily_relic",
+        "ok": true
+      },
+      {
+        "name": "capture_10",
+        "state": "daily_shop",
+        "ok": true
+      },
+      {
+        "name": "capture_11",
+        "state": "daily_guild_dungeon",
+        "ok": true
+      },
+      {
+        "name": "capture_12",
+        "state": "daily_room_treasure",
+        "ok": true
+      },
+      {
+        "name": "capture_13",
+        "state": "daily_dungeons",
+        "ok": true
+      },
+      {
+        "name": "capture_14",
+        "state": "daily_guild_dungeon",
+        "ok": true
+      }
+    ]
+  },
+  "native_replay": {
+    "daily_pass": {
+      "result": "collected",
+      "actions": 7,
+      "same_day_duplicate_actions": 0,
+      "paid_donations": 0
+    },
+    "daily_dungeons": {
+      "result": "collected",
+      "actions": 52,
+      "same_day_duplicate_actions": 0,
+      "paid_donations": 0
+    },
+    "daily_guild": {
+      "result": "collected",
+      "actions": 23,
+      "same_day_duplicate_actions": 0,
+      "paid_donations": 3
+    }
+  },
+  "partial_recovery": {
+    "daily_dungeons": {
+      "first_result": "failed",
+      "later_step_completed": true,
+      "retry_result": "collected",
+      "retry_actions": 10,
+      "completed_steps_repeated": false
+    },
+    "daily_guild": {
+      "first_result": "failed",
+      "later_step_completed": true,
+      "retry_result": "collected",
+      "retry_actions": 8,
+      "completed_steps_repeated": false
+    }
+  }
+}

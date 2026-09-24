@@ -1,0 +1,63 @@
+{
+  "version": "0.7.16",
+  "reset": "KST 00:00",
+  "sweep": [
+    "equipment",
+    "summon"
+  ],
+  "enter": [
+    "stone",
+    "rune",
+    "relic",
+    "treasure",
+    "artifact"
+  ],
+  "video_replay": {
+    "daily_pass": {
+      "result": "collected",
+      "actions": 7,
+      "restarted_duplicate_actions": 0,
+      "paid_donations": 0
+    },
+    "daily_dungeons": {
+      "result": "collected",
+      "actions": 42,
+      "restarted_duplicate_actions": 0,
+      "paid_donations": 0
+    },
+    "daily_guild": {
+      "result": "collected",
+      "actions": 26,
+      "restarted_duplicate_actions": 0,
+      "paid_donations": 3
+    }
+  },
+  "video_sha256": {
+    "패스 수령.mp4": "c238b15aa51998189769d7afda2f61630eaad91f6a36d96de2409c333066274f",
+    "1일던전.mp4": "e695e86bdeb5846d173f886e81b57422bd1403f86b4e2cf181df1172d06dbf84",
+    "길드.mp4": "d13eceafbf1b388ab5d642d81c9cc79fb78159387e107d11f27d6b41294b6881"
+  },
+  "scope": "State-machine route replay with recorded frames, including an independently measured native-capture color transform; not continuous live-device execution.",
+  "native_color_replay": {
+    "daily_pass": {
+      "result": "collected",
+      "actions": 7,
+      "restarted_duplicate_actions": 0,
+      "paid_donations": 0
+    },
+    "daily_dungeons": {
+      "result": "collected",
+      "actions": 42,
+      "restarted_duplicate_actions": 0,
+      "paid_donations": 0
+    },
+    "daily_guild": {
+      "result": "collected",
+      "actions": 26,
+      "restarted_duplicate_actions": 0,
+      "paid_donations": 3
+    }
+  },
+  "daily_regression_tests": 28,
+  "diagnostic_images_included": false
+}

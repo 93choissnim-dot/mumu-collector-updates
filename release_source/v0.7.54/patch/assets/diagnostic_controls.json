@@ -1,0 +1,340 @@
+{
+  "templates": {
+    "d_enter_diagnostic": {
+      "box": [
+        716,
+        425,
+        770,
+        455
+      ],
+      "tile": [
+        0,
+        0,
+        54,
+        30
+      ],
+      "atlas": "diagnostic_controls",
+      "threshold": 0.94,
+      "strict": true,
+      "alias": "d_enter",
+      "blur": true
+    },
+    "sweep_free_1_diagnostic": {
+      "box": [
+        507,
+        370,
+        557,
+        394
+      ],
+      "tile": [
+        0,
+        34,
+        50,
+        58
+      ],
+      "atlas": "diagnostic_controls",
+      "threshold": 0.94,
+      "strict": true,
+      "reference_only": true
+    },
+    "guild_battle_header": {
+      "box": [
+        115,
+        5,
+        181,
+        26
+      ],
+      "tile": [
+        0,
+        62,
+        66,
+        83
+      ],
+      "atlas": "diagnostic_controls",
+      "threshold": 0.94,
+      "strict": false,
+      "blur": true
+    },
+    "guild_battle_skip": {
+      "box": [
+        24,
+        475,
+        134,
+        507
+      ],
+      "tile": [
+        0,
+        87,
+        110,
+        119
+      ],
+      "atlas": "diagnostic_controls",
+      "threshold": 0.94,
+      "strict": false,
+      "alias": "battle_skip",
+      "blur": true
+    },
+    "guild_loot_available": {
+      "box": [
+        706,
+        315,
+        815,
+        367
+      ],
+      "tile": [
+        0,
+        123,
+        109,
+        175
+      ],
+      "atlas": "diagnostic_controls",
+      "threshold": 0.94,
+      "strict": true
+    },
+    "guild_loot_claim_diagnostic": {
+      "box": [
+        739,
+        335,
+        780,
+        362
+      ],
+      "tile": [
+        0,
+        179,
+        41,
+        206
+      ],
+      "atlas": "diagnostic_controls",
+      "threshold": 0.94,
+      "strict": true,
+      "reference_only": true
+    },
+    "guild_fight_diagnostic": {
+      "box": [
+        829,
+        477,
+        881,
+        504
+      ],
+      "tile": [
+        0,
+        210,
+        52,
+        237
+      ],
+      "atlas": "diagnostic_controls",
+      "threshold": 0.94,
+      "strict": true,
+      "alias": "guild_fight",
+      "blur": true
+    },
+    "guild_dungeon_rank_diagnostic": {
+      "box": [
+        268,
+        477,
+        314,
+        504
+      ],
+      "tile": [
+        0,
+        241,
+        46,
+        268
+      ],
+      "atlas": "diagnostic_controls",
+      "threshold": 0.94,
+      "strict": true,
+      "alias": "guild_dungeon_rank",
+      "blur": true
+    },
+    "shop_exchange": {
+      "box": [
+        537,
+        81,
+        630,
+        104
+      ],
+      "tile": [
+        0,
+        272,
+        93,
+        295
+      ],
+      "atlas": "diagnostic_controls",
+      "threshold": 0.94,
+      "strict": true
+    }
+  },
+  "fixtures": {
+    "rune_entry": {
+      "room_rune": [
+        140,
+        70,
+        290,
+        108
+      ],
+      "d_close": [
+        802,
+        77,
+        826,
+        101
+      ],
+      "d_enter": [
+        716,
+        425,
+        770,
+        455
+      ]
+    },
+    "sweep_equipment": {
+      "sweep_title": [
+        294,
+        131,
+        336,
+        158
+      ],
+      "sweep_close": [
+        647,
+        130,
+        679,
+        160
+      ],
+      "sweep_free_1": [
+        507,
+        370,
+        557,
+        394
+      ],
+      "sweep_count_0": [
+        464,
+        321,
+        496,
+        343
+      ]
+    },
+    "sweep_summon": {
+      "sweep_title": [
+        294,
+        131,
+        336,
+        158
+      ],
+      "sweep_close": [
+        647,
+        130,
+        679,
+        160
+      ],
+      "sweep_free_1": [
+        507,
+        370,
+        557,
+        394
+      ],
+      "sweep_count_0": [
+        464,
+        321,
+        496,
+        343
+      ]
+    },
+    "guild_combat": {
+      "guild_battle_header": [
+        115,
+        5,
+        181,
+        26
+      ],
+      "guild_battle_skip": [
+        24,
+        475,
+        134,
+        507
+      ]
+    },
+    "guild_loot": {
+      "guild_dungeon_rank": [
+        268,
+        477,
+        314,
+        504
+      ],
+      "guild_fight": [
+        829,
+        477,
+        881,
+        504
+      ],
+      "guild_count_0": [
+        790,
+        425,
+        823,
+        447
+      ],
+      "guild_loot_claim": [
+        739,
+        335,
+        780,
+        362
+      ],
+      "guild_loot_available": [
+        706,
+        315,
+        815,
+        367
+      ]
+    },
+    "guild_claim_soft": {
+      "guild_dungeon_rank": [
+        268,
+        477,
+        314,
+        504
+      ],
+      "guild_fight": [
+        829,
+        477,
+        881,
+        504
+      ],
+      "guild_count_2": [
+        790,
+        425,
+        823,
+        447
+      ],
+      "guild_loot_claim": [
+        739,
+        335,
+        780,
+        362
+      ]
+    },
+    "shop_catalog": {
+      "shop_title": [
+        79,
+        14,
+        172,
+        42
+      ],
+      "shop_tab": [
+        75,
+        74,
+        155,
+        100
+      ],
+      "shop_cube": [
+        307,
+        62,
+        416,
+        88
+      ],
+      "shop_exchange": [
+        537,
+        81,
+        630,
+        104
+      ]
+    }
+  }
+}

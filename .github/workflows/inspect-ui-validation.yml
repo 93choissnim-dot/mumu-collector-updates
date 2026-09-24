@@ -1,0 +1,21 @@
+name: Inspect desktop validation diagnostics
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/inspect-ui-validation.yml']
+permissions:
+  actions: read
+  contents: read
+jobs:
+  inspect:
+    runs-on: windows-latest
+    timeout-minutes: 5
+    steps:
+      - name: Read failed desktop process diagnostics
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh run download 35679112433 --repo 93choissnim-dot/mumu-collector-updates --name windows-exe-validation-v0.7.35 --dir inspection
+          if ($LASTEXITCODE -ne 0) { throw 'Cannot read validation artifact' }
+          Get-ChildItem inspection -Recurse -File -Include *.progress.json,*.threads.log | ForEach-Object { Write-Host $_.Name; Get-Content $_.FullName }

@@ -1,0 +1,109 @@
+{
+  "version": "0.7.23",
+  "reset": "KST 00:00",
+  "steps": {
+    "pass": 3,
+    "dungeons": 7,
+    "guild": 6
+  },
+  "scope": "Recorded-frame replay and injected failure recovery; not live user-device execution.",
+  "video_replay": {
+    "daily_pass": {
+      "result": "collected",
+      "actions": 7,
+      "same_day_duplicate_actions": 0,
+      "paid_donations": 0
+    },
+    "daily_dungeons": {
+      "result": "collected",
+      "actions": 42,
+      "same_day_duplicate_actions": 0,
+      "paid_donations": 0
+    },
+    "daily_guild": {
+      "result": "collected",
+      "actions": 26,
+      "same_day_duplicate_actions": 0,
+      "paid_donations": 3
+    }
+  },
+  "native_color_replay": {
+    "daily_pass": {
+      "result": "collected",
+      "actions": 7,
+      "same_day_duplicate_actions": 0,
+      "paid_donations": 0
+    },
+    "daily_dungeons": {
+      "result": "collected",
+      "actions": 42,
+      "same_day_duplicate_actions": 0,
+      "paid_donations": 0
+    },
+    "daily_guild": {
+      "result": "collected",
+      "actions": 26,
+      "same_day_duplicate_actions": 0,
+      "paid_donations": 3
+    }
+  },
+  "diagnostic_replay": {
+    "daily_pass": {
+      "result": "collected",
+      "actions": 7,
+      "same_day_duplicate_actions": 0,
+      "paid_donations": 0
+    },
+    "daily_dungeons": {
+      "result": "collected",
+      "actions": 39,
+      "same_day_duplicate_actions": 0,
+      "paid_donations": 0
+    },
+    "daily_guild": {
+      "result": "collected",
+      "actions": 22,
+      "same_day_duplicate_actions": 0,
+      "paid_donations": 3
+    }
+  },
+  "partial_recovery": {
+    "daily_dungeons": {
+      "first_result": "failed",
+      "later_step_completed": true,
+      "retry_result": "collected",
+      "retry_actions": 8,
+      "completed_steps_repeated": false
+    },
+    "daily_guild": {
+      "first_result": "failed",
+      "later_step_completed": true,
+      "retry_result": "collected",
+      "retry_actions": 8,
+      "completed_steps_repeated": false
+    }
+  },
+  "new_regression_tests": 26,
+  "diagnostic_images_included": false,
+  "readiness_capture_count": {
+    "previous": 5,
+    "current": 3,
+    "scope": "stable button confirmation plus fresh pre-input capture"
+  },
+  "paid_donation": {
+    "maximum_attempts": 3,
+    "maximum_rubies": 150,
+    "confirmation": "stable counter change, observed reward or final donated badge",
+    "pending_survives_restart": true
+  },
+  "retries": {
+    "same_failure_limit": 2,
+    "manual_retry_resets_recognition_blocks_only": true
+  },
+  "diagnostics": {
+    "frames_per_failure": 6,
+    "events_per_trace": 200,
+    "daily_ledger": true,
+    "per_step_evidence": true
+  }
+}

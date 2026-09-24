@@ -1,0 +1,134 @@
+{
+  "version": "0.7.28",
+  "direct_top_icons": [
+    "pass",
+    "event",
+    "worldboss"
+  ],
+  "scope": "Local recorded frames and simulated transitions; not live device execution.",
+  "approved_generic_icon_atlas": {
+    "git_blob": "4a5ab6c7af6c821d043fd26212734c110b3377dd",
+    "size": [
+      102,
+      32
+    ],
+    "approved_for_public_upload": true
+  },
+  "diagnostic_images_published": false,
+  "capture_corpus": {
+    "ok": true,
+    "captures": 14,
+    "results": [
+      {
+        "name": "capture_1",
+        "state": "autumn",
+        "ok": true
+      },
+      {
+        "name": "capture_2",
+        "state": "main",
+        "ok": true
+      },
+      {
+        "name": "capture_3",
+        "state": "daily_pass_ad",
+        "ok": true
+      },
+      {
+        "name": "capture_4",
+        "state": "daily_pass_keys",
+        "ok": true
+      },
+      {
+        "name": "capture_5",
+        "state": "daily_pass_gear",
+        "ok": true
+      },
+      {
+        "name": "capture_6",
+        "state": "daily_room_equipment",
+        "ok": true
+      },
+      {
+        "name": "capture_7",
+        "state": "main",
+        "ok": true
+      },
+      {
+        "name": "capture_8",
+        "state": "daily_donate",
+        "ok": true
+      },
+      {
+        "name": "capture_9",
+        "state": "daily_relic",
+        "ok": true
+      },
+      {
+        "name": "capture_10",
+        "state": "daily_shop",
+        "ok": true
+      },
+      {
+        "name": "capture_11",
+        "state": "daily_guild_dungeon",
+        "ok": true
+      },
+      {
+        "name": "capture_12",
+        "state": "daily_room_treasure",
+        "ok": true
+      },
+      {
+        "name": "capture_13",
+        "state": "daily_dungeons",
+        "ok": true
+      },
+      {
+        "name": "capture_14",
+        "state": "daily_guild_dungeon",
+        "ok": true
+      }
+    ]
+  },
+  "daily_diagnostic_replay": {
+    "daily_pass": {
+      "result": "collected",
+      "actions": 7,
+      "same_day_duplicate_actions": 0,
+      "paid_donations": 0
+    },
+    "daily_dungeons": {
+      "result": "collected",
+      "actions": 47,
+      "same_day_duplicate_actions": 0,
+      "paid_donations": 0
+    },
+    "daily_guild": {
+      "result": "collected",
+      "actions": 22,
+      "same_day_duplicate_actions": 0,
+      "paid_donations": 3
+    }
+  },
+  "native_replay": {
+    "daily_pass": {
+      "result": "collected",
+      "actions": 7,
+      "same_day_duplicate_actions": 0,
+      "paid_donations": 0
+    },
+    "daily_dungeons": {
+      "result": "collected",
+      "actions": 52,
+      "same_day_duplicate_actions": 0,
+      "paid_donations": 0
+    },
+    "daily_guild": {
+      "result": "collected",
+      "actions": 26,
+      "same_day_duplicate_actions": 0,
+      "paid_donations": 3
+    }
+  }
+}

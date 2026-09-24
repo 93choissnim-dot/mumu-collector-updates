@@ -1,0 +1,20 @@
+{
+  "version": "0.7.58",
+  "base_version": "0.7.57",
+  "base_sha256": "103e46f37f1a12803a7a609efd47ad13814ea58954d7a984865a59d92f6739d7",
+  "files": {
+    "assets/native_213124_controls.png": "f573992eeea9d7d343148cc4769d3c377d9cf57c9700c50d629373c73dd48145",
+    "build_exe.py": "ce67fbf93569a422c92d88650c39ab8de423a1ba1fc28616b442c58053477259",
+    "build_release.py": "de16bcb0f0490b083a1fb8b57b1a0c2a48ad9c522c2e6f2f7626c8318c972fd7",
+    "daily_actions.py": "611a97aa69c2b6f0b91ec54478ec3afaf1da8926ce5c3d1e55f35d89c6034e18",
+    "daily_execution.py": "f585debdddd5dd00544559f163b71d3d86a99b9a3d22f5fff0b3ac8b3c5ef040",
+    "daily_vision.py": "d441e04fae5f2da5397b34779677b9ad9bb3ca9367d3176495c697444f0fd6ba",
+    "fleet_collection.py": "f893566c6cab921eb7a3bf51c7c0fc50c9fba05c5f887f7f402e46779edf2373",
+    "frozen_entry.py": "05af87798e804d0a5353a491c24366add33ad1010dd9b9599eae730eacd98992",
+    "validate_guild_resume.py": "d0356deaedd67466a571bd7c104246b3021005d9896b090f022fe5877d23b573",
+    "validate_native_sweep_battle.py": "c14873bb130aaa4cd535d04b624558dcb271225f63b208031aa306a88de42af7",
+    "validate_sweep_retry.py": "4f64b25e443be98a548abf2e7bb60c7c3be38b10734d2d91062ad7007a60a643",
+    "validate_sweep_transition.py": "a8e4c2c1b7a37c9fb4a7012dafc795132991105772fbce2c2106064d91f3bceb",
+    "version.py": "3e0b9dd6c10dfc1453077ecb54a5d87151d4ba3642dd5decc51c345ae4344b7e"
+  }
+}

@@ -1,0 +1,257 @@
+{
+  "farm": {
+    "box": [
+      700,
+      483,
+      847,
+      516
+    ],
+    "active": "ready_farm",
+    "empty": "empty_farm",
+    "anchors": [
+      {
+        "box": [
+          620,
+          371,
+          696,
+          392
+        ],
+        "file": "photo_farm_anchor0.png"
+      }
+    ],
+    "active_file": "photo_farm_active.png",
+    "empty_file": "photo_farm_empty.png",
+    "markers": [
+      "room_farm"
+    ]
+  },
+  "wood": {
+    "box": [
+      700,
+      483,
+      847,
+      516
+    ],
+    "active": "ready_wood",
+    "empty": "empty_wood",
+    "anchors": [
+      {
+        "box": [
+          620,
+          371,
+          696,
+          392
+        ],
+        "file": "photo_wood_anchor0.png"
+      }
+    ],
+    "active_file": "photo_wood_active.png",
+    "empty_file": "photo_wood_empty.png",
+    "markers": [
+      "room_wood"
+    ]
+  },
+  "mine": {
+    "box": [
+      700,
+      483,
+      847,
+      516
+    ],
+    "active": "ready_mine",
+    "empty": "empty_mine",
+    "anchors": [
+      {
+        "box": [
+          620,
+          371,
+          696,
+          392
+        ],
+        "file": "photo_mine_anchor0.png"
+      }
+    ],
+    "active_file": "photo_mine_active.png",
+    "empty_file": "photo_mine_empty.png",
+    "markers": [
+      "room_mine"
+    ]
+  },
+  "ranking": {
+    "box": [
+      880,
+      66,
+      938,
+      90
+    ],
+    "active": "x_rank_active",
+    "empty": "x_rank_empty",
+    "anchors": [
+      {
+        "box": [
+          80,
+          15,
+          122,
+          39
+        ],
+        "file": "photo_ranking_anchor0.png"
+      },
+      {
+        "box": [
+          41,
+          78,
+          95,
+          102
+        ],
+        "file": "photo_ranking_anchor1.png"
+      }
+    ],
+    "active_file": "photo_ranking_active.png",
+    "empty_file": "photo_ranking_empty.png",
+    "markers": [
+      "x_rank_title",
+      "x_rank_tab"
+    ],
+    "active_variants": [
+      {
+        "file": "photo_ranking_active_adb.png",
+        "gain": 1.180176019668579,
+        "offset": -5.487518310546875
+      }
+    ]
+  },
+  "worldboss": {
+    "box": [
+      814,
+      102,
+      872,
+      126
+    ],
+    "active": "x_boss_active",
+    "empty": "x_boss_empty",
+    "anchors": [
+      {
+        "box": [
+          87,
+          51,
+          129,
+          78
+        ],
+        "file": "photo_worldboss_anchor0.png"
+      },
+      {
+        "box": [
+          118,
+          113,
+          153,
+          136
+        ],
+        "file": "photo_worldboss_anchor1.png"
+      }
+    ],
+    "active_file": "photo_worldboss_active.png",
+    "empty_file": "photo_worldboss_empty.png",
+    "markers": [
+      "x_boss_rank_title",
+      "x_boss_rank_tab"
+    ]
+  },
+  "excavation": {
+    "box": [
+      778,
+      473,
+      917,
+      504
+    ],
+    "active": "x_dig_active",
+    "empty": "x_dig_empty",
+    "anchors": [
+      {
+        "box": [
+          80,
+          15,
+          124,
+          40
+        ],
+        "file": "photo_excavation_anchor0.png"
+      },
+      {
+        "box": [
+          556,
+          405,
+          624,
+          429
+        ],
+        "file": "photo_excavation_anchor1.png"
+      }
+    ],
+    "active_file": "photo_excavation_active.png",
+    "empty_file": "photo_excavation_empty.png",
+    "markers": [
+      "x_dig_title",
+      "x_dig_resource"
+    ]
+  },
+  "training": {
+    "box": [
+      273,
+      402,
+      416,
+      431
+    ],
+    "active": "x_train_active",
+    "empty": "x_train_empty",
+    "anchors": [
+      {
+        "box": [
+          127,
+          36,
+          176,
+          64
+        ],
+        "file": "photo_training_anchor0.png"
+      },
+      {
+        "box": [
+          623,
+          473,
+          682,
+          493
+        ],
+        "file": "photo_training_anchor1.png"
+      }
+    ],
+    "active_file": "photo_training_active.png",
+    "empty_file": "photo_training_empty.png",
+    "markers": [
+      "x_train_title",
+      "x_train_tab"
+    ]
+  },
+  "wood_adb": {
+    "box": [
+      700,
+      483,
+      847,
+      516
+    ],
+    "active": "ready_wood",
+    "empty": "empty_wood",
+    "anchors": [
+      {
+        "box": [
+          620,
+          371,
+          696,
+          392
+        ],
+        "file": "photo_wood_adb_anchor0.png"
+      }
+    ],
+    "active_file": "photo_wood_adb_active.png",
+    "empty_file": "photo_wood_adb_empty.png",
+    "markers": [
+      "room_wood"
+    ]
+  }
+}

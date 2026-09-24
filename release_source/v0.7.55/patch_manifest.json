@@ -1,0 +1,23 @@
+{
+  "version": "0.7.55",
+  "base_version": "0.7.54",
+  "base_sha256": "0d1ebbcd64606d0d88f9ee3746d4cd7b9f1da6eccf16544550109ee3bbb834fb",
+  "files": {
+    "validate_run_controls.py": "344084ae88300080ceb81f9aeea50ffe885d97006aa334837004d8df0eecbb75",
+    "action_state.py": "82a22c8355179507bc03c1565d28e9e2172053f2c0671b3ef51d0c00bee836be",
+    "fleet_collection.py": "0c0caf95cb15c031600777760bbd99290f92115856bc5b2bd689cb83a84ecb73",
+    "daily_execution.py": "a3b5bdaaa310689d4e59b09033626309543bd75c5280a91a60217468eea8733b",
+    "build_release.py": "45d1dd3e4a49e97fbcc989be5f8ac966d1e12dddd55dd3b3f5002c93eb70277e",
+    "validate_history_lifecycle.py": "3251fe4ef4141a370146353f78a6e1f74cd99a1523bdc69bc0472001e1b89657",
+    "ui_history.py": "85faa393027798c28fb4e6b541053543f3340de6f3691d4ba700db41fa8841e5",
+    "frozen_entry.py": "73eeaff143468684a02e438582681f325f4a3a74eebcd5f05ded80764aedcd56",
+    "validate_completion_recheck.py": "c73ac0d76c4916049f20f22adf2992bca91ccd334c086cfb3d5726597086fa1a",
+    "validate_training_retry.py": "f4411d292e065196e25ee074cea249c883ef42cf29bfd0e4ba4df694715c7a62",
+    "validate_reward_recovery.py": "ace8e98aee18ba98d8d826837846bdb1e380eb1615cd8cca1f61fd2aad97ca64",
+    "validate_training_completion.py": "e4a0fd8961b991912d688818ac8cd8ff1ba4eb844969163d819c63af4f73b9ad",
+    "build_exe.py": "c9c14179b3ce74f113dd0bad04d1e916119d6b7942ccd453a531df249c1973f5",
+    "extra_collector.py": "0e640d1bcaa41056ac37e4b62d62f3810835e31b5fc6386c7cbfb7378d64f06a",
+    "version.py": "d22a4b661462843437fc31077720bd1df2444558d25a2448d5d5e51b03afd3a0",
+    "validate_pending_history.py": "893e27faf1ac23270052cf22712311cdddc6a3be2fd27a7d3b135ab91499b625"
+  }
+}

@@ -1,0 +1,76 @@
+"""Per-step outcomes and conservative recovery, compatible with legacy ledgers."""
+import hashlib
+from time import perf_counter
+from collector import Halt
+from daily_state import DAILY_STEPS,LedgerError,step_label
+
+class OutcomeUnknown(Halt):
+    """A resource-consuming action has no independently confirmed outcome."""
+
+class DailyExecution:
+    def daily_detail(self,step=None):
+        return self.daily_ledger.detail(self.daily_ident,self.daily_task,step or self.daily_step,self.daily_day)
+    def daily_checkpoint(self,status,**fields):
+        self.daily_ledger.checkpoint(self.daily_ident,self.daily_task,self.daily_step,status,
+                                     self.daily_day,**fields)
+        if hasattr(self,'trace'):self.trace.event('checkpoint',status=status,**fields)
+    def daily_run_step(self,step,label,action):
+        from run_control import checkpoint
+        checkpoint(self.stop)
+        if self.stop.is_set():raise Halt('사용자가 중지했습니다.')
+        self.daily_check_day();self.daily_step=step
+        if hasattr(self,'trace'):self.trace.step=step
+        if self.daily_done(step):
+            self.progress(label+(' / 입장 횟수 없음' if self.daily_task=='daily_dungeons' or step=='dungeon' else ' / 이미 수령' if self.daily_task=='daily_guild' else ' / 이미 완료'))
+            return
+        prior=self.daily_detail()
+        if prior.get('status')=='blocked':
+            self.progress(label+' / 같은 오류 반복으로 보류');return
+        # Uncertain steps may inspect their outcome but cannot repeat the action.
+        self.daily_checkpoint('uncertain' if prior.get('status')=='uncertain' else 'running',label=label)
+        self.progress(label)
+        started=perf_counter()
+        try:
+            action()
+            if not self.daily_done(step):raise Halt(label+': 완료 상태를 확인하지 못했습니다.')
+        except LedgerError:raise
+        except Halt as exc:
+            if self.stop.is_set():raise
+            self.daily_check_day()
+            screen=self.last_screen
+            state=getattr(screen,'state','unknown')
+            reason=str(exc)
+            fingerprint=hashlib.sha256((state+'|'+reason).encode()).hexdigest()[:24]
+            failures=prior.get('failures',0)+1 if prior.get('fingerprint')==fingerprint else 1
+            status='uncertain' if isinstance(exc,OutcomeUnknown) or self.daily_detail().get('pending') else ('blocked' if failures>=2 else 'failed')
+            self.daily_checkpoint(status,reason=reason,fingerprint=fingerprint,failures=failures,screen=state)
+            if self.on_issue:self.on_issue(self.daily_task,label+': '+reason)
+            self.progress(label+(' / 결과 확인 필요' if status=='uncertain' else ' / 확인 필요'))
+            # No ESC or guessed close point on unknown, modal or combat screens.
+            self.daily_recover()
+        finally:
+            if hasattr(self,'trace'):self.trace.event('step_end',elapsed_seconds=round(perf_counter()-started,3))
+    def daily_recover(self):
+        screen=self.daily_wait(self.daily_recovery_pages(),timeout=6)
+        if self.daily_task=='daily_dungeons':
+            if screen.state=='daily_sweep':
+                self.daily_tap(screen,'sweep_close')
+                screen=self.daily_wait({'daily_room_'+k for k in DAILY_STEPS['daily_dungeons']},timeout=8)
+            if screen.state.startswith('daily_room_'):
+                self.daily_tap(screen,'d_close')
+                screen=self.daily_wait({'daily_dungeons'},timeout=8)
+            if screen.state=='daily_dungeons':return
+            raise Halt('던전 목록 복귀를 확인하지 못해 남은 작업을 보류합니다.')
+        self.daily_main()
+    def daily_recovery_pages(self):
+        if self.daily_task=='daily_dungeons':
+            return {'daily_dungeons','daily_sweep'}|{'daily_room_'+k for k in DAILY_STEPS['daily_dungeons']}
+        if self.daily_task=='daily_pass':return {'main','menu'}|{'daily_pass_'+k for k in ('ad','keys','gear')}
+        return {'main','menu','daily_guild_menu','daily_guild_battle','daily_donate','daily_relic',
+                'daily_shop','daily_guild_dungeon','daily_raid_map','daily_raid_detail'}
+    def daily_outcome(self):
+        missing=[step for step in DAILY_STEPS[self.daily_task] if not self.daily_done(step)]
+        if not missing:return None
+        details=[self.daily_detail(step) for step in missing]
+        self.daily_summary=' / '.join((d.get('label') or step_label(self.daily_task,step))+': '+(d.get('reason') or '미실행') for step,d in zip(missing,details))
+        return 'deferred' if all(d.get('status') in {'blocked','uncertain'} for d in details) else 'failed'
