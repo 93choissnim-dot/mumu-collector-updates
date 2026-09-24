@@ -55,6 +55,9 @@ def settle_compact_geometry(app,timeout=3):
 def check(app,output):
     root=app.root;output=Path(output)
     app.config['update_check']=False
+    # Each EXE health pass reuses saved settings. This fixture exercises the
+    # regular scope explicitly, independently of a prior workflow UI pass.
+    app.config['run_scope']='regular';app.scope_value.set('일반 작업')
     root.geometry('1220x820+0+0');root.update();app.apply_layout();root.update()
     app.players={};reports={}
     for i in range(12):

@@ -42,8 +42,8 @@
     "validate_sweep_retry.py": "4f64b25e443be98a548abf2e7bb60c7c3be38b10734d2d91062ad7007a60a643",
     "validate_sweep_transition.py": "a8e4c2c1b7a37c9fb4a7012dafc795132991105772fbce2c2106064d91f3bceb",
     "validate_ui_state.py": "11f99d4ad5cd1e6eb2b471d5e5dda14d8e1c27a8f0d169a40e6c71a82e30d7e6",
-    "validate_workflow_ui.py": "873300318b3b5eaffe7e108dcfc83bf1f02fda96d21ce930e08bd164c46c0da0",
-    "validate_workspace_ui.py": "17d77cac0f999ad9c433aa92ffd665283fe7ffd20831f47da729a19598b3bf5e",
+    "validate_workflow_ui.py": "e67a92dcfe549e7b4145ae25ac895c0ab8099fbabd32227ef6aa67ca34613b3a",
+    "validate_workspace_ui.py": "0bc5f9322fc281033b874ee34ac4e0f4c12660cbc126a6ab91f4d063e2ea14a3",
     "version.py": "570dad4d3bdc0ea96d7d1a49380970da18af2e4eae8d0d1129648c592c2f4bbc"
   }
 }

@@ -36,9 +36,13 @@ def check(app,output):
     with patch.object(app,'launch') as launch:
         app.resume_confirm_button.invoke();root.update()
         assert launch.call_args.args==('resume',{ident:['wood']})
-    app.change_scope('일일 작업');root.update()
+    with patch.object(app,'save'):
+        app.change_scope('일일 작업')
+    root.update()
     assert app.once_button.cget('state')=='normal' and app.start_button.cget('state')=='disabled'
-    app.change_scope('전체');root.update()
+    with patch.object(app,'save'):
+        app.change_scope('전체')
+    root.update()
     assert app.start_button.cget('state')=='normal'
     app.worker_pending=999;app.pause_allowed=True;app.run_mode='once';app.stop.clear();app.active_instance=ident
     app.set_busy(True);root.update()
@@ -48,4 +52,6 @@ def check(app,output):
     ImageGrab.grab(window=root.winfo_id()).save(Path(output).with_name('review-workflow-paused.png'))
     app.stop.resume();app.worker_pending=None;app.active_instance=None;app.set_busy(False)
     app.players=original;app.fleet_states=states;app.config['run_scope']=config
+    from ui_workflow import SCOPES
+    app.scope_value.set(next(k for k,v in SCOPES.items() if v==config))
     app.view_id=next(iter(original),None);app.render_roster(force=True);root.update()
