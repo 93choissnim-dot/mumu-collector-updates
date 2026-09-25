@@ -8,7 +8,7 @@ from collector import Halt
 import validate_game_recovery as fixtures
 
 def download_frame():
-    atlas=cv2.imread(str(Path(__file__).parent/'assets/start_download_controls.png'))
+    atlas=cv2.imdecode(np.fromfile(Path(__file__).parent/'assets/start_download_controls.png',np.uint8),cv2.IMREAD_COLOR)
     im=np.full((540,960,3),180,np.uint8)
     im[210:237,388:573]=atlas[:27];im[327:388,399:559]=atlas[27:88,:160]
     return im

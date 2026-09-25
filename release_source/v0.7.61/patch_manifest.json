@@ -52,7 +52,7 @@
     "game_watch.py": "e47dfd81d85536bb346e4c1419ab902a115165fde71db6822ffadd6eccea13ef",
     "validate_history_lifecycle.py": "fd9b4797f6f5ecf5628546d8b130cb9598375c1ffa8eb278c6d9939f96bd98d2",
     "ui_game_watch.py": "fc03a8470568fae61080ea1a5482ad9f94fa04b58852b3d862426a56675f3d0c",
-    "validate_startup_recovery.py": "4cb728bf5f2b060a4efdca853553bd302424a247edc5ed08630924edc2eafcf7",
+    "validate_startup_recovery.py": "dd3f2f73cd1ba2a77e5bd247c41f6a803fa4b5b07dd7a76571ff8a9ca5e1cec6",
     "assets/start_download_controls.png": "76f9c19da81907849067acc141bd7d62e05dc7b17343abd43041d31a1d69f7a2"
   }
 }
