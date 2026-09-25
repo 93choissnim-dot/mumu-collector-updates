@@ -7,7 +7,7 @@ permissions:
   contents: write
   actions: read
 concurrency:
-  group: chanki-release-v0.7.62
+  group: chanki-release-v0.7.63
   cancel-in-progress: false
 jobs:
   publish:
@@ -20,31 +20,31 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh api repos/93choissnim-dot/mumu-collector-updates/actions/runs/36113697011 --jq . > build-run.json
+          gh api repos/93choissnim-dot/mumu-collector-updates/actions/runs/36157186474 --jq . > build-run.json
           if ($LASTEXITCODE -ne 0) { throw 'Cannot verify build run' }
-          python -c "import json; r=json.load(open('build-run.json',encoding='utf-8-sig')); assert r['conclusion']=='success' and r['head_sha']=='743e10be44b9b68ce63b13acf2464aded2de57b5' and r['name']=='Build Windows EXE', 'Build validation mismatch'"
+          python -c "import json; r=json.load(open('build-run.json',encoding='utf-8-sig')); assert r['conclusion']=='success' and r['head_sha']=='585e6cb8fa2d84aa750328bc0ed32b81f979e658' and r['name']=='Build Windows EXE', 'Build validation mismatch'"
           if ($LASTEXITCODE -ne 0) { throw 'Build gate failed' }
-          gh release view v0.7.62 --repo 93choissnim-dot/mumu-collector-updates --json isDraft,targetCommitish > release-state.json
+          gh release view v0.7.63 --repo 93choissnim-dot/mumu-collector-updates --json isDraft,targetCommitish > release-state.json
           if ($LASTEXITCODE -ne 0) { throw 'Cannot verify draft' }
-          python -c "import json; r=json.load(open('release-state.json',encoding='utf-8-sig')); assert r['isDraft'] and r['targetCommitish']=='743e10be44b9b68ce63b13acf2464aded2de57b5', 'Release target mismatch'"
+          python -c "import json; r=json.load(open('release-state.json',encoding='utf-8-sig')); assert r['isDraft'] and r['targetCommitish']=='585e6cb8fa2d84aa750328bc0ed32b81f979e658', 'Release target mismatch'"
           if ($LASTEXITCODE -ne 0) { throw 'Draft gate failed' }
-          gh release download v0.7.62 --repo 93choissnim-dot/mumu-collector-updates --dir verified --pattern ChankiHelper.exe --pattern latest-exe.json --pattern ChankiHelper_v0.7.62_update.zip --pattern latest.json --pattern MumuCollector_v0.7.62.zip --pattern exe-health.json --pattern windows-validation.json --pattern windows-previous-validation.json
+          gh release download v0.7.63 --repo 93choissnim-dot/mumu-collector-updates --dir verified --pattern ChankiHelper.exe --pattern latest-exe.json --pattern ChankiHelper_v0.7.63_update.zip --pattern latest.json --pattern MumuCollector_v0.7.63.zip --pattern exe-health.json --pattern windows-validation.json --pattern windows-previous-validation.json
           if ($LASTEXITCODE -ne 0) { throw 'Release verification download failed' }
           @'
           import pathlib, json, hashlib, zipfile
           p = pathlib.Path('verified')
           h = json.loads((p/'exe-health.json').read_text(encoding='utf-8'))
           w = json.loads((p/'windows-validation.json').read_text(encoding='utf-8'))
-          assert h['network_dialog_recovery'] and h['independent_game_watch'] and h['startup_confirmation'] and h['session_workflow'] and h['game_exit_recovery'] and h['workflow_ui'] and h['compact_reliability'] and h['compact_ui'] and h['free_only_guild'] and h['native_sweep_battle'] and h['guild_pending_resume'] and h['sweep_transition_recovery'] and h['dungeon_pending_resume'] and h['diagnostic_recovery'] and h['training_repeatable_donation'] and h['training_native_retry'] and h['native_paid_pass'] and h['training_input_evidence'] and h['dungeon_native_entry'] and h['combat_start_confirmation'] and h['raid_native_entry'] and h['dungeon_confirmation'] and h['dungeon_completion_review'] and h['raid_repeat_recovery'] and h['pending_history_counts'] and h['input_provenance'] and h['input_evidence'] and h['autumn_native_zero'] and h['native_navigation'] and h['retry_resolution'] and h['history_lifecycle'] and h['reward_recovery'] and h['update_diagnostics'] and h['facility_manual_retry'] and h['ok'] and h['pass_purchase'] and h['guild_empty'] and h['version']=='0.7.62' and h['run_controls_ui'] and h['workspace_ui'] and h['vector_rendering_ui'] and h['game_theme_ui'] and h['improvements_ui'] and h['taskbar_ui'] and h['start_navigation'] and h['daily_tasks'] and h['daily_native_color'] and h['worldboss_recovery'] and h['daily_step_recovery'] and h['diagnostic_trace'] and h['autumn_rewards'] and h['input_safety'] and h['pass_icon_identity'] and h['efficiency_safety'] and h['worldboss_plan'] and h['update_retry'] and h['full_ui_checks'] and h['daily_dialogs'] and h['combat_transitions'] and h['first_failure_evidence'] and h['daily_animation_recovery'] and h['guild_native_controls'] and h['cross_feature_audit'] and h['rotating_workshop'] and h['native_exit_recovery'] and h['frozen']
+          assert h['recovery_handoff_v063'] and h['network_dialog_recovery'] and h['independent_game_watch'] and h['startup_confirmation'] and h['session_workflow'] and h['game_exit_recovery'] and h['workflow_ui'] and h['compact_reliability'] and h['compact_ui'] and h['free_only_guild'] and h['native_sweep_battle'] and h['guild_pending_resume'] and h['sweep_transition_recovery'] and h['dungeon_pending_resume'] and h['diagnostic_recovery'] and h['training_repeatable_donation'] and h['training_native_retry'] and h['native_paid_pass'] and h['training_input_evidence'] and h['dungeon_native_entry'] and h['combat_start_confirmation'] and h['raid_native_entry'] and h['dungeon_confirmation'] and h['dungeon_completion_review'] and h['raid_repeat_recovery'] and h['pending_history_counts'] and h['input_provenance'] and h['input_evidence'] and h['autumn_native_zero'] and h['native_navigation'] and h['retry_resolution'] and h['history_lifecycle'] and h['reward_recovery'] and h['update_diagnostics'] and h['facility_manual_retry'] and h['ok'] and h['pass_purchase'] and h['guild_empty'] and h['version']=='0.7.63' and h['run_controls_ui'] and h['workspace_ui'] and h['vector_rendering_ui'] and h['game_theme_ui'] and h['improvements_ui'] and h['taskbar_ui'] and h['start_navigation'] and h['daily_tasks'] and h['daily_native_color'] and h['worldboss_recovery'] and h['daily_step_recovery'] and h['diagnostic_trace'] and h['autumn_rewards'] and h['input_safety'] and h['pass_icon_identity'] and h['efficiency_safety'] and h['worldboss_plan'] and h['update_retry'] and h['full_ui_checks'] and h['daily_dialogs'] and h['combat_transitions'] and h['first_failure_evidence'] and h['daily_animation_recovery'] and h['guild_native_controls'] and h['cross_feature_audit'] and h['rotating_workshop'] and h['native_exit_recovery'] and h['frozen']
           previous = json.loads((p/'windows-previous-validation.json').read_text(encoding='utf-8'))
           assert previous['ok'] and previous['previous_release_helper'] and previous['real_exe_update'] and previous['restart'] and previous['rollback']
           assert w['ok'] and w['real_exe_update'] and w['restart'] and w['rollback']
-          for feed, archive in [('latest-exe.json','ChankiHelper_v0.7.62_update.zip'), ('latest.json','MumuCollector_v0.7.62.zip')]:
+          for feed, archive in [('latest-exe.json','ChankiHelper_v0.7.63_update.zip'), ('latest.json','MumuCollector_v0.7.63.zip')]:
               m = json.loads((p/feed).read_text(encoding='utf-8'))
               z = p/archive
-              assert m['version']=='0.7.62' and m['size']==z.stat().st_size
+              assert m['version']=='0.7.63' and m['size']==z.stat().st_size
               assert m['sha256']==hashlib.sha256(z.read_bytes()).hexdigest()
-          with zipfile.ZipFile(p/'ChankiHelper_v0.7.62_update.zip') as z:
+          with zipfile.ZipFile(p/'ChankiHelper_v0.7.63_update.zip') as z:
               manifest = json.loads(z.read('release.json'))
               exe_name = next(n for n in manifest['files'] if n.lower().endswith('.exe'))
               exe = (p/'ChankiHelper.exe').read_bytes()
@@ -61,11 +61,11 @@ jobs:
         run: |
           $latest = gh api repos/93choissnim-dot/mumu-collector-updates/releases/latest --jq .tag_name
           if ($LASTEXITCODE -ne 0) { throw 'Latest release check failed' }
-          if ([version]($latest.TrimStart('v')) -ge [version]'0.7.62') { throw 'Same or newer release already exists' }
-          $notes = Get-Content release_source/v0.7.62/notes.md -Raw -Encoding utf8
-          $notes += "`n`nWindows 검증 기록: https://github.com/93choissnim-dot/mumu-collector-updates/actions/runs/36113697011`n"
+          if ([version]($latest.TrimStart('v')) -ge [version]'0.7.63') { throw 'Same or newer release already exists' }
+          $notes = Get-Content release_source/v0.7.63/notes.md -Raw -Encoding utf8
+          $notes += "`n`nWindows 검증 기록: https://github.com/93choissnim-dot/mumu-collector-updates/actions/runs/36157186474`n"
           Set-Content -Path release-notes.md -Value $notes -Encoding utf8
-          gh release edit v0.7.62 --repo 93choissnim-dot/mumu-collector-updates --draft=false --latest --notes-file release-notes.md
+          gh release edit v0.7.63 --repo 93choissnim-dot/mumu-collector-updates --draft=false --latest --notes-file release-notes.md
           if ($LASTEXITCODE -ne 0) { throw 'Release publication failed' }
       - name: Verify public automatic update address
         shell: pwsh
