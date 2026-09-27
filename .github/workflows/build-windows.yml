@@ -7,6 +7,9 @@ on:
       - '.gitattributes'
       - '.github/workflows/build-windows.yml'
       - 'release_source/v0.7.65/**'
+env:
+  # Preserve Korean update diagnostics on the Windows runner console.
+  PYTHONIOENCODING: utf-8
 permissions:
   contents: write
 concurrency:
