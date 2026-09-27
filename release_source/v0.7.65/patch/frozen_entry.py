@@ -52,66 +52,70 @@ def health_check(output,full_ui=True):
     assert all('top_'+k in top.matches for k in ('pass','event','worldboss'))
     guard=ActionState();guard.reserve('autumn');guard.reset('autumn')
     assert guard.pending('autumn') and callable(verified_tap) and account_scope('legacy','')=='legacy'
-    # Exercise the actual observation/cache boundaries in the frozen package.
-    import unittest
-    from validate_efficiency import ObservationTests,RecognitionCostTests,DiscoveryAndIdleTests
-    suite=unittest.TestSuite(unittest.defaultTestLoader.loadTestsFromTestCase(case)
-        for case in (ObservationTests,RecognitionCostTests,DiscoveryAndIdleTests))
-    result=unittest.TestResult();suite.run(result)
-    assert result.wasSuccessful(),(result.errors,result.failures)
-    from validate_update_network import NetworkTests
-    from validate_world_boss import RouteTests
-    from validate_daily_dialogs import DialogVisionTests,GuildCoinFlowTests
-    from validate_daily_transitions import TransitionTests,NativeControlTests
-    from validate_audit import FacilityRecoveryTests,SweepAndWorkshopTests,UpdateRecoveryTests
-    from validate_navigation_recovery import ExitGeometryTests,NavigationChangeTests
-    from validate_daily_execution import BoundaryTests,EvidenceTests,DailyExecutionTests
-    from validate_pass_purchase import PurchaseTests
-    from validate_guild_empty import GuildEmptyTests
-    from validate_settings_lifecycle import SettingsLifecycleTests
-    from validate_retry_resolution import RetryResolutionTests
-    from validate_history_lifecycle import HistoryLifecycleTests
-    from validate_reward_recovery import RewardRecoveryTests
-    from validate_autumn_native import NativeAutumnTests
-    from validate_navigation_native import NativeNavigationTests
-    from validate_update_diagnostics import UpdateDiagnosticsTests
-    from validate_pending_history import HistoryCountTests,PendingHistoryTests
-    from validate_raid_retry import RaidRetryTests
-    from validate_raid_native import NativeRaidTests
-    from validate_pass_native import NativePassTests
-    from validate_training_completion import TrainingTests
-    from validate_sweep_transition import SweepTransitionTests
-    from validate_compact_reliability import CompactReliabilityTests,ResumeTests,GuildSafetyTests,EmptyDashboardTests,ResumeInitializationTests,FinalReviewScopeTests,KeyProgressTests
-    from validate_native_sweep_battle import NativeSweepBattleTests
-    from validate_guild_resume import GuildResumeTests
-    from validate_sweep_retry import SweepRetryTests
-    from validate_session_workflow import SessionTests,DailySelectionTests,PresentationBoundaryTests,EmptyDailyRowsTests
-    from validate_game_watch import WatchTests,PackageRecoveryTests,FooterStabilityTests,SharedWatchTests
-    from validate_startup_recovery import StartupRecoveryTests,InterruptedStartupTests
-    from validate_v065_donation import GuildDonationTests
-    from validate_v064_completion import CompletionHandoffTests
-    from validate_v063_recovery import NetworkDispatchTests,WatchStatusTests,EntryHandoffTests
-    from validate_network_recovery import NetworkRecoveryTests,NetworkRecognitionTests
-    from validate_game_recovery import GameRecoveryTests,RecoveryIntegrationTests,LateFocusRaceTests
-    from validate_dungeon_resume import DungeonResumeTests
-    from validate_training_retry import NativeTrainingRetryTests,ExplicitDungeonRetryTests
-    from validate_diagnostic_recovery import DiagnosticRecognitionTests,DiagnosticFlowTests
-    from validate_combat_start import CombatStartTests
-    from validate_dungeon_native import NativeDungeonTests
-    from validate_input_provenance import InputProvenanceTests
-    from validate_input_evidence import InputEvidenceTests
-    from validate_dungeon_confirmation import DungeonConfirmationTests
-    from validate_completion_recheck import CompletionRecheckTests
-    from validate_completion_review_ui import CompletionReviewUITests,CompletionReviewFleetTests
-    suite=unittest.TestSuite(unittest.defaultTestLoader.loadTestsFromTestCase(case)
-        for case in (EntryHandoffTests,NetworkDispatchTests,WatchStatusTests,NetworkRecoveryTests,NetworkRecognitionTests,WatchTests,PackageRecoveryTests,FooterStabilityTests,SharedWatchTests,StartupRecoveryTests,InterruptedStartupTests,EmptyDailyRowsTests,PresentationBoundaryTests,LateFocusRaceTests,SessionTests,DailySelectionTests,GameRecoveryTests,RecoveryIntegrationTests,CompactReliabilityTests,ResumeTests,GuildSafetyTests,EmptyDashboardTests,ResumeInitializationTests,FinalReviewScopeTests,KeyProgressTests,NativeSweepBattleTests,GuildResumeTests,SweepRetryTests))
-    suite.addTests(unittest.TestSuite(unittest.defaultTestLoader.loadTestsFromTestCase(case)
-        for case in (GuildDonationTests,CompletionHandoffTests,SweepTransitionTests,DungeonResumeTests,NativeTrainingRetryTests,ExplicitDungeonRetryTests,DiagnosticRecognitionTests,DiagnosticFlowTests,NativePassTests,TrainingTests,CombatStartTests,NativeDungeonTests,NativeRaidTests,DungeonConfirmationTests,CompletionRecheckTests,CompletionReviewUITests,CompletionReviewFleetTests,HistoryCountTests,PendingHistoryTests,RaidRetryTests,InputProvenanceTests,InputEvidenceTests,NativeAutumnTests,NativeNavigationTests,RetryResolutionTests,HistoryLifecycleTests,RewardRecoveryTests,UpdateDiagnosticsTests,
-                     SettingsLifecycleTests,GuildEmptyTests,PurchaseTests,NetworkTests,RouteTests,DialogVisionTests,GuildCoinFlowTests,
-                     BoundaryTests,EvidenceTests,DailyExecutionTests,TransitionTests,NativeControlTests,
-                     FacilityRecoveryTests,SweepAndWorkshopTests,UpdateRecoveryTests,ExitGeometryTests,NavigationChangeTests)))
-    result=unittest.TestResult();suite.run(result)
-    assert result.wasSuccessful(),(result.errors,result.failures)
+    # Release builds run every packaged regression before publication. Legacy
+    # update helpers allow only 90s for extraction, startup and process exit.
+    # Keep their startup probe to real assets/UI/tray/shortcut checks below.
+    if full_ui:
+        # Exercise the actual observation/cache boundaries in the frozen package.
+        import unittest
+        from validate_efficiency import ObservationTests,RecognitionCostTests,DiscoveryAndIdleTests
+        suite=unittest.TestSuite(unittest.defaultTestLoader.loadTestsFromTestCase(case)
+            for case in (ObservationTests,RecognitionCostTests,DiscoveryAndIdleTests))
+        result=unittest.TestResult();suite.run(result)
+        assert result.wasSuccessful(),(result.errors,result.failures)
+        from validate_update_network import NetworkTests
+        from validate_world_boss import RouteTests
+        from validate_daily_dialogs import DialogVisionTests,GuildCoinFlowTests
+        from validate_daily_transitions import TransitionTests,NativeControlTests
+        from validate_audit import FacilityRecoveryTests,SweepAndWorkshopTests,UpdateRecoveryTests
+        from validate_navigation_recovery import ExitGeometryTests,NavigationChangeTests
+        from validate_daily_execution import BoundaryTests,EvidenceTests,DailyExecutionTests
+        from validate_pass_purchase import PurchaseTests
+        from validate_guild_empty import GuildEmptyTests
+        from validate_settings_lifecycle import SettingsLifecycleTests
+        from validate_retry_resolution import RetryResolutionTests
+        from validate_history_lifecycle import HistoryLifecycleTests
+        from validate_reward_recovery import RewardRecoveryTests
+        from validate_autumn_native import NativeAutumnTests
+        from validate_navigation_native import NativeNavigationTests
+        from validate_update_diagnostics import UpdateDiagnosticsTests
+        from validate_pending_history import HistoryCountTests,PendingHistoryTests
+        from validate_raid_retry import RaidRetryTests
+        from validate_raid_native import NativeRaidTests
+        from validate_pass_native import NativePassTests
+        from validate_training_completion import TrainingTests
+        from validate_sweep_transition import SweepTransitionTests
+        from validate_compact_reliability import CompactReliabilityTests,ResumeTests,GuildSafetyTests,EmptyDashboardTests,ResumeInitializationTests,FinalReviewScopeTests,KeyProgressTests
+        from validate_native_sweep_battle import NativeSweepBattleTests
+        from validate_guild_resume import GuildResumeTests
+        from validate_sweep_retry import SweepRetryTests
+        from validate_session_workflow import SessionTests,DailySelectionTests,PresentationBoundaryTests,EmptyDailyRowsTests
+        from validate_game_watch import WatchTests,PackageRecoveryTests,FooterStabilityTests,SharedWatchTests
+        from validate_startup_recovery import StartupRecoveryTests,InterruptedStartupTests
+        from validate_v065_donation import GuildDonationTests
+        from validate_v064_completion import CompletionHandoffTests
+        from validate_v063_recovery import NetworkDispatchTests,WatchStatusTests,EntryHandoffTests
+        from validate_network_recovery import NetworkRecoveryTests,NetworkRecognitionTests
+        from validate_game_recovery import GameRecoveryTests,RecoveryIntegrationTests,LateFocusRaceTests
+        from validate_dungeon_resume import DungeonResumeTests
+        from validate_training_retry import NativeTrainingRetryTests,ExplicitDungeonRetryTests
+        from validate_diagnostic_recovery import DiagnosticRecognitionTests,DiagnosticFlowTests
+        from validate_combat_start import CombatStartTests
+        from validate_dungeon_native import NativeDungeonTests
+        from validate_input_provenance import InputProvenanceTests
+        from validate_input_evidence import InputEvidenceTests
+        from validate_dungeon_confirmation import DungeonConfirmationTests
+        from validate_completion_recheck import CompletionRecheckTests
+        from validate_completion_review_ui import CompletionReviewUITests,CompletionReviewFleetTests
+        suite=unittest.TestSuite(unittest.defaultTestLoader.loadTestsFromTestCase(case)
+            for case in (EntryHandoffTests,NetworkDispatchTests,WatchStatusTests,NetworkRecoveryTests,NetworkRecognitionTests,WatchTests,PackageRecoveryTests,FooterStabilityTests,SharedWatchTests,StartupRecoveryTests,InterruptedStartupTests,EmptyDailyRowsTests,PresentationBoundaryTests,LateFocusRaceTests,SessionTests,DailySelectionTests,GameRecoveryTests,RecoveryIntegrationTests,CompactReliabilityTests,ResumeTests,GuildSafetyTests,EmptyDashboardTests,ResumeInitializationTests,FinalReviewScopeTests,KeyProgressTests,NativeSweepBattleTests,GuildResumeTests,SweepRetryTests))
+        suite.addTests(unittest.TestSuite(unittest.defaultTestLoader.loadTestsFromTestCase(case)
+            for case in (GuildDonationTests,CompletionHandoffTests,SweepTransitionTests,DungeonResumeTests,NativeTrainingRetryTests,ExplicitDungeonRetryTests,DiagnosticRecognitionTests,DiagnosticFlowTests,NativePassTests,TrainingTests,CombatStartTests,NativeDungeonTests,NativeRaidTests,DungeonConfirmationTests,CompletionRecheckTests,CompletionReviewUITests,CompletionReviewFleetTests,HistoryCountTests,PendingHistoryTests,RaidRetryTests,InputProvenanceTests,InputEvidenceTests,NativeAutumnTests,NativeNavigationTests,RetryResolutionTests,HistoryLifecycleTests,RewardRecoveryTests,UpdateDiagnosticsTests,
+                         SettingsLifecycleTests,GuildEmptyTests,PurchaseTests,NetworkTests,RouteTests,DialogVisionTests,GuildCoinFlowTests,
+                         BoundaryTests,EvidenceTests,DailyExecutionTests,TransitionTests,NativeControlTests,
+                         FacilityRecoveryTests,SweepAndWorkshopTests,UpdateRecoveryTests,ExitGeometryTests,NavigationChangeTests)))
+        result=unittest.TestResult();suite.run(result)
+        assert result.wasSuccessful(),(result.errors,result.failures)
     native=np.full((540,960,3),110,np.uint8)
     for name in ('guild_title','guild_tabs','guild_menu','guild_donate_open'):
         x,y,r,b=vision.daily.specs[name]['box'];native[y:b,x:r]=vision.daily.templates[name][0]
@@ -213,7 +217,7 @@ def health_check(output,full_ui=True):
         faulthandler.disable();trace.close()
     checkpoint('complete')
     output.write_text(json.dumps({'ok':True,'version':VERSION,'frozen':bool(getattr(sys,'frozen',False)),
-        'ui':True,'startup_ui':True,'full_ui_checks':full_ui,'fleet_ui':full_ui,'run_controls_ui':full_ui,
+        'ui':True,'startup_ui':True,'packaged_regression_checks':full_ui,'full_ui_checks':full_ui,'fleet_ui':full_ui,'run_controls_ui':full_ui,
         'workspace_ui':full_ui,'vector_rendering_ui':full_ui,'game_theme_ui':full_ui,'improvements_ui':full_ui,'taskbar_ui':full_ui,'start_navigation':True,'daily_tasks':True,'pass_purchase':True,'guild_empty':True,'facility_manual_retry':True,'retry_resolution':True,'history_lifecycle':True,'reward_recovery':True,'update_diagnostics':True,'tray':True,'shortcut':True,
         'daily_native_color':True,'worldboss_recovery':True,'daily_step_recovery':True,'diagnostic_trace':True,'autumn_rewards':True,'native_sweep_battle':True,'guild_pending_resume':True,'sweep_transition_recovery':True,'dungeon_pending_resume':True,'training_native_retry':True,'diagnostic_recovery':True,'training_repeatable_donation':True,'native_paid_pass':True,'training_input_evidence':True,'dungeon_native_entry':True,'combat_start_confirmation':True,'raid_native_entry':True,'dungeon_confirmation':True,'dungeon_completion_review':True,'raid_repeat_recovery':True,'pending_history_counts':True,'input_provenance':True,'input_evidence':True,'autumn_native_zero':True,'native_navigation':True,'input_safety':True,'pass_icon_identity':True,'efficiency_safety':True,
         'completion_handoff_v064':True,'recovery_handoff_v063':True,'network_dialog_recovery':True,'independent_game_watch':True,'startup_confirmation':True,'session_workflow':True,'game_exit_recovery':True,'workflow_ui':full_ui,'compact_reliability':True,'compact_ui':full_ui,'guild_donation_all_v065':True,'worldboss_plan':True,'update_retry':True,

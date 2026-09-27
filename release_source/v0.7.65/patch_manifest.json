@@ -8,7 +8,7 @@
     "assets/native_213124_controls.png": "f573992eeea9d7d343148cc4769d3c377d9cf57c9700c50d629373c73dd48145",
     "assets/network_disconnect_controls.png": "9cf31592c8c010e711e8d6cf41c820aa7aaf243ec33c7ac98473d397f401bd8b",
     "assets/start_download_controls.png": "76f9c19da81907849067acc141bd7d62e05dc7b17343abd43041d31a1d69f7a2",
-    "build_exe.py": "31faf40b73d51d2753cb03c223803e0b49c18986c0fac95f10cd2408f8cd3a91",
+    "build_exe.py": "9e1eff21791abe50cfeac0ba86b6021cd5ca9349097895e5f7e5f90e3e27ddf5",
     "build_release.py": "e4a1ebbef4d26a3d2045a399a587b203d366147d5bcf049151c2f818aeabac38",
     "collector.py": "687da2c65b78aa124534b7543c6e1f6e6f71ce5dd57263c47158a10918067681",
     "daily_actions.py": "64cd0c7053f02c7d27e276b81705ff9eeb25a9344a7ffe87f454486bd57200d9",
@@ -19,7 +19,7 @@
     "emit_ui_review.py": "daf3455aa74df23123cb5c2fd24be6a591c68a383678bf7ca7148682cd58c743",
     "fleet_collection.py": "8d4fc8e1fb49a65ef2cc63651edf1e5fd808d5a7d99611f2c78a24ca5d57f164",
     "fleet_runner.py": "abba235b4a2b68da6091c434dc5608310788fef5aba6e7df1e63461331317918",
-    "frozen_entry.py": "9e5e839003dadec2e70deb5961ef63fb533950bbd268ebf015be3b24a5ca8252",
+    "frozen_entry.py": "2a35f49b8da857fe2cd01c5ddd84e4d06997c394d5ad2ad23093b9a4c53fb64d",
     "game_recovery.py": "3de68314afeafef77303f8e569bc9c9986ab3ef20efbc632e0a55a22d178490b",
     "game_watch.py": "b41f53fa4d97b094259d22183bf7b12383f36c7c8b13fd60b3510e33ec207123",
     "history.py": "d2f5fc06b3cfd8736833240805cc5ed4df53d4c53fb813ac0ec03e3ef3eb9a97",
@@ -66,6 +66,7 @@
     "validate_workflow_ui.py": "1586d8f69e9fab2117670180dc6004415490d83d3e2ce604b913d1d9bcfb7c37",
     "validate_workspace_ui.py": "0bc5f9322fc281033b874ee34ac4e0f4c12660cbc126a6ab91f4d063e2ea14a3",
     "version.py": "4df7b002367976f92bc147a8ec44511c1bfca4567cfa4aa095ac0dff270e7ddf",
-    "vision.py": "f4984b25da278cc3367d09404068b4b3ef9f25172ea90e93e13ab5c134adb1c9"
+    "vision.py": "f4984b25da278cc3367d09404068b4b3ef9f25172ea90e93e13ab5c134adb1c9",
+    "validate_packaged_startup.py": "12da1d784361952e39bd43c80cbecb1eddff98bb2da96f9ae4122aeaf6952c3a"
   }
 }
