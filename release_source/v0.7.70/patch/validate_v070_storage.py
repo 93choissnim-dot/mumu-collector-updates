@@ -27,7 +27,7 @@ class JournalStorageTests(unittest.TestCase):
         first.result('a', 'farm', 'collected')
         stale.result('a', 'wood', 'skipped')
         second.begin('b', ['mine'])
-        saved = json.loads(self.path.read_text())
+        saved = json.loads(self.path.read_text(encoding='utf-8'))
         self.assertEqual(saved['a']['results'], {'farm': 'collected', 'wood': 'skipped'})
         self.assertEqual(saved['b']['tasks'], ['mine'])
         self.assertEqual(first.remaining('a'), [])
@@ -43,13 +43,13 @@ class JournalStorageTests(unittest.TestCase):
             journal.begin(str(i), ['farm'])
         with ThreadPoolExecutor(max_workers=len(journals)) as pool:
             list(pool.map(begin, enumerate(journals)))
-        self.assertEqual(set(json.loads(self.path.read_text())), {str(i) for i in range(10)})
+        self.assertEqual(set(json.loads(self.path.read_text(encoding='utf-8'))), {str(i) for i in range(10)})
 
     def test_private_temp_file_leaves_other_writer_file_untouched(self):
         old_tmp = self.path.with_suffix('.tmp')
         old_tmp.write_text('owned by another writer')
         RunJournal(self.path).begin('a', ['farm'])
-        self.assertEqual(old_tmp.read_text(), 'owned by another writer')
+        self.assertEqual(old_tmp.read_text(encoding='utf-8'), 'owned by another writer')
         self.assertEqual(set(self.path.parent.iterdir()), {old_tmp, self.path})
 
     def test_windows_sharing_and_lock_violations_retry_before_result_returns(self):
@@ -67,7 +67,7 @@ class JournalStorageTests(unittest.TestCase):
                 return original(source, target)
             with patch.object(Path, 'replace', replace):
                 journal.result('a', 'farm', 'collected')
-                self.assertEqual(json.loads(self.path.read_text())['a']['results']['farm'], 'collected')
+                self.assertEqual(json.loads(self.path.read_text(encoding='utf-8'))['a']['results']['farm'], 'collected')
             self.assertEqual(len(attempts), 3)
         self.assertEqual(set(self.path.parent.iterdir()), {self.path})
 
@@ -81,7 +81,7 @@ class JournalStorageTests(unittest.TestCase):
                 journal.result('a', 'farm', 'collected')
         self.assertEqual(replace.call_count, 1)
         self.assertIn('No space left', str(caught.exception))
-        self.assertIn(str(self.path), str(caught.exception))
+        self.assertIn(str(self.path.resolve()), str(caught.exception))
         self.assertEqual(self.path.read_bytes(), before)
         self.assertEqual(journal.data, json.loads(before))
         self.assertEqual(set(self.path.parent.iterdir()), {self.path})
@@ -133,7 +133,7 @@ class JournalStorageTests(unittest.TestCase):
                     journal.result('a', 'farm', 'collected')
                 with self.assertRaises(LedgerError):
                     journal.remaining('a')
-                self.assertEqual(self.path.read_text(), broken)
+                self.assertEqual(self.path.read_text(encoding='utf-8'), broken)
 
     def test_parent_directory_error_is_ledger_error_with_os_reason(self):
         blocked = self.path.parent / 'blocked'
@@ -177,16 +177,16 @@ class SourceRecoveryTests(unittest.TestCase):
         paths = [work / 'job.json' for work in [*records, active]]
         with patch.object(Path, 'glob', return_value=iter(paths)):
             updater.recover_interrupted(self.root, self.install)
-        self.assertEqual((self.install / 'app.py').read_text(), 'old app')
-        self.assertEqual(json.loads((active / 'job.json').read_text())['status'], 'rolled_back')
-        self.assertEqual((records[0] / 'job.json').read_text(), '{')
-        self.assertFalse(json.loads((self.root / 'update_result.json').read_text())['ok'])
+        self.assertEqual((self.install / 'app.py').read_text(encoding='utf-8'), 'old app')
+        self.assertEqual(json.loads((active / 'job.json').read_text(encoding='utf-8'))['status'], 'rolled_back')
+        self.assertEqual((records[0] / 'job.json').read_text(encoding='utf-8'), '{')
+        self.assertFalse(json.loads((self.root / 'update_result.json').read_text(encoding='utf-8'))['ok'])
 
     def test_only_invalid_history_allows_launch_without_rewriting_records(self):
         for i, raw in enumerate(('{', '[]', '{"status":"complete"}')):
             self.record(str(i), raw)
         updater.recover_interrupted(self.root, self.install)
-        self.assertEqual((self.root / 'updates' / '0' / 'job.json').read_text(), '{')
+        self.assertEqual((self.root / 'updates' / '0' / 'job.json').read_text(encoding='utf-8'), '{')
 
     def test_launcher_cleanup_preserves_malformed_historical_records(self):
         records = []
@@ -195,15 +195,15 @@ class SourceRecoveryTests(unittest.TestCase):
         updater.recover_interrupted(self.root, self.install)
         updater.cleanup_updates(self.root)
         for work, raw in records:
-            self.assertEqual((work / 'job.json').read_text(), raw)
+            self.assertEqual((work / 'job.json').read_text(encoding='utf-8'), raw)
 
     def test_valid_applying_rollback_failure_still_blocks_launch(self):
         active = self.interrupted()
         (active / 'backup' / 'app.py').unlink()
         with self.assertRaises(OSError):
             updater.recover_interrupted(self.root, self.install)
-        self.assertEqual(json.loads((active / 'job.json').read_text())['status'], 'applying')
-        self.assertEqual((self.install / 'app.py').read_text(), 'new app')
+        self.assertEqual(json.loads((active / 'job.json').read_text(encoding='utf-8'))['status'], 'applying')
+        self.assertEqual((self.install / 'app.py').read_text(encoding='utf-8'), 'new app')
 
 
 if __name__ == '__main__':
