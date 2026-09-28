@@ -51,6 +51,7 @@ def check(app,output):
             fit_window(root,(680,800));root.update();app.apply_layout();app.render_roster(force=True);root.update()
             assert app.today_button.winfo_ismapped()
             assert app.today_button.master is app.run_info
+            assert app.today_button.winfo_height()<=app.run_target.winfo_height(), 'Overview button enlarged the information line'
             assert app.today_button.winfo_rootx()>=app.count_label.winfo_rootx()+app.count_label.winfo_width()
             assert app.today_button.winfo_rootx()+app.today_button.winfo_width()<=root.winfo_rootx()+root.winfo_width()
             assert app.today_button.winfo_rooty()+app.today_button.winfo_height()<=root.winfo_rooty()+root.winfo_height()

@@ -25,7 +25,8 @@ class WorkflowUI:
         self.resume_hint.grid(row=0,column=0,sticky='w')
         # Keep the always-available overview on the existing information line;
         # an empty continuation row would take space from compact task results.
-        self.today_button=button(self.run_info,'오늘 작업',self.today_overview_dialog,width=86,height=26,font=font(11))
+        self.today_button=button(self.run_info,'오늘 작업',self.today_overview_dialog,width=86,height=21,
+            border_spacing=0,border_width=0,font=font(11))
         self.today_button.pack(side='left',padx=(12,0))
         self.resume_button=button(self.resume_bar,'미완료 확인',self.resume_unfinished,width=146,height=34,font=font(12))
         self.resume_button.grid(row=0,column=1,padx=(8,0))
