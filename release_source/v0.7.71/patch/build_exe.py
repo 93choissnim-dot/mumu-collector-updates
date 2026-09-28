@@ -53,10 +53,11 @@ def smoke(exe,result):
     # No Python in PATH, no system PYTHONHOME/PYTHONPATH: invoke just the EXE.
     env['PATH']=str(Path(os.environ['SystemRoot'])/'System32')
     env.pop('PYTHONHOME',None);env.pop('PYTHONPATH',None)
-    # Full visual checks take about 110s before one-file extraction on hosted
-    # Windows. Keep every assertion and allow a bounded startup/render margin.
+    # The prior release's frozen full suite already took 159s; durable record
+    # tests and cold Windows I/O need additional margin. Keep every assertion
+    # and per-test timing. Legacy updater startup probes retain their 90s cap.
     try:
-        run([str(exe),'--health-check',str(result),'--full-ui-checks'],cwd=exe.parent,env=env,timeout=180)
+        run([str(exe),'--health-check',str(result),'--full-ui-checks'],cwd=exe.parent,env=env,timeout=300)
     except (subprocess.CalledProcessError, subprocess.TimeoutExpired):
         error=OUT/'smoke-data'/'MumuCollector'/'exe_error.log'
         if error.exists():print(error.read_text(encoding='utf-8'),flush=True)
