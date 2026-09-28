@@ -1,6 +1,7 @@
 """Image-driven free-key -> sweep -> reward -> exhaustion without mocked actions."""
 from pathlib import Path
 import tempfile,threading,unittest
+from unittest.mock import patch
 import cv2,numpy as np
 from vision import Vision
 from extra_collector import ExtraCollector
@@ -58,8 +59,11 @@ class SweepTransitionTests(unittest.TestCase):
             c.daily_find_dungeon=lambda _:c.daily_wait({'daily_room_'+key})
             c.daily_close_room=lambda _:None
             error=None
-            try:c.daily_dungeon(key)
-            except Halt as exc:error=exc
+            # This fixture models screen transitions, not the wall-clock reset.
+            # Keep the captured session day stable even if CI crosses midnight.
+            with patch('daily_actions.korea_day',return_value=c.daily_day):
+                try:c.daily_dungeon(key)
+                except Halt as exc:error=exc
             return d,c.daily_done(key),c.daily_detail(),error
     def test_unhandled_free_key_is_rechecked_and_claimed_before_sweep(self):
         d,done,detail,error=self.run_route(key='summon',missed_free=1)
@@ -93,7 +97,7 @@ class SweepTransitionTests(unittest.TestCase):
         self.assertIsNone(error);self.assertTrue(done);self.assertEqual((d.claims,d.sweeps,d.opens),(1,1,2))
     def test_different_room_after_key_never_opens_or_sweeps(self):
         d,done,detail,error=self.run_route(returns_room=True,wrong_room=True)
-        self.assertIsNotNone(error);self.assertFalse(done);self.assertEqual((d.claims,d.sweeps,d.opens),(1,0,1))
+        self.assertIsNotNone(error);self.assertFalse(done);self.assertEqual((d.claims,d.sweeps,d.opens),(1,0,1),str(error))
     def test_stop_after_key_prevents_sweep(self):
         d,done,detail,error=self.run_route(stop_after_key=True)
         self.assertIsNotNone(error);self.assertFalse(done);self.assertEqual((d.claims,d.sweeps),(1,0))

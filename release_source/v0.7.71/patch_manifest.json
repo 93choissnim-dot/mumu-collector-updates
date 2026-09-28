@@ -83,7 +83,7 @@
     "validate_session_workflow.py": "21480463f22037fb85bff2f3de3694bc07d5d5ae38c0b32f3bf3ce30f526ebd4",
     "validate_startup_recovery.py": "dd3f2f73cd1ba2a77e5bd247c41f6a803fa4b5b07dd7a76571ff8a9ca5e1cec6",
     "validate_sweep_retry.py": "4f64b25e443be98a548abf2e7bb60c7c3be38b10734d2d91062ad7007a60a643",
-    "validate_sweep_transition.py": "f89e51cb978d0b48cc3ad5e5539c1b5a0d3fcebea7fcfedbf3a3a6d39c8f825f",
+    "validate_sweep_transition.py": "c28b7f55f133ea1ada376facc5e93dd0825a2df81c7fe566ad525b020006dc55",
     "validate_today_overview.py": "6ed99f56fc6a976adf7a66f9b1bf280d8b426b59603707be2b64de8a41fe60b6",
     "validate_today_overview_ui.py": "7ca8377f4263a1d79a1ab8ff2739a2aff4d0d06b9525d11bbeb22b08b75041c9",
     "validate_ui_state.py": "11f99d4ad5cd1e6eb2b471d5e5dda14d8e1c27a8f0d169a40e6c71a82e30d7e6",
