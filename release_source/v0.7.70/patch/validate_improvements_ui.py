@@ -154,9 +154,11 @@ def check(app,output):
     app.apply_stop_hotkey(original)
     # Actual history cards and one-task retry routing, with no ADB game input.
     stamp=datetime.now().astimezone().isoformat(timespec='seconds')
-    app.history.record(a,'farm','collected',now=stamp)
-    app.history.record(a,'ranking','failed',now=stamp,reason='랭킹 보상 버튼 상태를 확인하지 못했습니다.')
-    app.history.record(a,'ranking','failed',now=stamp,reason='랭킹 보상 버튼 상태를 확인하지 못했습니다.')
+    from action_state import account_scope
+    scope=account_scope(a,app.players[a].get('daily_profile',''))
+    app.history.record(scope,'farm','collected',now=stamp)
+    app.history.record(scope,'ranking','failed',now=stamp,reason='랭킹 보상 버튼 상태를 확인하지 못했습니다.')
+    app.history.record(scope,'ranking','failed',now=stamp,reason='랭킹 보상 버튼 상태를 확인하지 못했습니다.')
     from app import DATA
     from diagnostics import save_collection_failure
     from types import SimpleNamespace
@@ -168,7 +170,7 @@ def check(app,output):
     assert '랭킹 보상 버튼 상태를 확인하지 못했습니다.' in texts
     assert any(isinstance(w,ctk.CTkButton) and w.cget('text')=='실패 화면' and w.cget('state')=='normal' for w in descendants(app.history_window))
     app.players[a]['selected']['daily_dungeons']=True
-    app.history.record(a,'daily_dungeons','deferred',reason='보물 창고: 같은 오류 반복으로 보류')
+    app.history.record(scope,'daily_dungeons','deferred',reason='보물 창고: 같은 오류 반복으로 보류')
     with patch('daily_state.ManualQuestLedger') as ledger:
         ledger.return_value.snapshot.return_value={'daily_dungeons':{
             'equipment':'done','summon':'done','stone':'done','rune':'done','relic':'done',
@@ -188,8 +190,6 @@ def check(app,output):
     # clear pending input. This fixture never sends any game input.
     from retry_resolution import show_resolution
     from daily_state import ManualQuestLedger
-    from action_state import account_scope
-    scope=account_scope(a,app.players[a].get('daily_profile',''))
     pending=ManualQuestLedger(DATA/'daily_manual.json')
     pending.checkpoint(scope,'daily_guild','donation','uncertain',pending='donation_paid')
     dialog=show_resolution(app,a,'daily_guild');root.update()
@@ -208,7 +208,7 @@ def check(app,output):
     from daily_state import korea_day
     app.fleet_states[a]={'session_day':korea_day(),'scope':scope,'status':'확인 필요','rooms':['farm','ranking','daily_dungeons'],
         'results':{'farm':'collected','ranking':'failed','daily_dungeons':'deferred'},
-        'run_entries':{t:app.history.get(a,t) for t in ('farm','ranking','daily_dungeons')}}
+        'run_entries':{t:app.history.get(scope,t) for t in ('farm','ranking','daily_dungeons')}}
     app.render_roster(force=True);root.update()
     assert app.roster_rows[a]['status'].cget('text')=='확인 필요'
     assert '오늘 누적 수행 확인' in app.detail_stats.cget('text')
