@@ -164,4 +164,29 @@ class OtherRecordsStorageTests(unittest.TestCase):
                 self.assertEqual(list(self.root.glob('*.tmp')),[])
                 path.unlink()
 
+
+class HealthProgressTests(unittest.TestCase):
+    def test_regression_failure_is_preserved_and_identified(self):
+        from health_progress import run_suite
+        def broken():raise AssertionError('deliberate failure')
+        with tempfile.TemporaryDirectory() as tmp:
+            output=Path(tmp)/'health.json'
+            result=run_suite(unittest.TestSuite([unittest.FunctionTestCase(broken)]),output)
+            self.assertFalse(result.wasSuccessful());self.assertEqual(len(result.failures),1)
+            progress=json.loads(output.with_suffix('.progress.json').read_text(encoding='utf-8'))
+            self.assertIn('broken',progress['test']);self.assertEqual(progress['phase'],'finished')
+            self.assertFalse(progress['successful'])
+    def test_all_tests_run_and_success_is_not_inferred_from_start(self):
+        from health_progress import run_suite
+        with tempfile.TemporaryDirectory() as tmp:
+            output=Path(tmp)/'health.json';seen=[]
+            def first():
+                progress=json.loads(output.with_suffix('.progress.json').read_text(encoding='utf-8'))
+                self.assertEqual(progress['phase'],'running');seen.append('first')
+            def second():seen.append('second')
+            result=run_suite(unittest.TestSuite([unittest.FunctionTestCase(first),unittest.FunctionTestCase(second)]),output)
+            self.assertTrue(result.wasSuccessful());self.assertEqual(seen,['first','second'])
+            lines=output.with_suffix('.tests.log').read_text(encoding='utf-8').splitlines()
+            self.assertEqual(len(lines),2)
+
 if __name__=='__main__':unittest.main()

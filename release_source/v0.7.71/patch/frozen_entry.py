@@ -58,10 +58,11 @@ def health_check(output,full_ui=True):
     if full_ui:
         # Exercise the actual observation/cache boundaries in the frozen package.
         import unittest
+        from health_progress import run_suite
         from validate_efficiency import ObservationTests,RecognitionCostTests,DiscoveryAndIdleTests
         suite=unittest.TestSuite(unittest.defaultTestLoader.loadTestsFromTestCase(case)
             for case in (ObservationTests,RecognitionCostTests,DiscoveryAndIdleTests))
-        result=unittest.TestResult();suite.run(result)
+        result=run_suite(suite,output)
         assert result.wasSuccessful(),(result.errors,result.failures)
         from validate_update_network import NetworkTests
         from validate_world_boss import RouteTests
@@ -122,7 +123,7 @@ def health_check(output,full_ui=True):
         import validate_v067_raid_navigation,validate_today_overview,validate_today_overview_ui,validate_run_archive
         for module in (validate_v071_reliability,validate_v070_input,validate_v070_state,validate_v070_storage,validate_v070_diagnostics,validate_v070_recovery,validate_v069_diagnostics,validate_v069_outcomes,validate_v068_boss_glyph,validate_v068_action_storage,validate_v067_raid_navigation,validate_today_overview,validate_today_overview_ui,validate_run_archive):
             suite.addTests(unittest.defaultTestLoader.loadTestsFromModule(module))
-        result=unittest.TestResult();suite.run(result)
+        result=run_suite(suite,output)
         assert result.wasSuccessful(),(result.errors,result.failures)
     native=np.full((540,960,3),110,np.uint8)
     for name in ('guild_title','guild_tabs','guild_menu','guild_donate_open'):
