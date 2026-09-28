@@ -115,8 +115,8 @@ def health_check(output,full_ui=True):
                          SettingsLifecycleTests,GuildEmptyTests,PurchaseTests,NetworkTests,RouteTests,DialogVisionTests,GuildCoinFlowTests,
                          BoundaryTests,EvidenceTests,DailyExecutionTests,TransitionTests,NativeControlTests,
                          FacilityRecoveryTests,SweepAndWorkshopTests,UpdateRecoveryTests,ExitGeometryTests,NavigationChangeTests)))
-        import validate_v067_raid_navigation,validate_today_overview,validate_run_archive
-        for module in (validate_v067_raid_navigation,validate_today_overview,validate_run_archive):
+        import validate_v067_raid_navigation,validate_today_overview,validate_today_overview_ui,validate_run_archive
+        for module in (validate_v067_raid_navigation,validate_today_overview,validate_today_overview_ui,validate_run_archive):
             suite.addTests(unittest.defaultTestLoader.loadTestsFromModule(module))
         result=unittest.TestResult();suite.run(result)
         assert result.wasSuccessful(),(result.errors,result.failures)

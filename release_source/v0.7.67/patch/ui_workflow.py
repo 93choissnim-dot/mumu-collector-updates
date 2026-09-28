@@ -23,10 +23,12 @@ class WorkflowUI:
         self.resume_bar=ctk.CTkFrame(self.footer,fg_color='transparent');self.resume_bar.grid_columnconfigure(0,weight=1)
         self.resume_hint=label(self.resume_bar,'',size=12,color=GOLD,anchor='w')
         self.resume_hint.grid(row=0,column=0,sticky='w')
-        self.today_button=button(self.resume_bar,'오늘 작업',self.today_overview_dialog,width=92,height=34,font=font(12))
-        self.today_button.grid(row=0,column=1,padx=(8,0))
+        # Keep the always-available overview on the existing information line;
+        # an empty continuation row would take space from compact task results.
+        self.today_button=button(self.run_info,'오늘 작업',self.today_overview_dialog,width=86,height=26,font=font(11))
+        self.today_button.pack(side='left',padx=(12,0))
         self.resume_button=button(self.resume_bar,'미완료 확인',self.resume_unfinished,width=146,height=34,font=font(12))
-        self.resume_button.grid(row=0,column=2,padx=(8,0))
+        self.resume_button.grid(row=0,column=1,padx=(8,0))
         self.workflow_plan={'targets':{},'safe':[],'held':[],'records':{}}
         self.workflow_error='';self._workflow_refresh=0
     def change_scope(self,value):
@@ -65,7 +67,7 @@ class WorkflowUI:
         if signature==getattr(self,'_resume_signature',None):return
         self._resume_signature=signature
         self.scope_selector.configure(state='disabled' if blocked else 'normal')
-        visible=not busy
+        visible=bool(not busy and (count or held or self.workflow_error))
         if not visible:
             if getattr(self,'_resume_visible',False):self.resume_bar.grid_forget()
         if visible:

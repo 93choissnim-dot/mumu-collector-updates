@@ -1,6 +1,8 @@
 """Frozen desktop smoke check for the read-only account overview at 680 px."""
 import copy
 import tempfile
+import unittest
+from types import SimpleNamespace
 from pathlib import Path
 from unittest.mock import patch
 from PIL import ImageGrab
@@ -8,6 +10,19 @@ from action_state import ActionState
 from daily_state import ManualQuestLedger,korea_day
 from run_journal import RunJournal
 from ui_layout import fit_window
+
+
+class FooterLayoutTests(unittest.TestCase):
+    def test_idle_without_backlog_does_not_add_a_footer_row(self):
+        from unittest.mock import Mock
+        from ui_workflow import WorkflowUI
+        app=SimpleNamespace(scope_selector=Mock(),refresh_workflow=lambda:None,
+            workflow_plan={'safe':[],'held':[]},workflow_error='',config={},
+            resume_bar=Mock(),resume_hint=Mock(),resume_button=Mock(),
+            start_button=Mock(),once_button=Mock())
+        WorkflowUI.sync_workflow(app,False)
+        app.resume_bar.grid.assert_not_called()
+        self.assertFalse(app._resume_visible)
 
 
 def check(app,output):
@@ -35,6 +50,8 @@ def check(app,output):
             app.scope_value.set('일반 작업');app.refresh_workflow(force=True)
             fit_window(root,(680,800));root.update();app.apply_layout();app.render_roster(force=True);root.update()
             assert app.today_button.winfo_ismapped()
+            assert app.today_button.master is app.run_info
+            assert app.today_button.winfo_rootx()>=app.count_label.winfo_rootx()+app.count_label.winfo_width()
             assert app.today_button.winfo_rootx()+app.today_button.winfo_width()<=root.winfo_rootx()+root.winfo_width()
             assert app.today_button.winfo_rooty()+app.today_button.winfo_height()<=root.winfo_rooty()+root.winfo_height()
             app.today_button.invoke();root.update()
