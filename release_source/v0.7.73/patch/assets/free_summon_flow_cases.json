@@ -1,0 +1,133 @@
+{
+  "character_two": {
+    "frame": 0,
+    "kind": "character",
+    "stage": "two",
+    "video_time": 3.4
+  },
+  "character_reveal_one": {
+    "frame": 1,
+    "kind": "character",
+    "stage": "reveal_one",
+    "video_time": 5.5
+  },
+  "character_result_one": {
+    "frame": 2,
+    "kind": "character",
+    "stage": "result_one",
+    "video_time": 6.7
+  },
+  "character_one": {
+    "frame": 3,
+    "kind": "character",
+    "stage": "one",
+    "video_time": 7.5
+  },
+  "character_reveal_zero": {
+    "frame": 4,
+    "kind": "character",
+    "stage": "reveal_zero",
+    "video_time": 8.6
+  },
+  "character_result_zero": {
+    "frame": 5,
+    "kind": "character",
+    "stage": "result_zero",
+    "video_time": 9.5
+  },
+  "character_zero": {
+    "frame": 6,
+    "kind": "character",
+    "stage": "zero",
+    "video_time": 10.2
+  },
+  "skill_two": {
+    "frame": 7,
+    "kind": "skill",
+    "stage": "two",
+    "video_time": 11.0
+  },
+  "skill_reveal_one": {
+    "frame": 8,
+    "kind": "skill",
+    "stage": "reveal_one",
+    "video_time": 13.4
+  },
+  "skill_result_one": {
+    "frame": 9,
+    "kind": "skill",
+    "stage": "result_one",
+    "video_time": 15.0
+  },
+  "skill_one": {
+    "frame": 10,
+    "kind": "skill",
+    "stage": "one",
+    "video_time": 15.8
+  },
+  "skill_reveal_zero": {
+    "frame": 11,
+    "kind": "skill",
+    "stage": "reveal_zero",
+    "video_time": 16.9
+  },
+  "skill_result_zero": {
+    "frame": 12,
+    "kind": "skill",
+    "stage": "result_zero",
+    "video_time": 18.5
+  },
+  "skill_zero": {
+    "frame": 13,
+    "kind": "skill",
+    "stage": "zero",
+    "video_time": 19.2
+  },
+  "pet_two": {
+    "frame": 14,
+    "kind": "pet",
+    "stage": "two",
+    "video_time": 19.7
+  },
+  "pet_reveal_one": {
+    "frame": 15,
+    "kind": "pet",
+    "stage": "reveal_one",
+    "video_time": 21.2
+  },
+  "pet_result_one": {
+    "frame": 16,
+    "kind": "pet",
+    "stage": "result_one",
+    "video_time": 22.6
+  },
+  "pet_one": {
+    "frame": 17,
+    "kind": "pet",
+    "stage": "one",
+    "video_time": 23.1
+  },
+  "pet_reveal_zero": {
+    "frame": 18,
+    "kind": "pet",
+    "stage": "reveal_zero",
+    "video_time": 24.4
+  },
+  "pet_result_zero": {
+    "frame": 19,
+    "kind": "pet",
+    "stage": "result_zero",
+    "video_time": 26.8
+  },
+  "pet_zero": {
+    "frame": 20,
+    "kind": "pet",
+    "stage": "zero",
+    "video_time": 27.7
+  },
+  "reported_character": {
+    "frame": 21,
+    "kind": "character",
+    "stage": "reveal_one"
+  }
+}
