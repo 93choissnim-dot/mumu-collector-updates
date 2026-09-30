@@ -1,0 +1,66 @@
+{
+  "char_two": {
+    "state": "free_summon_character",
+    "count": 2
+  },
+  "char_one_result": {
+    "state": "free_summon_result_character",
+    "count": 1
+  },
+  "char_zero_result": {
+    "state": "free_summon_character",
+    "count": 0
+  },
+  "skill_two": {
+    "state": "free_summon_skill",
+    "count": 2
+  },
+  "skill_one_result": {
+    "state": "free_summon_skill",
+    "count": 1
+  },
+  "skill_zero_result": {
+    "state": "free_summon_skill",
+    "count": 0
+  },
+  "pet_two": {
+    "state": "free_summon_pet",
+    "count": 2
+  },
+  "pet_one_result": {
+    "state": "free_summon_result_pet",
+    "count": 1
+  },
+  "pet_zero_result": {
+    "state": "free_summon_result_pet",
+    "count": 0
+  },
+  "ruby_card": {
+    "state": "free_store",
+    "count": null
+  },
+  "ruby_modal": {
+    "state": "free_store_confirm_ruby",
+    "count": null
+  },
+  "ruby_ad_card": {
+    "state": "free_store",
+    "count": null
+  },
+  "ruby_ad_modal": {
+    "state": "free_store_confirm_ruby_ad",
+    "count": null
+  },
+  "cube_card": {
+    "state": "free_store",
+    "count": null
+  },
+  "cube_modal": {
+    "state": "free_store_confirm_cube_ad",
+    "count": null
+  },
+  "cube_claimed": {
+    "state": "free_store",
+    "count": null
+  }
+}
