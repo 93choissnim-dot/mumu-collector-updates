@@ -1,0 +1,19 @@
+{
+  "version": "0.7.77",
+  "base_version": "0.7.76",
+  "base_sha256": "10357282867a2b457e49dc1e2a722d8d174534162eb856654738284d8eb4c820",
+  "files": {
+    "build_exe.py": "8eee80343d8aabb31531cf3ee2f455309d1bc9a3c8c4697611e2686d00364558",
+    "build_release.py": "d9d1bd310069498b3ffdee9bca16caf122849f522ac0256648d16eadd6b44e7f",
+    "daily_actions.py": "f33a0ec3f693b9b63b89732bce51039dd8e71ab3c254335d8d49d13024c321ec",
+    "daily_vision.py": "c2e13f92ba63fa66f8541c1e6b45ac4c92f5742974f1c8e64ba9ab7e78ecf336",
+    "free_daily_actions.py": "f9ce702d3ca586839aee7eb513cef476f38931039691d2c91b2bbb378cb3f572",
+    "free_daily_vision.py": "3b2dea543073fa9818099709478d8b7dd94d8c6c7b54b685223e8a3a600845d4",
+    "frozen_entry.py": "bb1cf7d13757564299cbb13c2eadeec6d627349aa164ea33f41a9936b6c16c19",
+    "version.py": "8ce51b2278559d8ed4dbe0dc5a7b2672fcdb69e61bb754515cdfd012add4dec4",
+    "변경사항.txt": "13d623d48fd2fa9f4efab30a916a8aff7e80f0b7c4ac0553f31d6b43adcdfe32",
+    "validate_v077_routes.py": "036a338957123f70320b6c2ea987e88b324daad77c7892444f01ab74b51f5d95",
+    "assets/native_shop_variants.json": "8a46d95e082ec55036dfa82d6e7f839cf925b5d1dd5a88d669cf22a79e9da6b6",
+    "assets/v077_shop_cases.json": "ad9392b748c73a0dc48dc81136571ea7bbce3c441f78af9c1400311f3ae24e8d"
+  }
+}
