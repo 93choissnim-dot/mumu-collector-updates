@@ -541,6 +541,10 @@ class DailyActions(FreeDailyActions,DailyExecution):
         self.daily_check_day()
         self.daily_checkpoint('done',values={'shop':'done'},pending=None,reason='',resolution_source='guild_shop_reward_confirmed')
         return True
+    def daily_guild_shop_claimed_grid(self,screen):
+        return (screen.state=='daily_shop' and self.daily_has(screen,'shop_cube')
+                and (self.daily_has(screen,'shop_contract') or self.daily_has(screen,'shop_exchange'))
+                and not self.daily_has(screen,'shop_coin') and not self.daily_has(screen,'shop_free'))
     def daily_guild_shop(self):
         if self.daily_guild_shop_finish_proof():return
         if self.daily_detail().get('pending'):raise OutcomeUnknown('길드 상점 이전 무료 구매 결과 미확인 / 중복 입력 보류')
@@ -558,12 +562,14 @@ class DailyActions(FreeDailyActions,DailyExecution):
                     while self.now()<end:
                         screen=self.daily_wait({'daily_shop'},timeout=max(1,end-self.now()))
                         if self.daily_guild_shop_finish_proof():return
+                        if self.daily_guild_shop_claimed_grid(screen):
+                            self.daily_confirm_input('guild_shop_grid_confirmed');self.daily_mark('shop');return
                         self.forget_observations();self.pause(.3)
                     raise OutcomeUnknown('길드 상점 무료 코인 보상 결과 미확인 / 중복 입력 보류')
                 finally:self.guild_shop_reward_request=None
-        elif self.daily_has(screen,'shop_cube') and (self.daily_has(screen,'shop_contract') or self.daily_has(screen,'shop_exchange')):
+        elif self.daily_guild_shop_claimed_grid(screen):
             self.progress('길드: 상점 무료 코인 / 이미 수령')
-        if not (self.daily_has(screen,'shop_cube') and (self.daily_has(screen,'shop_contract') or self.daily_has(screen,'shop_exchange'))):
+        if not self.daily_guild_shop_claimed_grid(screen):
             raise Halt('길드 상점 무료 코인 수령 확인이 필요합니다.')
         self.daily_mark('shop')
     def daily_claim_guild_loot(self,timeout=20):
