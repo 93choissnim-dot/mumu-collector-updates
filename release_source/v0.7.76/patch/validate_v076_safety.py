@@ -185,21 +185,18 @@ class FreeRouteTests(unittest.TestCase):
         c.daily_tap=tap;c.forget_observations=lambda:None;c.pause=lambda _:None
         return c
     def test_explicit_unsent_new_request_is_retired(self):
-        adb=ModuleType('adb_device');adb.InputNotSent=InputNotSent
         for key in ('summon','confirm_cube_ad'):
-            with self.subTest(key=key),patch.dict('sys.modules',{'adb_device':adb}):
+            with self.subTest(key=key):
                 c=self.fixture()
                 with self.assertRaises(InputNotSent):c.free_commit(None,key,2)
                 self.assertIsNone(c.detail.get('pending'))
                 self.assertEqual(c.detail.get('resolution_source'),'input_not_sent')
                 self.assertEqual(c.dispatched,[])
     def test_transport_uncertainty_preserves_new_request(self):
-        adb=ModuleType('adb_device');adb.InputNotSent=InputNotSent
-        with patch.dict('sys.modules',{'adb_device':adb}):
-            c=self.fixture(error=Halt)
-            with self.assertRaises(Halt):c.free_commit(None,'summon',2)
-            self.assertEqual(c.detail['pending'],'free_summon')
-            self.assertEqual(len(c.dispatched),1)
+        c=self.fixture(error=Halt)
+        with self.assertRaises(Halt):c.free_commit(None,'summon',2)
+        self.assertEqual(c.detail['pending'],'free_summon')
+        self.assertEqual(len(c.dispatched),1)
     def test_inherited_pending_is_never_retired_or_dispatched(self):
         c=self.fixture(pending='old_request')
         with self.assertRaises(OutcomeUnknown):c.free_commit(None,'summon',2)

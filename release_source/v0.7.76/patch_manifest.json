@@ -8,7 +8,7 @@
     "free_daily_actions.py": "1d93c2a32d81cb6531f2c781ba1dd869e3a84c90f34613e46165ebe062344a23",
     "version.py": "a2ee6fd36759206c9ca13c3610a1dde945d27968cd16e80c6cd2771197c64ad9",
     "frozen_entry.py": "0e5e27f5fa19aad915b691559628b788c8f3cbcf1102f03b497361296ef02843",
-    "validate_v076_safety.py": "b5225dd58fe73b5133003b14977e9cd6fee5aba75952b62fb44e0e73f84efe15",
+    "validate_v076_safety.py": "26acb9c03779799f26d73750951a2963985e6f25f4816304ddee164e99b27e06",
     "build_exe.py": "102f2e03d5f161712ff5f69c1cce872ecfe81da70461fcf9576ac4bd265a5cc9",
     "build_release.py": "281357fbd8c9214e212523a9347feb5a01b5ab49eb6d9e2a67742e9bc5e70327"
   }
