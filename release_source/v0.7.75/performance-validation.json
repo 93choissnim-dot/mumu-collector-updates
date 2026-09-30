@@ -1,0 +1,25 @@
+{
+  "version": "0.7.75",
+  "method": "Local synthetic/recorded fixtures; not a live emulator end-to-end speed claim",
+  "recognition_equivalence_pages": 17,
+  "all_match_decisions_equal": true,
+  "store_visible_target": {
+    "simulated_before_seconds": 5.45,
+    "simulated_after_seconds": 0.45,
+    "upward_drags_before": 3,
+    "upward_drags_after": 0,
+    "tab_clicks_after": 0
+  },
+  "scheduler_loading": {
+    "scheduled_seconds": 60,
+    "before_actual_seconds": 149,
+    "after_actual_seconds": 60
+  },
+  "immutable_preprocessing_two_frames": {
+    "free_reference_resizes_before": 16,
+    "free_reference_resizes_after": 0,
+    "top_icon_mask_dilations_before": 6,
+    "top_icon_mask_dilations_after": 0
+  },
+  "timing_limitation": "CPU and wall timings varied in shared execution environment; no uniform whole-program speed percentage asserted. ADB calls retain bounded timeout behavior."
+}
