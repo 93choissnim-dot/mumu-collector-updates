@@ -1,0 +1,23 @@
+{
+  "version": "0.7.78",
+  "base_version": "0.7.77",
+  "base_sha256": "4f048f8de99e27effe49e20f84f2e74152e5e5e32016cb66d22ccc4dbdfab8ac",
+  "files": {
+    "assets/native_shop_variants.json": "20556d319729c133c622644bf2680f93f5921b10e57b32aca40779b9a7875de3",
+    "build_exe.py": "3bc6dd227eea8cb8b5952d18dc153a17ff174e6ffcd24f57b6146c9174bcca15",
+    "build_release.py": "f345fb8dd7e91ff104e75f5db9af5e4f1277e662a12cd2500ca6cb060910dc6b",
+    "extra_collector.py": "d9d9a037ec8387515d6693d9db44845d8c92ca5d71e744fc6d4c4fcbb058a2c5",
+    "free_daily_actions.py": "5586777c7f2bc06298d2340141f662b898adeb98a8b4b455d62598b29df7d409",
+    "frozen_entry.py": "1552659aa9ece6d60959dc54ee6e681cd536665bedb9b27927cfcf76ac6d5b32",
+    "task_catalog.py": "0c3e7172a3c9463e6bea5407a66abc9859a752c600b4b44c0a179f24beb51ce5",
+    "validate_menu_color.py": "5c3afb185db8b1f1b962114bf1764d5c446c632e6579246de6ec2a649adae9b5",
+    "validate_overlays.py": "6cb36ed7b6519d3d2a390c6c75e0e6250acdc0959e67972284185d3c55b51eee",
+    "version.py": "7e572a4a620885e5e2f480bcf184ee93220efee67dedc93ee177ca7567f3c7ce",
+    "vision.py": "7a90b9833ad041364608ef14a59c1aaf731e1ab1528160055d72fb5d0e1b0f42",
+    "world_boss.py": "6ef3c1dc92d113f85aa1f0d54443b79cc470f1d47db509fc22e24f95ad923e3a",
+    "변경사항.txt": "f9a59367cd13de1c56278a2e60544fe6120aa22c5515735be87bcf6d2cbe6a35",
+    "boss_mode.py": "23b44f0035599e86e5f044666a70c1119bc57b6d3cfbf183ac3a63346e08b1b7",
+    "validate_v078_routes.py": "06f1e8a4b17e4a41822e9592cfc5aadeab31e29f1062a56499ffde9fc1e958eb",
+    "assets/boss_mode_controls.json": "98a03fb54e97927f58d1a32503c90998656758368b45b5fadc401a92fc51b31b"
+  }
+}

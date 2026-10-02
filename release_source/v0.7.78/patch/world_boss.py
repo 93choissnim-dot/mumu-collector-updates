@@ -1,0 +1,174 @@
+"""Three-card world-boss rewards, excluding cards marked as preparing."""
+import time
+import cv2
+import numpy as np
+from collector import Halt, ScreenChanged
+from task_catalog import TOP_BAR_POINTS
+
+BOSSES = (
+    ('cerberus', '지옥의 켈베로스', 'x_boss_card', (326,128,346,149)),
+    ('kraken', '심해의 군주 크라켄', 'x_boss_card_kraken', (572,128,592,149)),
+    ('void', '공허의 지배자', 'x_boss_card_void', (818,128,838,149)),
+)
+
+
+def boss_notices(image):
+    """Inspect only each card's small top-right notification location."""
+    found = {}
+    for key, _, _, box in BOSSES:
+        x1,y1,x2,y2 = box
+        crop = image[y1:y2,x1:x2]
+        hsv = cv2.cvtColor(crop,cv2.COLOR_BGR2HSV)
+        mask = ((((hsv[:,:,0] <= 10) | (hsv[:,:,0] >= 170)) &
+                 (hsv[:,:,1] >= 80) & (hsv[:,:,2] >= 75)).astype(np.uint8))
+        count, _, stats, centers = cv2.connectedComponentsWithStats(mask,8)
+        candidates = []
+        for i in range(1,count):
+            x,y,w,h,area = map(int,stats[i]);cx,cy = centers[i]
+            if (14 <= area <= 180 and 4 <= w <= 16 and 5 <= h <= 18
+                    and .6 <= w/h <= 1.6 and area/(w*h) >= .4
+                    and 5 <= cx <= 15 and 5 <= cy <= 16):
+                candidates.append((area,(x1+float(cx),y1+float(cy))))
+        if len(candidates) == 1:
+            found[key] = candidates[0][1]
+    return found
+
+
+class WorldBossActions:
+    def boss_settlement(self,screen):
+        if screen.state!='boss' or 'x_boss_settlement' not in screen.matches:return False
+        self.pause(.25)
+        fresh=self.screen()
+        return fresh.state=='boss' and 'x_boss_settlement' in fresh.matches
+
+    def open_boss_ranking(self, boss):
+        """Retry only the navigation control after a confirmed unchanged page."""
+        self.click_match('boss','x_boss_rank_open',boss)
+        deadline=self.now()+35;retry_after=self.now()+5;retried=False
+        while self.now()<deadline:
+            page=self.wait_page({'boss','boss_rank'},timeout=deadline-self.now(),reuse=False)
+            if page.state=='boss_rank':return page
+            if not retried and self.now()>=retry_after:
+                # This opens a page, never claims a reward. Two observations and
+                # click_match's fresh capture protect a late-arriving dialog.
+                retried=True
+                self.log('월드보스: 랭킹창 미전환 / 보스 화면 재확인 후 1회 다시 엽니다.')
+                try:self.click_match('boss','x_boss_rank_open',page)
+                except ScreenChanged:continue
+            self.pause(.25)
+        raise Halt('월드보스: 랭킹창 진입 확인 시간 초과 / 추가 입력 없이 중지합니다.')
+
+    def open_boss_selection(self,menu):
+        # The top icon overlays moving combat. Use the verified full menu
+        # layout, then recheck it immediately before this navigation-only tap.
+        if menu.state not in {'main','menu'}:raise Halt('월드보스: 진입 전 기본 화면 확인이 필요합니다.')
+        self.trace.step='entry'
+        self.top_bar_tap(menu,'worldboss')
+
+    def wait_boss_selection(self, timeout=20):
+        deadline=self.now()+timeout;last=None;count=0;overlays={};mode_attempts=0;retry_after=0
+        while self.now()<deadline:
+            screen=self.screen()
+            if self.dismiss_overlay(screen,overlays):
+                last=None;count=0;self.pause(.25);continue
+            key=None
+            if screen.state=='boss_select':
+                key=tuple((b[0], 'x_boss_notice_'+b[0] in screen.matches,
+                           'x_boss_preparing_'+b[0] in screen.matches) for b in BOSSES)
+            elif screen.state=='boss_mode' and 'x_boss_mode_normal' in screen.matches:
+                key=('normal',screen.matches['x_boss_mode_normal'].center)
+            count=count+1 if key is not None and key==last else int(key is not None)
+            if count>=2:
+                if screen.state=='boss_select':return screen
+                if self.now()>=retry_after:
+                    if mode_attempts>=3:raise Halt('월드보스: 일반 진입 3회 후에도 선택창이 남아 있습니다.')
+                    try:
+                        self.tap(screen,'x_boss_mode_normal',required=('x_boss_mode_title','x_boss_mode_close','x_boss_mode_integrated_label'))
+                    except ScreenChanged:
+                        last=None;count=0;self.pause(.25);continue
+                    mode_attempts+=1;retry_after=self.now()+4
+                    self.log('월드보스: 일반 선택 / 보스 목록 확인 중')
+                    last=None;count=0;self.pause(.6);continue
+            last=key;self.pause(.25)
+        raise Halt('월드보스: 보스 선택창과 빨간 표시를 확인하지 못했습니다.')
+
+    def return_to_boss_selection(self):
+        from task_catalog import PAGE_MARKERS
+        from vision import LABELS
+        self.progress('월드보스: 수령 확인 후 보스 선택창으로 복귀 중')
+        facilities={room+suffix for room in LABELS for suffix in ('_ready','_empty','_wait')}
+        states=set(PAGE_MARKERS)|facilities|{'main','menu'}
+        counts={}
+        for _ in range(9):
+            screen=self.wait_page(states)
+            page=screen.state
+            if page=='boss_select':return screen
+            if page=='boss_mode':return self.wait_boss_selection()
+            counts[page]=counts.get(page,0)+1
+            if counts[page]>3:raise Halt('월드보스: 선택창 복귀를 3회 시도했지만 화면이 그대로입니다.')
+            if page not in {'boss','boss_rank'}:
+                menu=self.ensure_menu(screen)
+                self.open_boss_selection(menu)
+            else:
+                if self.stop.is_set():raise Halt('사용자가 중지했습니다.')
+                fresh=self.screen()
+                if fresh.state!=page:continue
+                self.log('월드보스: '+('랭킹창 닫기' if page=='boss_rank' else '보스 화면 나가기'))
+                self.tap(fresh,point=(866,65) if page=='boss_rank' else (34,28))
+                self.pause(.6)
+        screen=self.wait_page(states)
+        if screen.state=='boss_select':return screen
+        raise Halt('월드보스: 선택창 복귀 횟수를 초과했습니다.')
+
+    def collect_world_boss(self, menu):
+        self.wait_reasons=getattr(self,'wait_reasons',{})
+        self.wait_reasons.pop('worldboss',None)
+        self.open_boss_selection(menu)
+        selection=self.wait_boss_selection()
+        targets=[];results=[];total_clicks=0
+        for boss in BOSSES:
+            key,title,_,_=boss
+            if 'x_boss_preparing_'+key in selection.matches:
+                self.log('월드보스: '+title+' / 준비 중 → 건너뛰기')
+            elif 'x_boss_notice_'+key in selection.matches or self.action_state.pending('worldboss',key):
+                targets.append(boss)
+        if targets:self.log('월드보스: 수령 대상 일괄 확인 / '+', '.join(b[1] for b in targets))
+        for index,(key,title,card,_) in enumerate(targets):
+            if index:
+                self.return_to_boss_selection()
+                selection=self.wait_boss_selection()
+            # Plan once. Recheck only the planned next boss before entering;
+            # newly appearing notices belong to the next collection cycle.
+            if ('x_boss_preparing_'+key in selection.matches or
+                ('x_boss_notice_'+key not in selection.matches and not self.action_state.pending('worldboss',key))):
+                self.log('월드보스: '+title+' / 대상 상태 변경 → 건너뛰기')
+                continue
+            self.boss_slot=key
+            self.progress('월드보스: '+title+' / 보상 확인')
+            def verify_target():
+                fresh=self.last_screen
+                if ('x_boss_preparing_'+key in fresh.matches or
+                    ('x_boss_notice_'+key not in fresh.matches and not self.action_state.pending('worldboss',key))):
+                    raise Halt('월드보스: 진입 직전 대상 상태가 바뀌어 클릭을 보류합니다.')
+            self.click_match('boss_select',card,selection,before_input=verify_target)
+            boss=self.wait_page({'boss'})
+            if self.boss_settlement(boss):
+                results.append('waiting')
+                self.wait_reasons['worldboss']='월드보스: '+title+' / 시즌 정산 중입니다. 랭킹 수령을 보류하고 다음 예약에서 다시 확인합니다. 이전 미확인 기록은 보존됩니다.'
+                self.log(self.wait_reasons['worldboss'])
+                continue
+            ranking=self.open_boss_ranking(self.last_screen)
+            try:
+                result=self.claim_extra('worldboss',ranking,record=False)
+            finally:
+                total_clicks+=self.claim_counts.get('worldboss',0)
+                self.claim_counts['worldboss']=total_clicks
+            results.append(result)
+            label={'collected':'수령 완료','skipped':'수령할 보상 없음','attempted':'완료 여부 미확인','deferred':'결과 확인 필요 / 중복 입력 보류'}[result]
+            self.log('월드보스: '+title+' / '+label)
+        if not targets:self.log('월드보스: 빨간 표시가 있는 수령 대상 없음 → 수령 생략')
+        # A persistent non-ranking notice must not reopen the same boss forever.
+        result='deferred' if 'deferred' in results else 'attempted' if 'attempted' in results else 'waiting' if 'waiting' in results else 'collected' if 'collected' in results else 'skipped'
+        self.claim_counts['worldboss']=total_clicks
+        self.record_task('worldboss',result)
+        return self.last_screen
