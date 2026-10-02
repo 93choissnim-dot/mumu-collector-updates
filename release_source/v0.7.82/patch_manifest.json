@@ -1,0 +1,15 @@
+{
+  "version": "0.7.82",
+  "base_version": "0.7.81",
+  "base_sha256": "cfc0f319a5d85d39b0749dd33952a5ca5bd80a48c0456588be357f04f9c094ff",
+  "files": {
+    "build_exe.py": "f59598fed93a4ae1edc03d728da7054bf2db916950c6b0fb24ec0a290c39648a",
+    "build_release.py": "f141b60bc4dd1d4b391be891a6446f7b7d7052b731a89879e197ea3f5dceb3db",
+    "daily_actions.py": "c6bca75f55510c8edd8e89bb0ec69e10a613209aa5d55f215d0e810ad7be1ee0",
+    "frozen_entry.py": "5846d62b9b6566316862689d71b3b5355fb454418f1c22d3005f4eeea3ba3e91",
+    "version.py": "dbbc60380780032e8bb681287132561d2b61c8ceb352432c32e3013d11d0e2d1",
+    "변경사항.txt": "0d5b08b3af2caa86c9abbe6be87c33a1a02df15b1ccd9f717bbc7dda3c87c080",
+    "validate_v082_transitions.py": "169fddf8aff05ce119e221a06a8c4793561cda48c8bfbaf3d0c8df01cc174ff9",
+    "validate_v069_diagnostics.py": "da68d805ec5a8527e8ca8db9f88109abdfe6d5df12d1bba41067ca1b1286c42b"
+  }
+}
