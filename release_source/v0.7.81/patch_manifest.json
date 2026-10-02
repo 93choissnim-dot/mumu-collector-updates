@@ -1,0 +1,15 @@
+{
+  "version": "0.7.81",
+  "base_version": "0.7.80",
+  "base_sha256": "5975b6bbc1474d53aa7d8a3d763af61cfc33b57dc336e7211f09e545abb59c22",
+  "files": {
+    "build_exe.py": "09f56773bd15bbf411382004395a822a7cd9278852d62580692532fe7a654025",
+    "build_release.py": "97822122a0e2a7bc2a200626412cbfc25c187356abf0d8792e8fc7791cd34fdf",
+    "frozen_entry.py": "0a6648d725052a5c29c136c7585cbe895df79d7880a3c532141c828d5cfdb187",
+    "network_notice.py": "f164e9eb77648b2249cb96a0a07ca2f573340abe911cae99fef4c6ca501a4f94",
+    "version.py": "c83776f2c656b76cada49d9491fb89b662de2b92e163cb98c8c9279ab083eb41",
+    "변경사항.txt": "e844510a975e6ea4fc7c3289ed4744e6adf085865730887f73011c1acab65746",
+    "assets/network_duplicate_controls.json": "682cbdb29328e3340b7b20c15460fc8098e094420918bb2b991ac4a411ac172d",
+    "validate_v081_duplicate.py": "3670011e81eafc24d603a2c1ce86b4b4d508105415f000c526efa4b9bb03ead2"
+  }
+}
