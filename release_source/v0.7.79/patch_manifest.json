@@ -1,0 +1,17 @@
+{
+  "version": "0.7.79",
+  "base_version": "0.7.78",
+  "base_sha256": "826f92905300accbaadf76740c8474b895899bd55b6da0db7ea6c08ef45a67b1",
+  "files": {
+    "build_exe.py": "bd15773f1dd244f08a19e87a8fcfa58500c1a254cab149c6dbd9a4ba47e0bfb5",
+    "build_release.py": "ed05d40502a5d0466e83fe47aba0ec4e3ef0769d167d8f56e16975e552c1c3e8",
+    "extra_collector.py": "161654940f8b4e2f2d8eb10b199026eb38227629f306766d101852537bacd74a",
+    "free_daily_actions.py": "58ce6a9fdc65b7c35971b5aa1fc35400e45b17e2764ec451710f1feae250957a",
+    "frozen_entry.py": "e5eea40556efa2be321b474afd315667525e4d56d9cbec242bf980d24a350b4c",
+    "legacy_free_recovery.py": "2285fdd04ab1bc962470cfa6b3952df0cd1a695e415d757ddf47b6ecab4314fe",
+    "validate_reward_recovery.py": "31d2bcf6a506e6e7389083ea468873eab726abb5221df8f17a10b199b06ebbe4",
+    "version.py": "89f459968728f6214d9e440d015cb8ae09e7cba1f30017943290c4b6565ef077",
+    "변경사항.txt": "1b3ef6d92299a4eaab3379ed3fed28f1989c3242218ce147df8e3af5852e06b5",
+    "validate_v079_rewards.py": "e422a083040b858114bbfe3aead8c1e1b820f2ddc945af5757bc7fc91ba08ad9"
+  }
+}
