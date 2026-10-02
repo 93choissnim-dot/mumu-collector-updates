@@ -1,0 +1,17 @@
+{
+  "version": "0.7.83",
+  "base_version": "0.7.82",
+  "base_sha256": "3db29459d08278647aae087af27ca2bdfe2ad07bddf8c2c606dce31ea898f341",
+  "files": {
+    "adb_device.py": "ebbf7fdfd4b950e8bb770379e20f05fa823e90894410186a965e1ad1bc6d4651",
+    "collector.py": "66eade15b9f70beb34361f344d0523c1068a69e2cecbccc0602cb3ce1cb82218",
+    "daily_actions.py": "e72a817517576c3642e90473f6d984402fed7a243eb351ac1fa654fd3547c60a",
+    "daily_execution.py": "9cf0ebbbf0670e622e95c17d03b6f5a9ecccb6a5df47f349214f34da4ed4c249",
+    "free_daily_actions.py": "6174546409d40438d693b83e64c1bce5cbb8a6d0d037382dd8eed135b585379f",
+    "frozen_entry.py": "b7b5e61a036aa4c195aaa61953988e57649d835fde0a573a9d3c83b8eab1044d",
+    "validate_daily.py": "04b322e29a655732dd7317954423f1dc37846bc788ca81101e4e7aea13a48e10",
+    "validate_v083_audit.py": "59070f9d1d9dc1770a8ea2e889e6e791a0d53091b012295ede6e83ea2c46dd75",
+    "version.py": "8c0f8e94de29bc52896b3bffd6dbc128c80f32fe0ec0451ffc2423335627e894",
+    "변경사항.txt": "60a69a2eafbf95216f96c2d9a91cf1230a9d69cd18e43bb208ea6405b957f4b3"
+  }
+}
