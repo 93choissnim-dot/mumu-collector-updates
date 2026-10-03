@@ -1,0 +1,12 @@
+{
+  "version": "0.7.84",
+  "base_version": "0.7.83",
+  "base_sha256": "33db2e68c838c4bc75107fac641a2259af5d122604a66d9e9ec20d105c232e9e",
+  "files": {
+    "free_daily_vision.py": "b95bd896f5fa39b458d3770b7e39395b98baf2fee56cb76e7d4b3d77e0296e7e",
+    "frozen_entry.py": "317422060dfaad182bb6b9bd6447426d704eca310498ce18cc6e3589ad700fef",
+    "validate_v084_summon_layout.py": "146f8229f431626272069ad2f9533dd1fbcb89cb8df719d8fbc7321f9fb61bbf",
+    "version.py": "5e9ef234fa4cda4ee28c13e8d229a00968072b756bc58129ca75efcf67be11ab",
+    "변경사항.txt": "e2a8d0a80a6d7ba0a69c0c76b96878f53770db86fddc226a4b7cf985987deb86"
+  }
+}
