@@ -1,0 +1,19 @@
+{
+  "version": "0.7.85",
+  "base_version": "0.7.84",
+  "base_sha256": "e97253e30a2678e3c9566c670bb26b55d9a76b34d18204529203f212503d5e55",
+  "files": {
+    "adb_device.py": "d16de9f69578c0768e7ad77f617f08126bbc999dd74a4e9e684b845b17fc6446",
+    "collector.py": "78716b3a3b9e3eb3f8c5188f59e6095803490bd2a3f0d58ba1dd6b24350c7021",
+    "extra_collector.py": "0bd530aaa314d005ac388ee93f72eb1643f9998a2a5a2864a435b920509debed",
+    "frozen_entry.py": "de21cdd61c491331b8b1f02eaa5ebdd3b554aef091cb04623705185e8ead6d9b",
+    "game_recovery.py": "4f30742406eb5ebfbe312fcce6d20a0a5f7604c55d7ab5b824d618c0b5f722c5",
+    "top_bar.py": "2ca1894b9d4ec74bc3e653dad00f2ddc322e66bd4bad3151c9279787636c55a4",
+    "version.py": "9fd53e5085cdeef472d32975cdd2ad1537ba0c67a31b7839c418c5b30f3b631d",
+    "vision.py": "08a9f737cbb3a633f14bd9c0341032ff0b52d41d5ec538b31d82600c1a422931",
+    "변경사항.txt": "d3dde9e7ef0f548251b523ce7b89bfb183989bdd45bb036adf067438643345a7",
+    "assets/package_offer.json": "4fc5ba79c3136c49d4338d90c6c376a86aa3662df2732d7066600bf20c372648",
+    "package_offer.py": "8dae318e64e7848e84e265deb3ee1fd3bd2294415e89f3f7898ec9b018114c4d",
+    "validate_v085_offer.py": "fe1248bc2306e340455f07dfe6e804f3cb1bb24dae26bb8826d65bfe012d7d0c"
+  }
+}
