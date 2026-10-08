@@ -45,6 +45,15 @@ jobs:
         run: |
           python -c "import importlib; [importlib.import_module(m) for m in 'validate_names validate_mumu_ports validate_fleet validate_operations validate_extra validate_collection validate_overlays validate_entry validate_menu_color validate_world_boss validate_photometric validate_ranking_native validate_adb validate_run_controls validate_ui_state validate_improvements validate_start_navigation validate_daily validate_pass_purchase validate_guild_empty validate_settings_lifecycle validate_daily_execution validate_autumn validate_autumn_native validate_navigation_native validate_safety validate_efficiency validate_update_network validate_daily_dialogs validate_daily_transitions validate_audit validate_updates validate_startup validate_navigation_recovery validate_retry_resolution validate_history_lifecycle validate_reward_recovery validate_update_diagnostics validate_pending_history validate_raid_retry validate_input_provenance validate_input_evidence validate_dungeon_confirmation validate_completion_recheck validate_completion_review_ui validate_raid_native validate_combat_start validate_dungeon_native validate_training_completion validate_pass_native validate_diagnostic_recovery validate_training_retry validate_dungeon_resume validate_sweep_transition validate_native_sweep_battle validate_guild_resume validate_sweep_retry validate_compact_reliability validate_session_workflow validate_game_recovery validate_game_watch validate_startup_recovery validate_network_recovery validate_v063_recovery validate_v064_completion validate_v065_donation validate_packaged_startup validate_v066_guild_loot validate_v067_raid_navigation validate_today_overview validate_today_overview_ui validate_run_archive validate_v068_boss_glyph validate_v068_action_storage validate_v069_diagnostics validate_v069_outcomes validate_v070_input validate_v070_state validate_v070_storage validate_v070_diagnostics validate_v070_recovery validate_v071_reliability validate_v072_free_daily validate_v073_summon_reveal validate_v074_network_single validate_v075_recovery validate_v075_store validate_v075_performance validate_v076_safety validate_v077_routes validate_v078_routes validate_v079_rewards validate_v080_lifecycle validate_v081_duplicate validate_v082_transitions validate_v083_audit validate_v084_summon_layout validate_v085_offer validate_v086_recognition'.split()]; print('All validation modules import successfully')"
           if ($LASTEXITCODE -ne 0) { throw 'Validation module import failed' }
+      - name: Check regression fixtures from a Unicode path
+        shell: pwsh
+        run: |
+          Copy-Item -LiteralPath 'source/MumuCollector_v0.7.86' -Destination 'source/한글_경로_검사' -Recurse
+          Push-Location 'source/한글_경로_검사'
+          python -m unittest -q validate_v086_recognition
+          $result = $LASTEXITCODE
+          Pop-Location
+          if ($result -ne 0) { throw 'Unicode-path fixture validation failed' }
       - name: Configure desktop for visual review
         shell: pwsh
         run: python .github/set-desktop-resolution.py

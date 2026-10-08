@@ -1,5 +1,5 @@
 """Excavation panel variants and toast-occluded free product identity."""
-import base64,json,unittest
+import json,unittest
 from pathlib import Path
 import cv2
 import numpy as np
@@ -7,11 +7,17 @@ from vision import Vision
 from validate_overlays import composite
 
 ASSETS=Path(__file__).parent/'assets'
+def read_fixture(path):
+    # OpenCV's Windows filename reader cannot open the Korean EXE directory.
+    # Read bytes through Python, as the live recognizers do.
+    image=cv2.imdecode(np.fromfile(path,np.uint8),cv2.IMREAD_COLOR)
+    if image is None:raise ValueError('Invalid fixture image: '+str(path))
+    return image
 def excavation_frame(v,state='active',title='x_relic_title'):
     im=composite(v,title)
     spec=json.loads((ASSETS/'button_profiles.json').read_text())['excavation_panel']
     def paste(box,file):
-        x,y,r,b=box;crop=cv2.imread(str(ASSETS/file))
+        x,y,r,b=box;crop=read_fixture(ASSETS/file)
         im[y-7:b+7,x-7:r+7]=cv2.copyMakeBorder(crop,7,7,7,7,cv2.BORDER_REPLICATE)
     for control in spec['anchors']:paste(control['box'],control['file'])
     paste(spec['box'],spec[state+'_file'])
@@ -43,14 +49,14 @@ class RecognitionTests(unittest.TestCase):
             self.assertNotIn('x_dig_active',s.matches);self.assertNotIn('x_dig_empty',s.matches)
     def test_toast_over_gem_keeps_only_correct_literal_free_confirmation(self):
         for name,key in [('ruby_modal','ruby'),('ruby_ad_modal','ruby_ad')]:
-            im=cv2.imread(str(ASSETS/('free_daily_fixture_'+name+'.png')))
+            im=read_fixture(ASSETS/('free_daily_fixture_'+name+'.png'))
             im[202:256,285:665]=(35,80,50)
             s=self.v.recognize(im)
             self.assertEqual(s.state,'free_store_confirm_'+key)
             self.assertIn('daily_free_confirm_'+key,s.matches)
             self.assertNotIn('daily_free_confirm_'+('ruby' if key=='ruby_ad' else 'ruby_ad'),s.matches)
     def test_occluded_modal_still_requires_title_close_gem_and_free(self):
-        original=cv2.imread(str(ASSETS/'free_daily_fixture_ruby_modal.png'))
+        original=read_fixture(ASSETS/'free_daily_fixture_ruby_modal.png')
         original[202:256,285:665]=(35,80,50)
         for box in ((300,60,430,115),(605,57,670,112),(398,165,570,329),(389,348,573,430)):
             im=original.copy();x,y,r,b=box;im[y:b,x:r]=0
