@@ -1,0 +1,20 @@
+{
+  "version": "0.7.86",
+  "base_version": "0.7.85",
+  "base_sha256": "9fe51ad39b1270e3d789aec7da7138e10cd7d7316050e9963317584379a3767c",
+  "files": {
+    "assets/button_profiles.json": "f79dbaee724310a836b2a505f37d17a94b40490d1b14ac7b945dd66329ce2f73",
+    "assets/dig_active.png": "6369d1402d9fff49fd59097a140250f58e71ee3e9491136df3adf28ad89f6b23",
+    "assets/dig_empty.png": "cb71c18e6bc94776a988c23535cc77275efcc513fadd32949eae500f4f5757e2",
+    "assets/templates.json": "04e465cd15629f29421b2a6f1f74fdfc76c716b0baa316a93ec82b21c65b3c50",
+    "assets/x_dig_level.png": "3487ab56f20c79f3eb12093e038d40469faabaa3d806c01016f8cac29d2ce392",
+    "assets/x_dig_selected.png": "cbf763b170f7ccaa04d2e915634030756cd4c74b3ad272b5196b8003d9cdb185",
+    "free_daily_vision.py": "1e19c43c963b8632074d8f0d57be15a0e0223c332fa7ff2e74702a1e6c34c161",
+    "frozen_entry.py": "9a2ed83b3f9ea5440236e4796ae6fcb196393bcdec6fbea2900704fb501c2494",
+    "legacy_free_recovery.py": "f77a784164d7bd1626541604bca4234e66491428ca91cb0d96c8ce54cf25831e",
+    "validate_v086_recognition.py": "dcecd9e5fa2d164d6c13964a7b0043da46d61fa61189e363b3b4e69dd7482ef1",
+    "version.py": "dd0544ab3f5d162b7ed101db16cdd5e8aa28181e996262590011870e4da2c6d8",
+    "vision.py": "58114d8740f0214ca7dd9b12b6882d2c49255037629095324ab6cf2489c2d796",
+    "변경사항.txt": "e9908bbf4b830a51811ece77218169cbddc4675b1536eb8a90a0918b99571763"
+  }
+}
