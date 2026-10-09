@@ -75,7 +75,7 @@ jobs:
         shell: pwsh
         working-directory: source/MumuCollector_v0.7.87
         run: |
-          $env:LOCALAPPDATA = Join-Path $env:RUNNER_TEMP 'chanki-v086-source-ui'
+          $env:LOCALAPPDATA = Join-Path $env:RUNNER_TEMP 'chanki-v087-source-ui'
           python -c "from frozen_entry import health_check; health_check('exe_release/source-health.json')"
           if ($LASTEXITCODE -ne 0) { Write-Host ('Desktop process exit code: '+$LASTEXITCODE); Get-Content exe_release/source-health.progress.json; Get-Content exe_release/source-health.threads.log; throw 'Desktop UI validation failed' }
       - name: Validate recognition and collection
@@ -96,7 +96,8 @@ jobs:
         run: |
           $exe = 'source/MumuCollector_v0.7.87/exe_release/ChankiHelper.exe'
           $signature = Get-AuthenticodeSignature -LiteralPath $exe
-          $report = [ordered]@{ version='0.7.86'; status=[string]$signature.Status; statusMessage=$signature.StatusMessage; signatureType=[string]$signature.SignatureType; subject=$signature.SignerCertificate.Subject; thumbprint=$signature.SignerCertificate.Thumbprint; sha256=(Get-FileHash -LiteralPath $exe -Algorithm SHA256).Hash.ToLower() }
+          $releaseVersion = (Get-Content 'release_source/v0.7.87/patch_manifest.json' -Raw | ConvertFrom-Json).version
+          $report = [ordered]@{ version=$releaseVersion; status=[string]$signature.Status; statusMessage=$signature.StatusMessage; signatureType=[string]$signature.SignatureType; subject=$signature.SignerCertificate.Subject; thumbprint=$signature.SignerCertificate.Thumbprint; sha256=(Get-FileHash -LiteralPath $exe -Algorithm SHA256).Hash.ToLower() }
           $report | ConvertTo-Json | Set-Content 'source/MumuCollector_v0.7.87/exe_release/signature-status.json' -Encoding utf8
           Write-Host ('Authenticode status: '+$signature.Status)
       - name: Validate update from actual v0.7.28 helper
@@ -120,7 +121,7 @@ jobs:
             gh release edit v0.7.87 --repo 93choissnim-dot/mumu-collector-updates --target $env:GITHUB_SHA
             if ($LASTEXITCODE -ne 0) { throw 'Draft source target update failed' }
           } else {
-            gh release create v0.7.87 --repo 93choissnim-dot/mumu-collector-updates --target $env:GITHUB_SHA --draft --title '창키 도우미 v0.7.87 — 유물 발굴 및 무료 루비 인식 수정' --notes-file release_source/v0.7.87/notes.md
+            gh release create v0.7.87 --repo 93choissnim-dot/mumu-collector-updates --target $env:GITHUB_SHA --draft --title '창키 도우미 v0.7.87 — 농장 수령 보류 및 기록 저장 오류 수정' --notes-file release_source/v0.7.87/notes.md
             if ($LASTEXITCODE -ne 0) { throw 'Draft release creation failed' }
           }
           gh release upload v0.7.87 --repo 93choissnim-dot/mumu-collector-updates "$out/ChankiHelper.exe" "$out/ChankiHelper_v0.7.87_update.zip" "$out/latest-exe.json" "$out/checksums.txt" "$out/exe-health.json" "$out/windows-validation.json" "$out/windows-previous-validation.json" "$out/signature-status.json" source_release/MumuCollector_v0.7.87.zip source_release/latest.json --clobber
@@ -132,7 +133,7 @@ jobs:
         run: |
           gh release download v0.7.87 --repo 93choissnim-dot/mumu-collector-updates --dir published_verify --pattern ChankiHelper_v0.7.87_update.zip --pattern latest-exe.json --pattern MumuCollector_v0.7.87.zip --pattern latest.json
           if ($LASTEXITCODE -ne 0) { throw 'Verification download failed' }
-          python -c "import hashlib,json,pathlib; p=pathlib.Path('published_verify'); m=json.loads((p/'latest-exe.json').read_text(encoding='utf-8')); z=p/'ChankiHelper_v0.7.87_update.zip'; assert m['version']=='0.7.86' and m['size']==z.stat().st_size and m['sha256']==hashlib.sha256(z.read_bytes()).hexdigest(); assert z.read_bytes()==(pathlib.Path('source/MumuCollector_v0.7.87/exe_release')/z.name).read_bytes(); m=json.loads((p/'latest.json').read_text(encoding='utf-8')); z=p/'MumuCollector_v0.7.87.zip'; assert m['version']=='0.7.86' and m['size']==z.stat().st_size and m['sha256']==hashlib.sha256(z.read_bytes()).hexdigest(); assert z.read_bytes()==(pathlib.Path('source_release')/z.name).read_bytes(); print('Both uploaded channels match tested build')"
+          python -c "import hashlib,json,pathlib; p=pathlib.Path('published_verify'); expected=json.load(open('release_source/v0.7.87/patch_manifest.json'))['version']; m=json.loads((p/'latest-exe.json').read_text(encoding='utf-8')); z=p/'ChankiHelper_v0.7.87_update.zip'; assert m['version']==expected and m['size']==z.stat().st_size and m['sha256']==hashlib.sha256(z.read_bytes()).hexdigest(); assert z.read_bytes()==(pathlib.Path('source/MumuCollector_v0.7.87/exe_release')/z.name).read_bytes(); m=json.loads((p/'latest.json').read_text(encoding='utf-8')); z=p/'MumuCollector_v0.7.87.zip'; assert m['version']==expected and m['size']==z.stat().st_size and m['sha256']==hashlib.sha256(z.read_bytes()).hexdigest(); assert z.read_bytes()==(pathlib.Path('source_release')/z.name).read_bytes(); print('Both uploaded channels match tested build')"
           if ($LASTEXITCODE -ne 0) { throw 'Uploaded bytes differ from tested build' }
       - name: Emit synthetic UI review previews
         if: always()
