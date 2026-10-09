@@ -1,0 +1,13 @@
+{
+  "base_version": "0.7.86",
+  "version": "0.7.87",
+  "base_sha256": "0b16b152de10cd4f642a2de6f6bc43562e8c2b433b2e09a873043a7c6e0eae49",
+  "files": {
+    "action_state.py": "da9ec35fad4be51076df9f48c8461a498e56885845b23cac240985960671b910",
+    "frozen_entry.py": "3ebcef38a11ea28f35c099e56858d9aa488178c8a7a91ea43c26e9cbb15110df",
+    "legacy_free_recovery.py": "d6d863f8b5aa76eb6d9c6e3b8d4156cd2fc10d4d7dfb9a4a9c2a18ec7d90bb7e",
+    "version.py": "23d0683c2b40db0c99d648a4f9130552cd837228e21d7f7c03810d4dd677314d",
+    "변경사항.txt": "93b7c481736928db0b3c08a871a07980152a4eeea209c517c1211e66b3be29fe",
+    "validate_v087_farm.py": "2333f6c9853e1964f519bd5e7a043fdc1e2b6a8a4afe7839240188fe3a4b8101"
+  }
+}
