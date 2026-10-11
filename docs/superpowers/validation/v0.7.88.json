@@ -1,0 +1,42 @@
+{
+  "version": "0.7.88",
+  "source_commit": "6558ef00f1ec9d10695f0c1f69fb8dcc5be40514",
+  "linux": {
+    "modules": 101,
+    "tests": 1337,
+    "seconds": 263.791,
+    "result": "pass",
+    "log_sha256": "af7a40cd089aa41c35c8045906dbd871b8f9a2c28dc254438f721b9477a484d1"
+  },
+  "focused_tests": 140,
+  "independent_review": {
+    "tests": 53,
+    "blocking_findings": 0,
+    "subsequent_full_suite_finding": "Existing pending retry must retain fresh pre-reservation capture; reproduced and fixed without modifying prior regression."
+  },
+  "simulation": {
+    "pairs": 240,
+    "faster": 202,
+    "same": 36,
+    "slower": 2,
+    "mean_seconds_delta": -0.3055981166666666,
+    "max_seconds_delta": 1.2662529999999999,
+    "mean_capture_delta": -0.8791666666666667
+  },
+  "simulation_limit": "Virtual device and clock; not measured live MuMu throughput. Two variable-delay cases slower; freshness threshold deliberately unchanged.",
+  "build_run": 38156493171,
+  "windows": {
+    "modules": 101,
+    "tests": 1337,
+    "seconds": 303.329,
+    "result": "pass",
+    "source_health": "pass",
+    "folder_exe_health": "pass",
+    "single_exe_health": "pass",
+    "real_update_restart_rollback": "pass",
+    "v0728_helper_update": "pass",
+    "uploaded_bytes": "pass"
+  },
+  "source_zip_sha256": "f02fa1287e96b6f3328100b505f41442b4b56f70d170b61e1829afb7dd7e315d",
+  "build_result": "success"
+}
