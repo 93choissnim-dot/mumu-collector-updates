@@ -63,6 +63,14 @@ class FreePrecheckTests(unittest.TestCase):
                     else:c.free_claim_tap(s,name,task,'cerberus' if task=='worldboss' else 'claim')
                 self.assertEqual(capture.call_count,2)
 
+    def test_existing_pending_claim_keeps_pre_reservation_capture(self):
+        for task in ('farm','ranking'):
+            with self.subTest(task=task):
+                h,c,s,name=self.flow(task);c.action_state.reserve(task)
+                with patch.object(c,'screen',wraps=c.screen) as capture:
+                    c.free_claim_tap(s,name,task)
+                self.assertEqual(capture.call_count,2)
+
     def mutate_after_reserve(self, change, expected=Halt, task='farm'):
         h,c,s,name=self.flow(task);reserve=c.action_state.reserve
         def save(*a,**kw):reserve(*a,**kw);change(h,c,name)

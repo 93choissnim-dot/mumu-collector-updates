@@ -27,7 +27,10 @@ class FreeClaimActions:
                 reserved=ledger.pending(task,slot)
             self.claim_counts[task]=attempt
         try:
-            fresh=self.tap(screen,name,before_input=reserve,validate=same_account,free_claim=(task,slot))
+            # A retry must reconcile the prior request against a new screen
+            # before reserve can archive that request as uncertain.
+            reuse=(task,slot) if not ledger.pending(task,slot) else None
+            fresh=self.tap(screen,name,before_input=reserve,validate=same_account,free_claim=reuse)
         except (ScreenChanged,InputNotSent):
             if reserved:
                 with ledger.lock:
