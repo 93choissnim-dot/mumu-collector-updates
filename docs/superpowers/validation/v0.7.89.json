@@ -1,0 +1,26 @@
+{
+  "version": "0.7.89",
+  "base_version": "0.7.88",
+  "linux": {
+    "modules": 102,
+    "tests": 1350,
+    "seconds": 272.091,
+    "result": "passed"
+  },
+  "targeted": {
+    "tests": 141,
+    "result": "passed"
+  },
+  "new_regressions": 13,
+  "review": "Independent reviewer: no blocking findings; result/count preservation addressed",
+  "diagnostic_checks": [
+    "visible exhausted cube card",
+    "pet free count 1",
+    "claimed relic and close",
+    "free treasure key with zero entries",
+    "boss appearance overlay blocks clicks"
+  ],
+  "scope": "Fresh explicit run rechecks inherited free summons; previous-day donation reconciled only on current literal free allowance; paid uncertainty never blindly replayed; bounded verified navigation and key grant; sleep after final review.",
+  "initial_suite": "1349 tests: 5 failures/errors from obsolete mock interfaces/order expectations; updated assertions preserve no-paid-replay and inherited pending protections.",
+  "windows": "pending; publication requires exact tested Windows build"
+}

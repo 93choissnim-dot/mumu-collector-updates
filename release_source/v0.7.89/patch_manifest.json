@@ -1,0 +1,23 @@
+{
+  "base_version": "0.7.88",
+  "version": "0.7.89",
+  "base_sha256": "f02fa1287e96b6f3328100b505f41442b4b56f70d170b61e1829afb7dd7e315d",
+  "files": {
+    "build_exe.py": "e224f45f6d1b420391f359494d196e0aa99a568f6651cf77184210eec66c25b2",
+    "build_release.py": "57a72c54749f2d7eab039b1ea99cb5cabd7906d52e2c0bb22fec469d13e3c447",
+    "daily_actions.py": "724a807ea903bb26848073c7e18f4870f9a7a115dd3a1ffd6ef9234aa8313fb4",
+    "extra_collector.py": "f9d6a9de9b024964aa3003d67e6699a8e6e9cbed2509731fb2cf937a4e867b6d",
+    "fleet_collection.py": "e2038db9cb440b774e6d268754a71e3c56e4fc070fca01c1f1f46a4ae9571975",
+    "free_daily_actions.py": "58c2880ec9493fa77e584128ba6f6b0922c3ad019d6b0e9921374cd945091475",
+    "free_daily_vision.py": "276fea348687d15a78f14643132645cbdc8904b75ff563dc04f84375b51e186c",
+    "frozen_entry.py": "81fd80e414ff0d473d9d3ca93f4ead596e44a944d082ecc4ae8e4e8bcf62f55c",
+    "run_review.py": "74e412faf3779219a3fd1852b5a03d5b19c20926ebeb0e81b26ff966f4276a82",
+    "validate_completion_review_ui.py": "961fc2fe7cbd5eb02dc63d76f534f840142b0f846dac2042ca30e4349e5dc92e",
+    "validate_daily.py": "0cdfea170a97f7aabd95921d0c5e26426132d068fa2543492b6c4ef66f0cedd0",
+    "validate_daily_execution.py": "61adf6086049e870d194bf9ccd8f028a019cd9b2f714bc55a4041b40b13f4c6f",
+    "validate_retry_resolution.py": "9ae7d1ad3e0d5684064cf976f18d6ed16867b000bb53fa9ff2788a4f9e94e3db",
+    "version.py": "e6e0a857b8c21ebdeca127ca8e978c35e7d384fa817ea539e82770e96a04070c",
+    "변경사항.txt": "e680055ac88e792439b13a09e653b981003f40e295318d8c98ab01fad888ce60",
+    "validate_v089_recovery.py": "17f20fb6514cba18e201d5b4c377e1abfec90a62f9a00f7ecd206d4138f9a240"
+  }
+}
