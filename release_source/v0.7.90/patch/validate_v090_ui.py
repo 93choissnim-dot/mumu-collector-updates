@@ -112,6 +112,8 @@ def check(app, output):
                 assert app.players[ident]['guild_paid_limit']==50
                 assert saved[-1]['players'][ident]['guild_paid_limit']==50
                 assert saved[-1]['players'][ident]['daily_profile']=='저장 부캐'
+                assert '저장 부캐' in app.attention_label.cget('text')
+                assert '\n' not in app.attention_label.cget('text')
                 app.fleet_dialog(ident);root.update();editor=app.settings_editor;created.append(editor.window)
                 assert editor.guild_paid_limit.get()=='50' and editor.daily_profile.get()=='저장 부캐'
                 editor.body._parent_canvas.yview_moveto(1);root.update()

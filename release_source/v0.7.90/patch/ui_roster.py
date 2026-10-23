@@ -191,7 +191,9 @@ class RosterUI:
         active=current.get('active_task') if self.busy() and current.get('status') in {'수령 중','재시도 중'} else None
         issues=sum(not e.get('previous') and e.get('result') in ISSUES for t,e in entries.items() if p and (t in selected_tasks(p) or t in DAILY_LABELS))
         attention=('진행 중: '+TASK_LABELS[active]) if active in TASK_LABELS else (f'이번 실행 확인 필요 {issues}개 / 결과를 눌러 이유 확인' if issues else '이번 실행 결과 / 이전 기록은 수령 기록에서 확인')
-        if p:attention='적용 계정: '+(p.get('daily_profile') or '기본(기존 기록)')+'\n'+attention
+        if p:
+            context=('진행: '+TASK_LABELS[active]) if active in TASK_LABELS else (f'확인 필요 {issues}개' if issues else '이번 실행 결과')
+            attention='적용 계정: '+short(p.get('daily_profile') or '기본(기존 기록)',16)+' · '+context
         if attention:
             self.attention_label.configure(text=attention,wraplength=max(230,int(self.detail_panel.winfo_width()/self.detail_panel._get_widget_scaling())-50))
             self.attention_label.grid(row=1,column=0,columnspan=2,sticky='ew',pady=(5,0))
