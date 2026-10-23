@@ -39,6 +39,7 @@
     "validate_v090_updates.py": "1d13b368d8e5af06174ddc8880839f716a55564d0649ed8aeefa7f3eab07c3ae",
     "version.py": "99ea56fc912d2c55ec6c12847f13c377a0f33d375cee627a1154b1c0ffbb6ce1",
     "변경사항.txt": "ccabedb66b732d28070f1fa7bf0fb985db6cca24ce6f260dea1f77db35c10809",
-    "사용법.txt": "327d56ec3dc904d73eeba1f729f797c4d790c2d4a9d8ad27604f9b66b78bfa1f"
+    "사용법.txt": "327d56ec3dc904d73eeba1f729f797c4d790c2d4a9d8ad27604f9b66b78bfa1f",
+    "validate_fleet_ui.py": "53d8523cb0b8709094b164036850dfe67c87acb6c9ecc615dac3349917e8743e"
   }
 }
