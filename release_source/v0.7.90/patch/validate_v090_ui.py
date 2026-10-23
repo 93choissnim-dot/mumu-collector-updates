@@ -161,6 +161,9 @@ def check(app, output):
                     window=getattr(app,name,None)
                     if window is not None and window.winfo_exists():window.destroy()
     finally:
+        # The fixture redraw destroyed the old roster widgets. Rebuild them
+        # before restoring Tk variables whose traces can trigger a redraw.
+        app.roster_signature=None;app._layout_signature=None
         for name,value in variables.items():getattr(app,name).set(value)
         for key,value in selected.items():app.selected[key].set(value)
         for name,options in button_options.items():getattr(app,name).configure(**options)
