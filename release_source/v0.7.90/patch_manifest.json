@@ -40,6 +40,7 @@
     "version.py": "99ea56fc912d2c55ec6c12847f13c377a0f33d375cee627a1154b1c0ffbb6ce1",
     "변경사항.txt": "ccabedb66b732d28070f1fa7bf0fb985db6cca24ce6f260dea1f77db35c10809",
     "사용법.txt": "327d56ec3dc904d73eeba1f729f797c4d790c2d4a9d8ad27604f9b66b78bfa1f",
-    "validate_fleet_ui.py": "53d8523cb0b8709094b164036850dfe67c87acb6c9ecc615dac3349917e8743e"
+    "validate_fleet_ui.py": "53d8523cb0b8709094b164036850dfe67c87acb6c9ecc615dac3349917e8743e",
+    "validate_run_controls_ui.py": "852831e00b06dd61722214752dc88aa6ed399e48d66e413259feaa732da8bff2"
   }
 }
