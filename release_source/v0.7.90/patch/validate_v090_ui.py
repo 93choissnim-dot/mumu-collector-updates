@@ -142,6 +142,8 @@ def check(app, output):
                 app.updates_dialog();root.update();window=app.update_window;created.append(window)
                 radios=[w for w in descendants(window) if isinstance(w,ctk.CTkRadioButton)]
                 assert {w.cget('text') for w in radios}=={'알림만 받기','자동으로 적용하기'}
+                from ui_theme import TEXT
+                assert all(w.cget('text_color')==TEXT for w in radios), 'Update choices must contrast with the dark background'
                 assert app.update_mode()=='notify' and app.update_mode_value.get()=='notify'
                 assert app.update_apply_button.cget('state')=='disabled'
                 app.update_apply_button.invoke()

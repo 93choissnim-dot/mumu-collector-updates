@@ -8,7 +8,7 @@ import threading
 import time
 import tkinter as tk
 import customtkinter as ctk
-from ui_theme import BG, MUTED, GOLD, label, heading, button
+from ui_theme import BG, MUTED, GOLD, TEXT, ACCENT, ACCENT_HOVER, font, label, heading, button
 from version import VERSION
 from update_backend import check_feed, download_update, prepare_job, start_helper
 
@@ -118,7 +118,9 @@ class Updates:
         label(body,textvariable=self.update_message,size=13,color=GOLD,wraplength=475,justify="left",height=65).pack(fill="x",anchor="w")
         for mode,text in [('notify','알림만 받기'),('auto','자동으로 적용하기')]:
             ctk.CTkRadioButton(body,text=text,variable=self.update_mode_value,value=mode,
-                command=lambda:self.set_update_mode(self.update_mode_value.get())).pack(anchor='w',pady=5)
+                command=lambda:self.set_update_mode(self.update_mode_value.get()),font=font(12),
+                text_color=TEXT,text_color_disabled=MUTED,fg_color=ACCENT,
+                hover_color=ACCENT_HOVER,border_color=MUTED).pack(anchor='w',pady=5)
         label(body,"알림만 받기: 확인 후 직접 적용합니다.\n자동 적용: 수령 중이면 이번 작업이 끝난 뒤 다시 시작합니다.",
               size=12,color=MUTED,justify="left",wraplength=475).pack(anchor="w",pady=(7,14))
         label(body,"새 버전 변경 내용",size=13).pack(anchor='w',pady=(0,6))
