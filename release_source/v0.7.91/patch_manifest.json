@@ -1,0 +1,17 @@
+{
+  "version": "0.7.91",
+  "base_version": "0.7.90",
+  "base_sha256": "2eff96df871b92f410923ca63763bea5e006bbb73311f440bf5504fe6a78aff2",
+  "files": {
+    "build_exe.py": "91d66d1f1cfff3463c4b64ab35c02948c6214ebd7a9c51ff8e6d6ed68983ade2",
+    "build_release.py": "f9db2a42dc8461b04dfa594d3e9186a45445e1e7391ac0852fe19e4b2fb5028c",
+    "fleet_ui.py": "ff57275ba678bbb9f1a429581fca4601e5c5ac05181e5f18d347c2d09caaa76e",
+    "spending_policy.py": "c91ea2a62c2db47756cfa7dd28d7a0a0c8ffdbc8caf5c279ea2f70f9f9bf882d",
+    "ui_player_settings.py": "7c64b26a21a42c7a0cf475fd735538d8c9429c028e87c8542dfec98d9724f42f",
+    "validate_v090_profiles.py": "ec22ef49593ce5c9a48b439b9b5bed88e95440e929731201ee6919075735e49a",
+    "validate_v090_ui.py": "f255f5125588dcbd20fcbff8e5466cde54e84834bc9ddf271a2adfe86b79eba7",
+    "version.py": "a73a2b7de285b9f03eea6fea1a7bc8dbab0f133cdae868864facf6019a729ab6",
+    "변경사항.txt": "038f0fcde57447876cd4aed79fdc77d0f3f358d4d8279a443850edfd6da7f05b",
+    "사용법.txt": "e8c2e1994a06d57baff7dcfa6560e7bfcbe94dc402c7fd7f2edb56e24fe80212"
+  }
+}
