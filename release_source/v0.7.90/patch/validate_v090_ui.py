@@ -91,6 +91,7 @@ def check(app, output):
                 assert not app.watch_value.get() and app.config['game_watch'] is False
                 assert app.next_at is None and app.fleet_states[ident]['next_at'] is None
                 assert saved[-1]['config']['game_watch'] is False
+                assert stop.winfo_height()<=app.watch_switch.winfo_height(), 'Complete stop enlarged the recovery row'
                 capture_window(root,output.with_name('review-v090-stop.png'))
                 app.stop.clear();saved.clear()
 

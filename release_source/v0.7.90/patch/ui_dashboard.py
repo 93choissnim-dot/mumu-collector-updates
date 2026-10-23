@@ -168,7 +168,7 @@ class Dashboard:
         self.start_button=button(footer,'일반 자동 실행',lambda:self.launch('repeat'),primary=True,width=140,height=40)
         self.build_workflow()
         self.build_game_watch()
-        self.stop_all_button=button(self.watch_switch.master,'완전 중지',self.stop_all,width=92,height=30,font=font(12),fg_color='#753E31',hover_color='#92513F',text_color=CREAM)
+        self.stop_all_button=button(self.watch_switch.master,'완전 중지',self.stop_all,width=92,height=24,border_spacing=2,font=font(11),fg_color='#753E31',hover_color='#92513F',text_color=CREAM)
         self.stop_all_button.grid(row=0,column=2,sticky='e',padx=(8,0))
         self.pause_button=button(footer,'일시중지',self.toggle_pause,width=120,height=44,state='disabled')
         self.stop_button=button(footer,'중지',self.stop_run,width=158,height=44,state='disabled',fg_color='#753E31',hover_color='#92513F',text_color=CREAM)
