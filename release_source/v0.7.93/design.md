@@ -1,0 +1,4 @@
+# v0.7.93 reliability scope
+Approved by user's request to update after the seven-point audit.
+Unify fresh-run free continuation without granting new permission during reconnects; isolate structurally damaged account records while preserving raw records and stopping paid uncertainty; classify foreground unknown screens honestly; scan between accounts without simultaneous inputs; release invalid recognition-only cooldowns without settling pending inputs; retain bounded per-run failure evidence; validate combined failure cases and publish via existing Windows gates.
+Implementation choice: scoped validation rather than deleting or automatically restoring records; one sequential device lane rather than concurrent recovery inputs. Unknown screens produce a warning, not an automatic force restart. Whole-file unreadability remains a global halt. Evidence budget: last 12 run/task/step incidents, 24 MiB, fixed first/latest compatibility preserved.
