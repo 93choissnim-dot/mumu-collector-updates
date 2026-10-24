@@ -1,0 +1,18 @@
+{
+  "version": "0.7.92",
+  "base_version": "0.7.91",
+  "base_sha256": "47e8b806e28c17557d6a19048d66c723f6c0001bf9c2706d9a4f64d0a14b5b3b",
+  "files": {
+    "autumn_actions.py": "0ac0905c6ac8afd607dd4d60428d3f3527e00afadea4e3e2a600f19d4ecfaa5a",
+    "build_exe.py": "564367ea0ae90b3b4321ffc0041c513cb76088238e8ba71b8fed64b7ef0ccb84",
+    "build_release.py": "56ac1d4195e08903ddbcba64e18c006232c5ad7244624ebc9fe63508b9cf851c",
+    "collector.py": "22ee6886d68e3c374790f68ce35285c9da1cfd91444c00c28b541e58442bac78",
+    "extra_collector.py": "7a5ce9f8a88961eba2cd7acd33f736ba8592f80c422257d5806cab246f92c691",
+    "fleet_collection.py": "268a8a226dfbab5989e48c306ee601bbae2296f5faec1a90ddcc496ce7375a93",
+    "free_claim.py": "43a36d3e9b51d7f15626a15882b27d6028942f8167130a5a443047605c616334",
+    "validate_v089_recovery.py": "aaafc2f8ba09c9611e96751622e4772774e775de0c934d8cf196bb8671a38060",
+    "version.py": "1d7ff1b78483c3ce84fc8b57f0bcea4d643c91623b65d7f1c4e14b5688197f2f",
+    "변경사항.txt": "54f2e76b72c53e32c3d42a8437a6f17586f2c68fe6b7c0149878c9bc00028610",
+    "사용법.txt": "d4b3425f7cdc2277b6c8be647838198c4c2d1891111b2385597c8d942dab6304"
+  }
+}
