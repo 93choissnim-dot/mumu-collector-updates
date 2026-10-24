@@ -1,0 +1,21 @@
+{
+  "version": "0.7.94",
+  "base_version": "0.7.93",
+  "base_sha256": "95e94bde23edc71f67651755bb20f450373b68d9c56ef0d68575f9b6cf499e44",
+  "files": {
+    "build_exe.py": "9c853805b0e3dfe0126ae44669044e0f19f50333fb2bd9db8ef4cc5155282825",
+    "build_release.py": "7baa72cbd9511f1613e7afd10ad52a42bec13b79d37c2a37fa152e2d928d743d",
+    "collector.py": "e34123fe9ffe16737eac5d3371c93a42cc819def73590a9309c401a80a162fa7",
+    "daily_state.py": "88f366d4329b50699c04b3568c2237d35a97465c26ec7ed8b7fc4736e946ca71",
+    "fleet_runner.py": "af196536302460da8be499a350b5fc24db1bdd6906370ae74f01e20a19c6e941",
+    "frozen_entry.py": "7097d2fafc1337e1da13d97f35594501594e9416b6f6c48da907bcb68768d0e9",
+    "retry_resolution.py": "f1528781ab57756f5777dcf7d57f7c5862c31c8babefe7d8f34d70021a4cbcd5",
+    "run_support.py": "6d11b823d6e7e78260403b74f251355a14f14dce0c84cf863191bd0ef74c5312",
+    "validate_v089_recovery.py": "160adcd0890db308fe7263363f6df3d42ab5c746b1698be6b37de4f7f4ea2f24",
+    "validate_v094_crash.py": "b15e716c751c5d97a46e482ee5db203f4a041cb1a5c6613087aa787bb75433ba",
+    "validate_v094_prevention.py": "93f2b31a58b535bd0d34ae18c97d07e899ce5db0e84d9059cd1f4d0ca4cd773f",
+    "version.py": "3f2f38e5d93b4b9a072e794186e327ed46388088ff81fb473f97e25fef3cbaa3",
+    "변경사항.txt": "08d991881be24c39dc2470b1e50abe89c685a96e1facb820720abb8382fef751",
+    "사용법.txt": "afc33068f3e59dcb19ccf6110fae709165b23ae034f03fd8fcee22dc6ba95470"
+  }
+}
