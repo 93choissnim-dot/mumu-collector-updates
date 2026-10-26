@@ -1,0 +1,24 @@
+{
+  "version": "0.7.95",
+  "base_version": "0.7.94",
+  "base_sha256": "602473ad41dbd47c4568d1fe216faaebed4afbde2ef11fb2bccc974fc2575971",
+  "files": {
+    "build_exe.py": "b3ba997778bcf03110155c91c49fe4cdea437826a2bc7ce8fe5d9343540adcd0",
+    "build_release.py": "6fda6ce5cbfb838811db4df11ba57003e3d3b9a2afcf14fd53be4014300ce2b1",
+    "daily_actions.py": "924d8042c0fbdefd3c29d1c0e35cba16bfad58fd3f6f4c028c1a7188ffc139ef",
+    "fleet_collection.py": "2a7e4008f95515d657287d4760e51cb39b314cc82d59cfd3501ade4406835b6a",
+    "fleet_ui.py": "6fe6eb8bad6a64ed34e53133b8fcb1ed69deb179bbaeea06d04e2ecd26391280",
+    "frozen_entry.py": "1e180beba77cb18ed4c8b763138798d38a6d083ee4207fce858c7346fc47ed4c",
+    "profile_edits.py": "a95fca6ba7b598556f8e3762628f907d79b2f8e81699c4ab6c4a6d98b189212b",
+    "spending_policy.py": "84f550ad723eaed8256b584aba4c52391182acd490fca295286315938802c26a",
+    "ui_player_settings.py": "a93f91b07aaea4bf2c3217978bb54ac86dabd0f94ff5a2c2ffba2321dd675358",
+    "ui_state.py": "37ad34958ff6307d549b627dddcdef1ad03bac86e0561e5112eaf3c600bb7a67",
+    "validate_v065_donation.py": "c6b78e6085292fc053dc99891b05d5b65481394eea7aa30f244c23b8debf7edb",
+    "validate_v090_profiles.py": "23280806ec27c705db3e099c152305df54bfea9a37e34eb386273b49c0f204eb",
+    "validate_v090_ui.py": "2b3b2f10240150465edde9318f56f38521328a8258a3238da906bc63ca23bd78",
+    "version.py": "232fba821c15e6f5f07b558685e98baece40def42adbc38a4230192aa860db58",
+    "변경사항.txt": "9bddbc8fdca73e1b66a307dbcf38baf4f1f89493e100708261acc4d4700ef9d2",
+    "사용법.txt": "e8439e04578ddfc5f926eb0f20478b664e66083196a6dc62cb679986575af5c5",
+    "validate_v095_donation.py": "b5eae456dee25995af4bddeec211ef591afb1b078298a758bc62f62ce226a0ef"
+  }
+}
