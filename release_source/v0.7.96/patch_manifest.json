@@ -1,0 +1,19 @@
+{
+  "version": "0.7.96",
+  "base_version": "0.7.95",
+  "base_sha256": "f7523491fdbf0637539d6afa158b153c239ecf0d05b9b8a36ebd4a44cef50712",
+  "files": {
+    "build_exe.py": "a32568409cf192916f5b50718d816df76db625550bcaa9ea6546358e75cf5f1b",
+    "build_release.py": "067a3d0c1a01c8c35d623ee7f48d543fc6ca20f46657ff084fbf08a0c933b9fb",
+    "fleet_collection.py": "bc58cd459773baff3f82287eb509e73f32eb41423e5798123d7a655f4c68465c",
+    "free_daily_actions.py": "1f8c3e6e1eac1db45d344e091e163645c7a79d2e9008562e063a7fdf6394645e",
+    "frozen_entry.py": "bd507b82332ca2f8c89bd54c5c7794544b7e236130a6015c6eac971d092af971",
+    "pass_purchase.py": "90bd0b447769adf26411c2d4d68a3080f119f121a428f3196db7ec766f027e1b",
+    "version.py": "9bf717fe694261a034408a2fdc9489498d9d2afa942f802be120061847c2c178",
+    "변경사항.txt": "79d72975ec7e6d5d68872739abcbdcd5608256a07bd07573f1480d9423671f6d",
+    "사용법.txt": "b34129f5c9ef6396f6554d79aa059e6c7c71c6c2b8959e9f00b4862b0a18d5a7",
+    "validate_v096_recovery.py": "1d27db3f421c779f71a28e4e855a7c009b515fd8d81c9e3128601f32be88e4ba",
+    "assets/pass_currency_v096.png": "b7abcf86f559e3122ec245ca72654723f8c019456bea1d18d2cba94e1b9d0bf0",
+    "assets/v096_pass_cases.json": "f1ff829171844b1a41854c46ff6310005ee356e5305ecb41328542989741211c"
+  }
+}
