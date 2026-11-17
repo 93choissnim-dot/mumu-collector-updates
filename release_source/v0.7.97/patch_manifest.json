@@ -1,0 +1,15 @@
+{
+  "version": "0.7.97",
+  "base_version": "0.7.96",
+  "base_sha256": "f222c4d7cefbfc4076ca99622e4850d58b70b46baeb1142e6cbb263d461bd86a",
+  "files": {
+    "daily_actions.py": "7bf5177bbc8f07625e23d788f4e343348d102da204eaa336bd6fa1c6ec266ad2",
+    "validate_v097_guild_shop.py": "d321e1dd054d2b68619ab9e43a726a039e2e9b6706792441a8308ca47da2bc0a",
+    "frozen_entry.py": "db12ea0d3a6f46de5b81960c725c44ecd2aaf693a5a0d76d2c09bd36efc5cd55",
+    "version.py": "0ad69556f60fc7e4fdd478c733be34f996f1c14064908ce2d397fbc65adab3f3",
+    "build_exe.py": "28c938829028af650d3b0842c6daa2ec01a7a6fdebabf680ab84655f834d7e65",
+    "build_release.py": "ea2b3578836af68d8419e8d5a691e302b479b7ee2c97cadde584811e2d825158",
+    "사용법.txt": "0f4e36d9be5e82af8ca6c65e611c4d620c814d6297c0a754c9accfef0570e2bb",
+    "변경사항.txt": "134b546dca202c25e2992d1c1aedc2538d180bd5aec6d40718fcbc69a0051431"
+  }
+}
