@@ -1,0 +1,18 @@
+{
+  "version": "0.7.98",
+  "base_version": "0.7.97",
+  "base_sha256": "fe07159f316378a1982bb78e97a5c8e4d65e7e93c3dafa5bee9b26771f252de8",
+  "files": {
+    "daily_actions.py": "0450f76c66b10d0dfd1aa544149960a62bd982dd3f54403a8141a704d1aa2662",
+    "collector.py": "0c5afca251dae90a047e3c2e27567bb384a43e4e1f1a45a5a29bc3bc6ee2cf0c",
+    "extra_collector.py": "a3946f37e286b1905438ccf506f8d650acea6cbb4354ef810958dfc629af4dc5",
+    "validate_v066_guild_loot.py": "4d717b5f8865132fb49b59fc610b524eb0707527eb81fbfc0b314bfd3653225c",
+    "validate_v098_guild_lifecycle.py": "e21c9d8926c7cf99fadbbe26804d40bdfe55a5a65cd20bf5955b5f0980da67b2",
+    "frozen_entry.py": "41581af2c13fa547d735c599c5ac949b568df95da62e96578bff39763276d763",
+    "version.py": "7fdc90263d2982fae4a84ada1d6b82e31cf1184d3d728819dd6a161ba324dbd4",
+    "build_exe.py": "8fef327b67e0c50233565ea1b36107e3c971f8d85e8da0f1cd1add578cf10bc4",
+    "build_release.py": "e588212dbbe3d6c50adf1c6aedb1e739e34e47ce670f6e9174ee99841acc6f83",
+    "사용법.txt": "cb1026d91dbd7629b510465ba60f9cd4444fb3c909ea543ac6d10bb7b623a316",
+    "변경사항.txt": "cda3a193f3228f89323f465874895766a46593d948303e40314919c352d38a9d"
+  }
+}
