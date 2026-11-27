@@ -1,0 +1,20 @@
+{
+  "version": "0.7.99",
+  "base_version": "0.7.98",
+  "base_sha256": "faf955962887741500e71bf160309e739ed45814bd6e5d5fde6e0f532c66fd04",
+  "files": {
+    "build_exe.py": "22c1bd953e37ef64fc8214a9e0a9d4516c76ede8dc285fc25bcdc3b3be43b20d",
+    "build_release.py": "005da3090be6af3ede37c2cb5b2e7f8dc545e989e4e25a7685ada960eec74dcb",
+    "frozen_entry.py": "9d12521f7cc8afe8bbc092aa9e5183b360d8fdf16ba1c269a272af57dc83debd",
+    "record_storage.py": "a516aa8eb69e6f1b81227aff9fe420704b3c0d17fc1929fb07e7019b3939d9a8",
+    "run_journal.py": "4de03e1191aceccec63fc82d989cfcd4c0c20ba1066f98ca2970639a144a3857",
+    "version.py": "f11924008b8ee22f63cd1f0c1b8e5e5bdf2fead57e218fe27ce6f89ee0858c2a",
+    "vision.py": "6801ff72c03889cd30c4913c7115a54fe65e697d57625cef62ab5950fe7b4c13",
+    "world_boss.py": "40205d79d50c8162d16a64e3e4aa9e4f85dcf1e15903504c8dbfbb80a5390592",
+    "변경사항.txt": "ca7c11a2ff314a4e0cda92f4c096f617af2063707a5643c0f7f3c84e54388dbd",
+    "사용법.txt": "b60461a62af7923cd222a10cdda7887f2530b4cab3f1341348c54c82fda4b21d",
+    "boss_cards.py": "e3a1df473bb89ab01bc8dd61c6868ab3191ffa643729c48d1b52e1ae6aeb7fc3",
+    "assets/boss_cards.json": "0ea6da16f12bd83bc3034038d71cdefb04f166255a5a81ed88248aa6739ea920",
+    "validate_v099_boss_storage.py": "1e7dacc84a0ecbebace112003e96aa09adf3245f34065d283b651685bbebf63b"
+  }
+}
